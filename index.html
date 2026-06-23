@@ -12,10 +12,11 @@
 <div class="browser">
     <div class="titlebar">
         <span class="window-title">🌐 OpenBrowse 6</span>
+
         <span class="winbuttons">
-            <button class="winbtn">−</button>
-            <button class="winbtn">▢</button>
-            <button class="winbtn close">×</button>
+            <button class="winbtn" type="button">−</button>
+            <button class="winbtn" type="button">▢</button>
+            <button class="winbtn close" type="button">×</button>
         </span>
     </div>
 
@@ -29,17 +30,17 @@
     </div>
 
     <div class="toolbar">
-        <button class="toolbtn" onclick="history.back()">‹</button>
-        <button class="toolbtn" onclick="history.forward()">›</button>
-        <button class="toolbtn" onclick="location.reload()">↻</button>
-        <button class="toolbtn">✕</button>
+        <button class="toolbtn" type="button" onclick="history.back()">‹</button>
+        <button class="toolbtn" type="button" onclick="history.forward()">›</button>
+        <button class="toolbtn" type="button" onclick="location.reload()">↻</button>
+        <button class="toolbtn" type="button">✕</button>
 
         <div class="addr">
-            http://home.openbrowse.local/
+            http://home.openbrowse.irl/
             <span class="icons">
-                <span onclick="location.href='index.html'">⌂</span>
-                <span>★</span>
-                <span>⚙</span>
+                <span class="icon" onclick="location.href='index.html'">⌂</span>
+                <span class="icon">★</span>
+                <span class="icon">⚙</span>
             </span>
         </div>
     </div>
@@ -53,10 +54,10 @@
         <h1>OpenBrowse</h1>
         <h2>Search the Web</h2>
 
-        <form action="search.html" class="hero-search">
-            <input name="q" value="">
-            <button type="submit">Search</button>
-        </form>
+        <form action="search.html" class="hero-search" autocomplete="off">
+        <input name="q" value="" autocomplete="off">
+        <button type="submit">Search</button>
+    </form>
 
         <div class="category-links">
             <a>🌐 Web</a>
@@ -72,13 +73,16 @@
         <div class="portal-box weather">
             <h3>🌤 Today</h3>
             <p>Friday, 4 June 2011</p>
+
             <div class="weather-row">
-                <span class="weather-icon">☁</span>
+                <span class="weather-icon">&#9729;</span>
+
                 <div>
                     <strong>14°C</strong>
                     <p>Cloudy</p>
                 </div>
             </div>
+
             <a>More weather »</a>
         </div>
 
@@ -119,13 +123,14 @@
         <a>Privacy Policy</a> -
         <a>Terms of Use</a> -
         <a>Help</a>
+
         <p>© 2011 OpenBrowse. All rights reserved.</p>
     </footer>
 
 </main>
 
 <div class="taskbar">
-    ● 🗂 🌐 <span>14:36&nbsp; 04/06/2011</span>
+    ● 🗂 🌐 
 </div>
 
 </body>

@@ -143,45 +143,23 @@ input{
     min-height:720px;
     padding:50px 30px 45px;
     overflow:hidden;
-
     background:
-        linear-gradient(rgba(216, 239, 249, 0.397),rgba(217,236,251,.48)),
+        linear-gradient(rgba(216,239,249,.397),rgba(217,236,251,.48)),
         url("images/worldmap.png") center 0 no-repeat,
         linear-gradient(#eef6ff,#b3e1fa);
-
-    background-size:
-        cover,
-        1500px auto,
-        cover;
-}
-
-
-
-/* ===== PORTAL BOXES ===== */
-
-.portal-box{
-    min-height:210px;
-    padding:22px 24px;
-    background:rgba(255,255,255,.90);
-    border:1px solid #c2ccd6;
-    box-shadow:0 2px 6px rgba(0,0,0,.16);
+    background-size:cover,1500px auto,cover;
 }
 
 /* ===== HERO PANEL ===== */
 
 .hero-panel{
     position:relative;
-
     max-width:900px;
     margin:25px auto 34px;
     padding:75px 45px 35px;
-
     text-align:center;
-
     background:rgba(255,255,255,.65);
-
     border:1px solid rgba(185,199,213,.8);
-
     box-shadow:
         0 3px 14px rgba(0,0,0,.12),
         inset 0 1px 0 rgba(255,255,255,.9);
@@ -256,86 +234,6 @@ input{
     gap:6px;
 }
 
-/* ===== ICONS ===== */
-
-.cat-icon{
-    width:18px;
-    height:18px;
-    display:inline-block;
-    border:1px solid #7d8d9d;
-    vertical-align:middle;
-    flex:0 0 auto;
-}
-
-.cat-icon.globe{
-    border-radius:50%;
-    background:radial-gradient(circle at 35% 30%,#8edcff,#1d58aa);
-}
-
-.cat-icon.image{
-    background:
-        linear-gradient(135deg,transparent 55%,#4b9b45 56%),
-        linear-gradient(#dff3ff,#8bc7ed);
-}
-
-.cat-icon.news{
-    background:repeating-linear-gradient(to bottom,#777 0,#777 2px,#eee 2px,#eee 5px);
-}
-
-.cat-icon.pin{
-    border-radius:50% 50% 50% 0;
-    transform:rotate(-45deg);
-    background:linear-gradient(#ff6b6b,#b51f1f);
-}
-
-.cat-icon.folder{
-    border-radius:2px;
-    background:linear-gradient(#ffe187,#d7a51f);
-}
-
-.cat-icon.search-icon{
-    border-radius:50%;
-    background:radial-gradient(circle,#fff 35%,#9eb5c8 36%,#6f879c 70%);
-    position:relative;
-}
-
-.cat-icon.search-icon:after{
-    content:"";
-    position:absolute;
-    width:9px;
-    height:3px;
-    background:#6f879c;
-    right:-6px;
-    bottom:-3px;
-    transform:rotate(45deg);
-}
-
-.cat-icon.weather{
-    border:0;
-    width:24px;
-    height:18px;
-    background:linear-gradient(#fff,#b7d6e9);
-    border-radius:12px;
-    position:relative;
-}
-
-.cat-icon.weather:before{
-    content:"";
-    position:absolute;
-    width:14px;
-    height:14px;
-    border-radius:50%;
-    background:#ffd24a;
-    left:-5px;
-    top:-5px;
-}
-
-.cat-icon.shield{
-    border:1px solid #7d8d9d;
-    border-radius:3px 3px 8px 8px;
-    background:linear-gradient(90deg,#f7d65b 50%,#1d58aa 50%);
-}
-
 /* ===== PORTAL BOXES ===== */
 
 .portal-grid{
@@ -377,6 +275,8 @@ input{
     cursor:pointer;
 }
 
+/* ===== WEATHER ===== */
+
 .weather-row{
     display:flex;
     align-items:center;
@@ -386,43 +286,17 @@ input{
 
 .weather-icon{
     font-size:62px;
-}
-
-.weather-cloud{
-    width:72px;
-    height:38px;
-    background:linear-gradient(#eef6ff,#a9c5dc);
-    border-radius:22px;
-    position:relative;
-    box-shadow:inset 0 2px 4px rgba(255,255,255,.8),0 2px 4px rgba(0,0,0,.18);
-}
-
-.weather-cloud:before{
-    content:"";
-    position:absolute;
-    width:36px;
-    height:36px;
-    background:linear-gradient(#f8fbff,#b7d0e5);
-    border-radius:50%;
-    left:9px;
-    top:-16px;
-}
-
-.weather-cloud:after{
-    content:"";
-    position:absolute;
-    width:40px;
-    height:40px;
-    background:linear-gradient(#f8fbff,#b7d0e5);
-    border-radius:50%;
-    right:8px;
-    top:-14px;
+    color:#777;
+    filter:grayscale(100%);
+    opacity:.75;
 }
 
 .weather-row strong{
     font-size:38px;
     color:#111;
 }
+
+/* ===== FOOTER ===== */
 
 .home-footer{
     text-align:center;
@@ -708,4 +582,3 @@ footer{
         gap:14px;
     }
 }
-
