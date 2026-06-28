@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Results</title>
+ <link rel="stylesheet" href="stylegarda.css" />
+</head>
+<body>
+  <main class="screen">
+    <header class="topbar">
+      <div>GARDA SÍOCHÁNA</div>
+      <div>SEARCH RESULTS</div>
+      <div id="clock">--/--/---- --:--</div>
+    </header>
+
+    <nav class="menu">
+      <button type="button" id="backBtn">F2 BACK</button><span>↑↓ SELECT</span><span>ENTER OPEN</span><button type="button" data-action="exit">F10 EXIT</button>
+    </nav>
+
+    <section class="page full-page">
+      <div class="box full">
+        <h1>PERSON MATCHES</h1>
+        <div id="searchSummary" class="message"></div>
+        <div id="resultsList" class="results-table"></div>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <span>RESULT SET: LOCAL / NATIONAL</span>
+      <span>USE ARROW KEYS</span>
+      <span>STATUS: READY</span>
+    </footer>
+  </main>
+
+  <script src="database.js"></script>
+  <script src="searchscript.js"></script>
+</body>
+</html>
