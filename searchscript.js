@@ -89,8 +89,38 @@ const fallbackTowns = [
 ];
 
 const fallbackCounties = [
-  "NORTHSHIRE","RIVERDALE","BLACKWATER","EASTVALE","WESTHAVEN",
-  "GLENSHIRE","SILVERGLEN","STONEFORD","HIGHMOOR","ASHVALE"
+ "ANTRIM",
+  "ARMAGH",
+  "CARLOW",
+  "CAVAN",
+  "CLARE",
+  "CORK",
+  "DERRY",
+  "DONEGAL",
+  "DOWN",
+  "DUBLIN",
+  "FERMANAGH",
+  "GALWAY",
+  "KERRY",
+  "KILDARE",
+  "KILKENNY",
+  "LAOIS",
+  "LEITRIM",
+  "LIMERICK",
+  "LONGFORD",
+  "LOUTH",
+  "MAYO",
+  "MEATH",
+  "MONAGHAN",
+  "OFFALY",
+  "ROSCOMMON",
+  "SLIGO",
+  "TIPPERARY",
+  "TYRONE",
+  "WATERFORD",
+  "WESTMEATH",
+  "WEXFORD",
+  "WICKLOW"
 ];
 
 const SURNAME_DATA = getGlobalArray(["SURNAME_POOL", "surnames", "SURNAMES"], fallbackSurnames);
