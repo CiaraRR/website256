@@ -45,7 +45,7 @@ const TOWN_POOL = [
 ];
 
 const COUNTY_POOL = [
- "ANTRIM",
+   "ANTRIM",
   "ARMAGH",
   "CARLOW",
   "CAVAN",
