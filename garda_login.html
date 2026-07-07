@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Login</title>
+  <link rel="stylesheet" href="style_garda.css" />
+</head>
+<body>
+  <main class="screen login-screen">
+    <section class="login-box">
+      <img src="images/garda-logo.png" class="login-logo" alt="Garda Logo">
+
+      <h1>AN GARDA SÍOCHÁNA</h1>
+      <h2>SECURE TERMINAL ACCESS</h2>
+
+      <div class="form-row login-row">
+        <label for="username">USERNAME</label>
+        <input id="username" autocomplete="off" spellcheck="false">
+      </div>
+
+      <div class="form-row login-row">
+        <label for="password">PASSWORD</label>
+        <input id="password" type="password" autocomplete="off" spellcheck="false">
+      </div>
+
+      <button id="loginBtn" class="login-btn" type="button">ENTER</button>
+
+      <div id="loginMessage" class="message">ENTER USERNAME AND PASSWORD</div>
+    </section>
+  </main>
+
+  <script>
+    const loginBtn = document.getElementById("loginBtn");
+    const username = document.getElementById("username");
+    const password = document.getElementById("password");
+    const message = document.getElementById("loginMessage");
+
+    username.focus();
+
+    function login() {
+      message.textContent = "AUTHENTICATING...";
+      setTimeout(() => {
+        location.href = "garda_search.html";
+      }, 700);
+    }
+
+    loginBtn.addEventListener("click", login);
+
+    document.addEventListener("keydown", e => {
+      if (e.key === "Enter") login();
+    });
+  </script>
+</body>
+</html>
