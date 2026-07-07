@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AN GARDA SÍOCHÁNA - SEARCH RESULTS</title>
+
+    <link rel="stylesheet" href="style_garda.css">
+</head>
+
+<body>
+
+<main class="screen">
+
+    <header class="topbar">
+        <div>AN GARDA SÍOCHÁNA</div>
+        <div>SEARCH RESULTS</div>
+
+    </header>
+
+    <nav class="menu">
+
+        <button
+            id="backBtn"
+            type="button">
+            F2 BACK
+        </button>
+
+        <span>TAP NAME TO OPEN</span>
+
+        <span>DESKTOP: ↑ ↓ + ENTER</span>
+
+     <button type="button" id="signOutBtn">F10 SIGN OUT</button>
+
+    </nav>
+
+    <section class="page full-page">
+
+        <div class="box full">
+
+            <h1>PERSON MATCHES</h1>
+
+            <div
+                id="searchSummary"
+                class="message">
+                SEARCHING...
+            </div>
+
+            <div
+                id="resultsList"
+                class="results-table">
+
+                <!-- JavaScript inserts rows here -->
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <footer class="footer">
+
+        <span>RESULT SET : LOCAL / NATIONAL</span>
+
+        <span>SELECT A PERSON TO VIEW RECORD</span>
+
+        <span>STATUS : READY</span>
+
+    </footer>
+
+</main>
+
+<script src="style_garda"></script>
+<script src="garda_searchscript.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Person Search</title>
+  <link rel="stylesheet" href="style_garda.css" />
+</head>
+<body>
+  <main class="screen">
+    <header class="topbar">
+      <div>AN GARDA SÍOCHÁNA </div>
+      <div>PERSON ENQUIRY</div>
+    
+    </header>
+
+    <nav class="menu">
+      <button type="button" data-action="help">F1 HELP</button><button type="button" id="clearBtn">F3 CLEAR</button><button type="button" id="searchBtn">F5 SEARCH</button><button type="button" id="signOutBtn">F10 SIGN OUT</button>
+    </nav>
+
+    <section class="page search-layout">
+      <div class="box">
+        <h1>PERSON SEARCH</h1>
+
+        <div class="form-row">
+          <label for="surname">SURNAME</label>
+          <input id="surname" autocomplete="off" spellcheck="false" />
+        </div>
+
+        <div class="form-row">
+          <label for="forename">FORENAME</label>
+          <input id="forename" autocomplete="off" spellcheck="false" />
+        </div>
+
+        <div class="form-row">
+          <label for="dob">DOB</label>
+          <input id="dob" placeholder="DD/MM/YYYY" autocomplete="off" spellcheck="false" />
+        </div>
+
+        <div class="form-row">
+          <label for="station">ADDRESS</label>
+          <input id="station" value=" ????????????" autocomplete="off" spellcheck="false" />
+        </div>
+
+        <div id="message" class="message">ENTER SEARCH DETAILS THEN PRESS ENTER</div>
+      </div>
+
+      <aside class="box help-box">
+        <h2>SEARCH INSTRUCTIONS</h2>
+        <p>ENTER A SURNAME OR FORENAME.</p>
+        <p>PRESS <b>ENTER</b> TO RUN SEARCH.</p>
+        <p>USE <b>UP / DOWN</b> ON RESULTS.</p>
+        <p>PRESS <b>ENTER</b> TO OPEN RECORD.</p>
+        <hr />
+        <p>TRY: <b>BYRNE</b>, <b>MURPHY</b>, <b>DOYLE</b></p>
+      </aside>
+    </section>
+
+    <footer class="footer">
+      <span>SECURE TERMINAL 04</span>
+      <span>ACCESS LEVEL: INTERNAL</span>
+      <span>STATUS: CONNECTED</span>
+    </footer>
+  </main>
+
+<script src="style_garda"></script>
+<script src="garda_searchscript.js"></script>
+</body>
+</html>
