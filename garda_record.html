@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PERSON ENQUIRY</title>
+  <link rel="stylesheet" href="style_garda.css" />
+</head>
+<body>
+  <main class="screen">
+    <header class="topbar">
+      <div>AN GARDA SÍOCHÁNA</div>
+      <div>PERSON RECORD</div>
+     
+    </header>
+
+    <nav class="menu">
+      <button type="button" id="topBackBtn">F2 BACK TO RESULTS</button><span>F1 NOTES</span><span>F6 VEHICLES</span><span>F7 INCIDENTS</span><button type="button" id="signOutBtn">F10 SIGN OUT</button>
+    </nav>
+
+    <section class="page full-page">
+      <div class="box full">
+        <div class="detail-title">
+          <h1 id="recordName">PERSON RECORD</h1>
+          <button id="backBtn">F2 BACK TO RESULTS</button>
+        </div>
+
+        <div class="details-grid">
+          <div class="detail-panel">
+            <h2>PERSONAL DETAILS</h2>
+            <p><b>DOB:</b> <span id="dob"></span></p>
+            <p><b>SEX:</b> <span id="sex"></span></p>
+            <p><b>HEIGHT:</b> <span id="height"></span></p>
+            <p><b>BUILD:</b> <span id="build"></span></p>
+            <p><b>STATUS:</b> <span id="status"></span></p>
+          </div>
+
+          <div class="detail-panel">
+            <h2>ADDRESS / IDS</h2>
+            <p><b>ADDRESS:</b> <span id="address"></span></p>
+            <p><b>PPSN:</b> <span id="ppsn"></span></p>
+            <p><b>GNR:</b> <span id="gnr"></span></p>
+            <p><b>LAST UPDATED:</b> <span id="updated"></span></p>
+          </div>
+
+          <div class="detail-panel">
+            <h2>VEHICLES</h2>
+            <div id="vehicles"></div>
+          </div>
+
+          <div class="detail-panel">
+            <h2>ASSOCIATES</h2>
+            <div id="associates"></div>
+          </div>
+
+          <div class="detail-panel wide">
+            <h2>INCIDENTS / INTELLIGENCE</h2>
+            <div id="incidents"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <span>DISPLAY ONLY - PROP SYSTEM</span>
+      <span>NO LIVE DATA</span>
+      <span>STATUS: RECORD OPEN</span>
+    </footer>
+  </main>
+
+<script src="style_garda"></script>
+<script src="garda_searchscript.js"></script>
+</body>
+</html>
