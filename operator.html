@@ -5,21 +5,104 @@
   <title>Garda Digital Forensics Suite 2011 - Operator</title>
   <link rel="stylesheet" href="style2.css">
 </head>
+
 <body class="operator">
 <div class="app">
-  <div class="titlebar"><b>Garda Digital Forensics Suite 2.1</b><span></span></div>
-  <div class="menubar">File&nbsp;&nbsp;Evidence&nbsp;&nbsp;Search&nbsp;&nbsp;Tools&nbsp;&nbsp;Reports&nbsp;&nbsp;Window&nbsp;&nbsp;Help</div>
-  <div class="toolbar clean"><span class="toolTitle">Computer Examination — Suspect Workstation Image</span><span id="status">Ready</span></div>
+
+  <div class="titlebar">
+    <b>Garda Digital Forensics Suite 2.1</b>
+    <span></span>
+  </div>
+
+  <div class="menubar">
+    File&nbsp;&nbsp;Evidence&nbsp;&nbsp;Search&nbsp;&nbsp;Tools&nbsp;&nbsp;Reports&nbsp;&nbsp;Window&nbsp;&nbsp;Help
+  </div>
+
+  <div class="toolbar clean">
+    <span class="toolTitle">Computer Examination — Suspect Workstation Image</span>
+    <span id="status">Ready</span>
+  </div>
+
   <main class="grid">
-    <section class="pane tree"><h3>Case Explorer</h3><div id="tree"></div></section>
-    <section class="pane files"><h3>Search / File Results</h3><div class="searchrow"><label>Keyword</label><input id="q" value="Private Browsing"><button onclick="runSearchFromBox()">Search</button><label><input type="checkbox" checked> All drives</label></div><table id="results"><thead><tr><th>Name</th><th>Path</th><th>Size</th><th>Modified</th><th>Status</th></tr></thead><tbody></tbody></table></section>
-    <section class="pane props"><h3>Properties</h3><div id="props">Select an item.</div></section>
-    <section class="pane hex"><h3>File Content / Hex Preview</h3><pre id="hex">00000000  -- -- -- -- -- -- -- --  -- -- -- -- -- -- -- --  ................</pre></section>
-    <section class="pane log"><h3>Activity Log</h3><div class="progress"><div id="bar"></div></div><pre id="log"></pre></section>
+
+    <section class="pane tree">
+      <h3>Case Explorer</h3>
+      <div id="tree"></div>
+    </section>
+
+    <section class="pane files">
+      <h3>Search / File Results</h3>
+
+      <div class="searchrow">
+        <label for="q">Keyword</label>
+        <input
+          id="q"
+          type="text"
+          value=""
+          autofocus
+          autocomplete="off"
+          spellcheck="false">
+        <button onclick="runSearchFromBox()">Search</button>
+        <label>
+          <input type="checkbox" checked> All drives
+        </label>
+      </div>
+
+      <table id="results">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Path</th>
+            <th>Size</th>
+            <th>Modified</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </section>
+
+    <section class="pane props">
+      <h3>Properties</h3>
+      <div id="props">Select an item.</div>
+    </section>
+
+    <section class="pane hex">
+      <h3>File Content / Hex Preview</h3>
+      <pre id="hex">00000000  -- -- -- -- -- -- -- --  -- -- -- -- -- -- -- --  ................</pre>
+    </section>
+
+    <section class="pane log">
+      <h3>Activity Log</h3>
+      <div class="progress"><div id="bar"></div></div>
+      <pre id="log"></pre>
+    </section>
+
   </main>
 </div>
-<div id="modal" class="modal hidden"><div class="modalbox"><div class="modalhead"><b id="modalTitle">Recovered File</b><button onclick="closeModal()">×</button></div><div id="modalBody"></div></div></div>
-<div id="director" class="director hidden"><h3>Director Controls</h3><button onclick="runPrivateBrowsingSearch();closeDirector()">F1 Private Browsing search</button><button onclick="broadcast('cue','privateBrowsingHit');closeDirector()">F2 Private Browsing records found</button><button onclick="broadcast('cue','inspectArchive');closeDirector()">F3 Inspect records</button><button onclick="runDecompSearch();closeDirector()">F4 Decomposition search</button><button onclick="broadcast('cue','private');closeDirector()">F5 Private browsing</button><button onclick="broadcast('cue','note');closeDirector()">F6 Retrieved note</button><button onclick="closeDirector()">Close</button></div>
-<script src="shared.js"></script><script src="operator.js"></script>
+
+<div id="modal" class="modal hidden">
+  <div class="modalbox">
+    <div class="modalhead">
+      <b id="modalTitle">Recovered File</b>
+      <button onclick="closeModal()">×</button>
+    </div>
+    <div id="modalBody"></div>
+  </div>
+</div>
+
+<div id="director" class="director hidden">
+  <h3>Director Controls</h3>
+  <button onclick="runPrivateBrowsingSearch();closeDirector()">F1 Private Browsing search</button>
+  <button onclick="broadcast('cue','privateBrowsingHit');closeDirector()">F2 Private Browsing records found</button>
+  <button onclick="broadcast('cue','inspectArchive');closeDirector()">F3 Inspect records</button>
+  <button onclick="runDecompSearch();closeDirector()">F4 Decomposition search</button>
+  <button onclick="broadcast('cue','private');closeDirector()">F5 Private browsing</button>
+  <button onclick="broadcast('cue','note');closeDirector()">F6 Retrieved note</button>
+  <button onclick="closeDirector()">Close</button>
+</div>
+
+<script src="shared.js"></script>
+<script src="operator.js"></script>
 </body>
 </html>
