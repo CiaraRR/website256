@@ -15,7 +15,7 @@
   </div>
 
   <div class="menubar">
-    File&nbsp;&nbsp;Evidence&nbsp;&nbsp;Search&nbsp;&nbsp;Tools&nbsp;&nbsp;Reports&nbsp;&nbsp;Window&nbsp;&nbsp;Help
+    File&nbsp;&nbsp;Evidence&nbsp;&nbsp;Search&nbsp;&nbsp;Tools&nbsp;&nbsp;Reports&nbsp;&nbsp;Window&nbsp;&nbsp;<span id="helpReset" class="menuReset" title="Double-click to reset workstation">Help</span>
   </div>
 
   <div class="toolbar clean">
@@ -93,7 +93,7 @@
 
 <div id="director" class="director hidden">
   <h3>Director Controls</h3>
-  <button onclick="runPrivateBrowsingSearch();closeDirector()">F1 Private Browsing search</button>
+  <button onclick="runPrivateBrowsingSearch('Private Browsing');closeDirector()">F1 Private Browsing search</button>
   <button onclick="broadcast('cue','privateBrowsingHit');closeDirector()">F2 Private Browsing records found</button>
   <button onclick="broadcast('cue','inspectArchive');closeDirector()">F3 Inspect records</button>
   <button onclick="runDecompSearch();closeDirector()">F4 Decomposition search</button>

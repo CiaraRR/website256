@@ -1,19 +1,30 @@
 <!doctype html>
-<html>
+<html lang="en">
 <head>
   <meta charset="utf-8">
   <title>Garda Digital Forensics - Analysis Workspace</title>
   <link rel="stylesheet" href="style2.css">
 </head>
+
 <body class="analysis v7">
   <div class="desktop">
-    <div class="wallTitle"><span>Garda Digital Forensics</span><small>Analysis Workspace</small></div>
+<div class="wallTitle" onclick="resetWorkspace()" title="Reset">
+  <span>Garda Digital Forensics</span>
+  <small>Analysis Workspace</small>
+</div>
+
     <div id="timelineRail"></div>
     <div id="windows"></div>
     <div id="notifications"></div>
     <div id="minTray"></div>
-    <div id="workspaceStatus"><span id="statusLeft">Connected to operator workstation</span><span id="statusMid">Analysis queue idle</span><span id="clock"></span></div>
+
+    <div id="workspaceStatus">
+      <span id="statusLeft">Connected to operator workstation</span>
+      <span id="statusMid">Analysis queue idle</span>
+    </div>
   </div>
-<script src="shared.js"></script><script src="evidence.js"></script>
+
+  <script src="shared.js"></script>
+  <script src="evidence.js"></script>
 </body>
 </html>
