@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Garda CCTV </title>
+  <link rel="stylesheet" href="cctv.css">
+</head>
+<body>
+  <main class="app">
+    <header class="titlebar" id="directorHotspot" title="Double-click for director controls">
+      <div class="app-title">
+        <span class="crest-placeholder">GS</span>
+        <div>
+          <strong>An Garda Síochána</strong>
+          <small>CCTV Review Console v3.4</small>
+        </div>
+      </div>
+      <div class="case-meta">
+        <span>Case: GFU-11-0179</span>
+        <span id="systemState">READY</span>
+      </div>
+    </header>
+
+    <nav class="menubar">
+      File&nbsp;&nbsp; Edit&nbsp;&nbsp; View&nbsp;&nbsp; Playback&nbsp;&nbsp; Cameras&nbsp;&nbsp; Evidence&nbsp;&nbsp; Tools&nbsp;&nbsp; Help
+    </nav>
+
+    <section id="cameraGrid" class="camera-grid"></section>
+
+    <section class="lower">
+      <div class="playback-pane">
+        <div class="pane-title">Playback Control</div>
+        <div class="transport-row">
+          <button id="rewindBtn">◄◄</button>
+          <button id="playBtn">►</button>
+          <button id="stopBtn">■</button>
+          <button id="forwardBtn">►►</button>
+          <input id="timeline" type="range" min="0" max="1000" value="0">
+        </div>
+      </div>
+
+      <div class="log-pane">
+        <div class="pane-title">Review Log</div>
+        <div id="reviewLog" class="review-log"></div>
+      </div>
+
+      <div class="status-pane">
+        <div class="pane-title">Current Session</div>
+        <dl>
+          <dt>Case</dt><dd>GFU-11-0179</dd>
+          <dt>Feeds loaded</dt><dd id="feedCount">0 / 4</dd>
+          <dt>Selected camera</dt><dd id="selectedCamera">CAM-01</dd>
+          <dt>Review status</dt><dd id="reviewStatus">Idle</dd>
+          <dt>Evidence export</dt><dd>Disabled</dd>
+        </dl>
+      </div>
+    </section>
+
+    <footer class="statusbar">
+      <span>Evidence Workstation 02</span>
+      <span id="footerMessage">Archive review ready</span>
+      <span>Read-only mode</span>
+    </footer>
+  </main>
+
+  <div id="directorPanel" class="director hidden">
+    <div class="director-window">
+      <div class="director-title">
+        <b>Director Controls</b>
+        <button id="closeDirector">×</button>
+      </div>
+      <p>Choose temporary clips for this session or place permanent files in the videos folder.</p>
+      <div id="directorRows"></div>
+      <div class="director-actions">
+        <button id="resetBtn">Reset Console</button>
+        <button id="closeDirectorBottom">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="config.js"></script>
+  <script src="cctv.js"></script>
+</body>
+</html>
