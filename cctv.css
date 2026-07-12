@@ -296,3 +296,37 @@ button,input{font:inherit}
   .status-pane{display:none}
   .transport-row{grid-template-columns:38px 38px 38px 38px minmax(0,1fr)}
 }
+
+/* ---------- VFX MODES ---------- */
+
+.vfx-plate{
+  position:fixed;
+  inset:0;
+  z-index:1000;
+  display:block;
+}
+
+.vfx-plate.hidden{
+  display:none;
+}
+
+.vfx-plate.green{
+  background:#00c800;
+}
+
+.vfx-plate.black{
+  background:#000;
+}
+
+.camera.feed-green .camera-body{
+  background:#00c800;
+}
+
+.camera.feed-green video,
+.camera.feed-green .placeholder{
+  display:none;
+}
+
+body.vfx-mode{
+  cursor:none;
+}

@@ -138,12 +138,47 @@ document.getElementById('resetBtn').onclick=()=>{
   render();buildDirector();timeline.value=0;updateTime();setPlaying(false);log('Console reset for next take');
 };
 
+
+
+const vfxPlate = document.getElementById('vfxPlate');
+
+function setScreenMode(mode){
+
+  document.body.classList.remove('vfx-mode');
+  vfxPlate.className = 'vfx-plate hidden';
+
+  document.querySelectorAll('.camera').forEach(cam=>{
+    cam.classList.remove('feed-green');
+  });
+
+  if(mode === 'green'){
+    document.body.classList.add('vfx-mode');
+    vfxPlate.className = 'vfx-plate green';
+  }
+
+  if(mode === 'black'){
+    document.body.classList.add('vfx-mode');
+    vfxPlate.className = 'vfx-plate black';
+  }
+
+  if(mode === 'feeds'){
+    document.querySelectorAll('.camera').forEach(cam=>{
+      cam.classList.add('feed-green');
+    });
+  }
+}
+
+
 document.addEventListener('keydown',e=>{
   if(e.key==='F1'){e.preventDefault();setPlaying(!playing)}
   if(e.key==='F2'){e.preventDefault();select((selectedIndex+1)%4)}
   if(e.key==='F3'){e.preventDefault();toggleFocus(document.querySelectorAll('.camera')[selectedIndex])}
   if(e.key==='F4'){e.preventDefault();jump(.10)}
   if(e.key==='F5'){e.preventDefault();log(`Potential sighting marked on ${state[selectedIndex].id}`);footerMessage.textContent='Potential sighting marked'}
+  if(e.key.toLowerCase()==='g'){e.preventDefault();setScreenMode('green')}
+  if(e.key.toLowerCase()==='b'){e.preventDefault();setScreenMode('black')}
+  if(e.key.toLowerCase()==='v'){e.preventDefault();setScreenMode('feeds')}
+  if(e.key.toLowerCase()==='c'){e.preventDefault();setScreenMode('normal')}
   if(e.key.toLowerCase()==='f')document.documentElement.requestFullscreen?.();
   if(e.key==='Escape')closeDirector();
 });
