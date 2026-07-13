@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Responsive Chroma Screen</title>
+<style>
+:root{--screen:#00c800}
+*{box-sizing:border-box}
+html,body{margin:0;width:100%;height:100%;overflow:hidden;background:var(--screen);font-family:Arial,sans-serif}
+body{min-height:100dvh;background:var(--screen)}
+#screen{position:fixed;inset:0;background:var(--screen)}
+.controls{position:fixed;left:50%;bottom:max(16px,env(safe-area-inset-bottom));transform:translateX(-50%);z-index:5;display:flex;flex-wrap:wrap;justify-content:center;gap:8px;width:min(94vw,760px);padding:10px;border-radius:10px;background:rgba(0,0,0,.8)}
+button{min-width:88px;min-height:44px;border:1px solid #fff8;border-radius:6px;color:#fff;background:#222;font-weight:700;cursor:pointer}
+.green{background:#00c800}.blue{background:#006bff}.grey{background:#808080}.black{background:#000}
+.note{flex-basis:100%;margin:0;color:#fff;text-align:center;font-size:12px}
+body.clean .controls{display:none}
+body.clean{cursor:none}
+@media(max-width:520px){button{min-width:70px;font-size:12px;padding:8px}.controls{gap:6px;padding:8px}}
+@media(orientation:landscape) and (max-height:500px){.note{display:none}.controls{bottom:8px}}
+</style>
+</head>
+<body>
+<div id="screen"></div>
+<div class="controls">
+<button class="green" data-color="#00c800">Green</button>
+<button class="blue" data-color="#006bff">Blue</button>
+<button class="grey" data-color="#808080">Grey</button>
+<button class="black" data-color="#000000">Black</button>
+<button id="full">Fullscreen</button>
+<button id="hide">Hide controls</button>
+<p class="note">Keys: G green · B blue · Y grey · K black · F fullscreen · H hide/show</p>
+</div>
+<script>
+const root=document.documentElement;
+function setColor(c){root.style.setProperty('--screen',c)}
+document.querySelectorAll('[data-color]').forEach(b=>b.onclick=()=>setColor(b.dataset.color));
+document.getElementById('hide').onclick=()=>document.body.classList.toggle('clean');
+document.getElementById('full').onclick=async()=>{try{document.fullscreenElement?await document.exitFullscreen():await document.documentElement.requestFullscreen()}catch(e){}};
+document.addEventListener('keydown',e=>{
+ const k=e.key.toLowerCase();
+ if(k==='g')setColor('#00c800');
+ if(k==='b')setColor('#006bff');
+ if(k==='y')setColor('#808080');
+ if(k==='k')setColor('#000000');
+ if(k==='h')document.body.classList.toggle('clean');
+ if(k==='f')document.getElementById('full').click();
+});
+document.addEventListener('dblclick',()=>document.body.classList.toggle('clean'));
+</script>
+</body>
+</html>
