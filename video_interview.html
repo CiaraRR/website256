@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>2011 Video Feed</title>
+    <link rel="stylesheet" href="interview.css">
+</head>
+<body>
+
+<div class="screen">
+    <video id="video" controls muted loop playsinline preload="auto">
+        <source src="videos/video1.mp4" type="video/mp4">
+        Your browser does not support HTML5 video.
+    </video>
+
+    <div class="overlay">
+        <div class="top-left">
+            <div>AN GARDA SÍOCHÁNA</div>
+            <div>CAM 01</div>
+        </div>
+
+        <div id="timestamp">01/01/2011 00:00:00</div>
+
+        <div class="case-number">CASE NUMBER: 24918452</div>
+        <div class="interview-room">INTERVIEW ROOM 2</div>
+    </div>
+
+    <div class="play-cover" id="playCover">
+        <button id="playButton" type="button">PLAY VIDEO</button>
+    </div>
+
+    <div class="message" id="message"></div>
+</div>
+
+<script src="interview.js"></script>
+</body>
+</html>
