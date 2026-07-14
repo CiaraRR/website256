@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SpreadsheetsPro.xls</title>
+<style>
+  :root{
+    --green:#217346;
+    --green-dark:#185c37;
+    --line:#d7d7d7;
+    --soft:#f3f5f4;
+    --text:#252525;
+    --warn:#fff3cd;
+    --danger:#f8d7da;
+  }
+
+  *{box-sizing:border-box}
+  body{
+    margin:0;
+    font-family:Segoe UI, Arial, sans-serif;
+    color:var(--text);
+    background:#e9ecef;
+    overflow:hidden;
+  }
+
+  .app{
+    height:100vh;
+    display:flex;
+    flex-direction:column;
+    background:white;
+  }
+
+  .titlebar{
+    height:36px;
+    background:var(--green);
+    color:white;
+    display:flex;
+    align-items:center;
+    padding:0 14px;
+    font-size:14px;
+  }
+
+  .titlebar .brand{
+    font-weight:600;
+    margin-right:18px;
+  }
+
+  .titlebar .filename{
+    opacity:.95;
+  }
+
+  .window-buttons{
+    margin-left:auto;
+    display:flex;
+    gap:18px;
+    font-size:15px;
+  }
+
+  .menu{
+    height:34px;
+    display:flex;
+    align-items:center;
+    gap:24px;
+    padding:0 16px;
+    border-bottom:1px solid var(--line);
+    background:#fff;
+    font-size:13px;
+  }
+
+  .menu span:first-child{
+    color:var(--green-dark);
+    font-weight:600;
+    border-bottom:2px solid var(--green);
+    height:34px;
+    display:flex;
+    align-items:center;
+  }
+
+  .ribbon{
+    min-height:74px;
+    display:flex;
+    align-items:center;
+    gap:18px;
+    padding:8px 14px;
+    border-bottom:1px solid var(--line);
+    background:#fafafa;
+  }
+
+  .tool-group{
+    display:flex;
+    gap:6px;
+    align-items:center;
+    padding-right:16px;
+    border-right:1px solid #ddd;
+  }
+
+  button, select{
+    font:inherit;
+  }
+
+  .tool{
+    border:1px solid transparent;
+    background:transparent;
+    padding:7px 9px;
+    border-radius:3px;
+    cursor:pointer;
+  }
+
+  .tool:hover{background:#e7f1eb;border-color:#c8dfd1}
+
+  .icon{
+    display:block;
+    font-size:19px;
+    text-align:center;
+    margin-bottom:2px;
+  }
+
+  .label{
+    font-size:11px;
+  }
+
+  .formula-row{
+    height:34px;
+    display:flex;
+    align-items:center;
+    border-bottom:1px solid var(--line);
+    background:white;
+  }
+
+  .name-box{
+    width:84px;
+    height:100%;
+    border-right:1px solid var(--line);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:12px;
+  }
+
+  .fx{
+    padding:0 10px;
+    font-style:italic;
+    color:#666;
+  }
+
+  .formula-input{
+    flex:1;
+    border:none;
+    outline:none;
+    height:100%;
+    padding:0 8px;
+    font-family:Consolas, monospace;
+  }
+
+  .workspace{
+    flex:1;
+    overflow:auto;
+    background:white;
+  }
+
+  .sheet{
+    display:none;
+    min-width:1100px;
+  }
+
+  .sheet.active{display:block}
+
+  table{
+    border-collapse:collapse;
+    width:100%;
+    table-layout:fixed;
+    font-size:13px;
+  }
+
+  th, td{
+    border:1px solid var(--line);
+    height:29px;
+    padding:4px 7px;
+    overflow:hidden;
+    white-space:nowrap;
+    text-overflow:ellipsis;
+  }
+
+  thead th{
+    background:#f4f4f4;
+    text-align:center;
+    font-weight:500;
+  }
+
+  .rownum{
+    width:42px;
+    background:#f4f4f4;
+    text-align:center;
+    color:#666;
+    user-select:none;
+  }
+
+  td[contenteditable="true"]:focus{
+    outline:2px solid var(--green);
+    outline-offset:-2px;
+    background:#fff;
+  }
+
+  .header-cell{
+    background:#e2f0d9;
+    font-weight:600;
+  }
+
+  .danger{background:var(--danger)}
+  .warning{background:var(--warn)}
+  .healthy{color:#1b6e3a;font-weight:600}
+  .muted{color:#777}
+
+  .dashboard{
+    padding:24px;
+    background:#f4f7f5;
+    min-height:100%;
+  }
+
+  .dashboard-grid{
+    display:grid;
+    grid-template-columns:repeat(4, minmax(160px,1fr));
+    gap:16px;
+    margin-bottom:18px;
+  }
+
+  .card{
+    background:white;
+    border:1px solid #d9e2dc;
+    border-radius:7px;
+    padding:16px;
+    box-shadow:0 2px 6px rgba(0,0,0,.04);
+  }
+
+  .card .kpi-label{
+    color:#66736b;
+    font-size:12px;
+    text-transform:uppercase;
+    letter-spacing:.05em;
+  }
+
+  .card .kpi{
+    font-size:28px;
+    font-weight:700;
+    margin-top:8px;
+    color:var(--green-dark);
+  }
+
+  .card .sub{
+    font-size:12px;
+    color:#78857d;
+    margin-top:4px;
+  }
+
+  .wide{
+    grid-column:span 2;
+  }
+
+  .chart{
+    height:210px;
+    display:flex;
+    align-items:flex-end;
+    gap:12px;
+    padding-top:18px;
+  }
+
+  .bar-wrap{
+    flex:1;
+    text-align:center;
+    font-size:11px;
+    color:#666;
+  }
+
+  .bar{
+    background:linear-gradient(#4f9b70,#217346);
+    min-height:20px;
+    border-radius:4px 4px 0 0;
+    margin-bottom:6px;
+  }
+
+  .activity{
+    list-style:none;
+    margin:10px 0 0;
+    padding:0;
+  }
+
+  .activity li{
+    padding:10px 0;
+    border-bottom:1px solid #eee;
+    font-size:13px;
+  }
+
+  .tabs{
+    height:34px;
+    display:flex;
+    align-items:center;
+    border-top:1px solid var(--line);
+    background:#f7f7f7;
+    padding-left:52px;
+    gap:2px;
+  }
+
+  .tab{
+    border:none;
+    background:transparent;
+    padding:8px 16px;
+    cursor:pointer;
+    border-bottom:3px solid transparent;
+  }
+
+  .tab.active{
+    color:var(--green-dark);
+    font-weight:600;
+    border-bottom-color:var(--green);
+    background:white;
+  }
+
+  .statusbar{
+    height:24px;
+    background:var(--green-dark);
+    color:white;
+    display:flex;
+    align-items:center;
+    padding:0 12px;
+    font-size:11px;
+  }
+
+  .statusbar span:last-child{margin-left:auto}
+
+  .corner{
+    background:#f1f1f1;
+  }
+
+  .col-a{width:85px}
+  .col-b{width:125px}
+  .col-c{width:120px}
+  .col-d{width:70px}
+  .col-e{width:105px}
+  .col-f{width:115px}
+  .col-g{width:130px}
+  .col-h{width:120px}
+  .col-i{width:120px}
+
+  @media (max-width:900px){
+    .dashboard-grid{grid-template-columns:repeat(2,1fr)}
+    .ribbon{overflow-x:auto}
+  }
+</style>
+</head>
+
+<body>
+<div class="app">
+  <div class="titlebar">
+    <div class="brand">SpreadsheetsPro</div>
+    <div class="filename">Farm_Data_2011.xls</div>
+    <div class="window-buttons"><span>—</span><span>□</span><span>×</span></div>
+  </div>
+
+  <div class="menu">
+    <span>Home</span><span>Insert</span><span>Data</span><span>Formulas</span><span>Review</span><span>View</span>
+  </div>
+
+  <div class="ribbon">
+    <div class="tool-group">
+      <button class="tool"><span class="icon">📋</span><span class="label">Paste</span></button>
+      <button class="tool"><span class="icon">✂️</span><span class="label">Cut</span></button>
+      <button class="tool"><span class="icon">📄</span><span class="label">Copy</span></button>
+    </div>
+    <div class="tool-group">
+      <button class="tool" onclick="makeBold()"><span class="icon"><b>B</b></span><span class="label">Bold</span></button>
+      <button class="tool" onclick="makeItalic()"><span class="icon"><i>I</i></span><span class="label">Italic</span></button>
+      <button class="tool"><span class="icon">▤</span><span class="label">Borders</span></button>
+    </div>
+    <div class="tool-group">
+      <button class="tool" onclick="addCow()"><span class="icon">🐄</span><span class="label">New Row</span></button>
+      <button class="tool" onclick="showAlert()"><span class="icon">💉</span><span class="label">Data Alert</span></button>
+      <button class="tool"><span class="icon">🌾</span><span class="label">Data Form</span></button>
+      <button class="tool"><span class="icon">📈</span><span class="label">Report</span></button>
+    </div>
+    <div class="tool-group">
+      <select>
+        <option>Farm Data</option>
+        <option>North Field Unit</option>
+        <option>Calving Barn</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="formula-row">
+    <div class="name-box" id="cellName">A1</div>
+    <div class="fx">fx</div>
+    <input class="formula-input" id="formula" value="=SUM(E2:E11)" />
+  </div>
+
+  <div class="workspace">
+    <section class="sheet active" id="dashboard">
+      <div class="dashboard">
+        <h2 style="margin-top:0">Farm Data — Daily Overview</h2>
+        <div class="dashboard-grid">
+          <div class="card">
+            <div class="kpi-label">Total Herd</div>
+            <div class="kpi">146</div>
+            <div class="sub">+3 this month</div>
+          </div>
+          <div class="card">
+            <div class="kpi-label">Milk Today</div>
+            <div class="kpi">3,621 L</div>
+            <div class="sub">98.4% of target</div>
+          </div>
+          <div class="card">
+            <div class="kpi-label">Average Yield</div>
+            <div class="kpi">24.8 L</div>
+            <div class="sub">Per milking cow</div>
+          </div>
+          <div class="card">
+            <div class="kpi-label">Health Alerts</div>
+            <div class="kpi">4</div>
+            <div class="sub">2 require attention</div>
+          </div>
+
+          <div class="card wide">
+            <div class="kpi-label">Weekly Milk Output</div>
+            <div class="chart">
+              <div class="bar-wrap"><div class="bar" style="height:66%"></div>Mon</div>
+              <div class="bar-wrap"><div class="bar" style="height:72%"></div>Tue</div>
+              <div class="bar-wrap"><div class="bar" style="height:75%"></div>Wed</div>
+              <div class="bar-wrap"><div class="bar" style="height:69%"></div>Thu</div>
+              <div class="bar-wrap"><div class="bar" style="height:82%"></div>Fri</div>
+              <div class="bar-wrap"><div class="bar" style="height:78%"></div>Sat</div>
+              <div class="bar-wrap"><div class="bar" style="height:86%"></div>Sun</div>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="kpi-label">Upcoming Tasks</div>
+            <ul class="activity">
+              <li>08:30 — Vaccinate group B</li>
+              <li>10:00 — Inspect north pasture</li>
+              <li>13:30 — Feed delivery</li>
+              <li>16:00 — Evening milking</li>
+            </ul>
+          </div>
+
+          <div class="card">
+            <div class="kpi-label">Farm Conditions</div>
+            <ul class="activity">
+              <li>Temperature: 16°C</li>
+              <li>Rainfall: 4.2 mm</li>
+              <li>Tank level: 72%</li>
+              <li>Feed stock: 18 days</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="sheet" id="herd">
+      <table id="herdTable">
+        <thead>
+          <tr>
+            <th class="rownum corner"></th>
+            <th class="col-a">A</th><th class="col-b">B</th><th class="col-c">C</th>
+            <th class="col-d">D</th><th class="col-e">E</th><th class="col-f">F</th>
+            <th class="col-g">G</th><th class="col-h">H</th><th class="col-i">I</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="rownum">1</td>
+            <td class="header-cell">Cow ID</td>
+            <td class="header-cell">Name</td>
+            <td class="header-cell">Breed</td>
+            <td class="header-cell">Age</td>
+            <td class="header-cell">Milk L/day</td>
+            <td class="header-cell">Last Checkup</td>
+            <td class="header-cell">Feed Type</td>
+            <td class="header-cell">Status</td>
+            <td class="header-cell">Barn</td>
+          </tr>
+          <tr><td class="rownum">2</td><td contenteditable="true">C-104</td><td contenteditable="true">Daisy</td><td contenteditable="true">Holstein</td><td contenteditable="true">5</td><td contenteditable="true">28.4</td><td contenteditable="true">2 Jun 2011</td><td contenteditable="true">Premium Mix</td><td class="healthy" contenteditable="true">Healthy</td><td contenteditable="true">A2</td></tr>
+          <tr><td class="rownum">3</td><td contenteditable="true">C-117</td><td contenteditable="true">Buttercup</td><td contenteditable="true">Jersey</td><td contenteditable="true">3</td><td contenteditable="true">19.7</td><td contenteditable="true">29 May 2011</td><td contenteditable="true">Grass Blend</td><td class="healthy" contenteditable="true">Healthy</td><td contenteditable="true">B1</td></tr>
+          <tr><td class="rownum">4</td><td contenteditable="true">C-123</td><td contenteditable="true">Hazel</td><td contenteditable="true">Holstein</td><td contenteditable="true">6</td><td contenteditable="true">31.2</td><td contenteditable="true">1 Jun 2011</td><td contenteditable="true">Premium Mix</td><td class="warning" contenteditable="true">Pregnant</td><td contenteditable="true">A1</td></tr>
+          <tr><td class="rownum">5</td><td contenteditable="true">C-131</td><td contenteditable="true">Clover</td><td contenteditable="true">Angus</td><td contenteditable="true">4</td><td contenteditable="true">0.0</td><td contenteditable="true">31 May 2011</td><td contenteditable="true">Grain Mix</td><td contenteditable="true">Dry Herd</td><td contenteditable="true">C3</td></tr>
+          <tr><td class="rownum">6</td><td contenteditable="true">C-145</td><td contenteditable="true">Rosie</td><td contenteditable="true">Jersey</td><td contenteditable="true">2</td><td contenteditable="true">17.9</td><td contenteditable="true">3 Jun 2011</td><td contenteditable="true">Grass Blend</td><td class="healthy" contenteditable="true">Healthy</td><td contenteditable="true">B2</td></tr>
+          <tr><td class="rownum">7</td><td contenteditable="true">C-152</td><td contenteditable="true">Molly</td><td contenteditable="true">Friesian</td><td contenteditable="true">7</td><td contenteditable="true">25.6</td><td class="danger" contenteditable="true">15 May 2011</td><td contenteditable="true">Senior Mix</td><td class="danger" contenteditable="true">Checkup Due</td><td contenteditable="true">A4</td></tr>
+          <tr><td class="rownum">8</td><td contenteditable="true">C-159</td><td contenteditable="true">Bessie</td><td contenteditable="true">Holstein</td><td contenteditable="true">4</td><td contenteditable="true">29.8</td><td contenteditable="true">30 May 2011</td><td contenteditable="true">Premium Mix</td><td class="healthy" contenteditable="true">Healthy</td><td contenteditable="true">A2</td></tr>
+          <tr><td class="rownum">9</td><td contenteditable="true">C-163</td><td contenteditable="true">Fern</td><td contenteditable="true">Jersey</td><td contenteditable="true">5</td><td contenteditable="true">21.4</td><td contenteditable="true">26 May 2011</td><td contenteditable="true">Grass Blend</td><td contenteditable="true">Monitoring</td><td contenteditable="true">B3</td></tr>
+          <tr><td class="rownum">10</td><td contenteditable="true">C-171</td><td contenteditable="true">Willow</td><td contenteditable="true">Friesian</td><td contenteditable="true">3</td><td contenteditable="true">24.1</td><td contenteditable="true">2 Jun 2011</td><td contenteditable="true">Premium Mix</td><td class="healthy" contenteditable="true">Healthy</td><td contenteditable="true">A3</td></tr>
+          <tr><td class="rownum">11</td><td contenteditable="true">C-178</td><td contenteditable="true">Maisie</td><td contenteditable="true">Holstein</td><td contenteditable="true">6</td><td contenteditable="true">30.3</td><td contenteditable="true">22 May 2011</td><td contenteditable="true">Premium Mix</td><td class="warning" contenteditable="true">Vaccination Due</td><td contenteditable="true">A1</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section class="sheet" id="milk">
+      <table>
+        <thead>
+          <tr><th class="rownum"></th><th>Date</th><th>Morning L</th><th>Evening L</th><th>Total L</th><th>Fat %</th><th>Protein %</th><th>Tank Temp</th><th>Quality</th></tr>
+        </thead>
+        <tbody>
+          <tr><td class="rownum">1</td><td class="header-cell">Date</td><td class="header-cell">Morning L</td><td class="header-cell">Evening L</td><td class="header-cell">Total L</td><td class="header-cell">Fat %</td><td class="header-cell">Protein %</td><td class="header-cell">Tank Temp</td><td class="header-cell">Quality</td></tr>
+          <tr><td class="rownum">2</td><td contenteditable="true">29 May 2011</td><td contenteditable="true">1,742</td><td contenteditable="true">1,691</td><td contenteditable="true">3,433</td><td contenteditable="true">4.08</td><td contenteditable="true">3.39</td><td contenteditable="true">3.2°C</td><td class="healthy">Pass</td></tr>
+          <tr><td class="rownum">3</td><td contenteditable="true">30 May 2011</td><td contenteditable="true">1,756</td><td contenteditable="true">1,708</td><td contenteditable="true">3,464</td><td contenteditable="true">4.11</td><td contenteditable="true">3.42</td><td contenteditable="true">3.3°C</td><td class="healthy">Pass</td></tr>
+          <tr><td class="rownum">4</td><td contenteditable="true">31 May 2011</td><td contenteditable="true">1,801</td><td contenteditable="true">1,744</td><td contenteditable="true">3,545</td><td contenteditable="true">4.05</td><td contenteditable="true">3.37</td><td contenteditable="true">3.1°C</td><td class="healthy">Pass</td></tr>
+          <tr><td class="rownum">5</td><td contenteditable="true">1 Jun 2011</td><td contenteditable="true">1,826</td><td contenteditable="true">1,755</td><td contenteditable="true">3,581</td><td contenteditable="true">4.09</td><td contenteditable="true">3.40</td><td contenteditable="true">3.2°C</td><td class="healthy">Pass</td></tr>
+          <tr><td class="rownum">6</td><td contenteditable="true">2 Jun 2011</td><td contenteditable="true">1,847</td><td contenteditable="true">1,774</td><td contenteditable="true">3,621</td><td contenteditable="true">4.14</td><td contenteditable="true">3.43</td><td contenteditable="true">3.4°C</td><td class="healthy">Pass</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section class="sheet" id="feed">
+      <table>
+        <thead>
+          <tr><th class="rownum"></th><th>Stock Code</th><th>Feed Type</th><th>Quantity</th><th>Unit</th><th>Daily Use</th><th>Days Left</th><th>Supplier</th><th>Status</th></tr>
+        </thead>
+        <tbody>
+          <tr><td class="rownum">1</td><td class="header-cell">Stock Code</td><td class="header-cell">Feed Type</td><td class="header-cell">Quantity</td><td class="header-cell">Unit</td><td class="header-cell">Daily Use</td><td class="header-cell">Days Left</td><td class="header-cell">Supplier</td><td class="header-cell">Status</td></tr>
+          <tr><td class="rownum">2</td><td>FD-001</td><td>Premium Dairy Mix</td><td>12,400</td><td>kg</td><td>690</td><td>18</td><td>Westfield Feeds</td><td class="healthy">Normal</td></tr>
+          <tr><td class="rownum">3</td><td>FD-014</td><td>Grass Silage</td><td>31,800</td><td>kg</td><td>1,950</td><td>16</td><td>On-site</td><td class="healthy">Normal</td></tr>
+          <tr><td class="rownum">4</td><td>FD-022</td><td>Mineral Supplement</td><td>840</td><td>kg</td><td>52</td><td>16</td><td>AgriPlus</td><td class="warning">Reorder Soon</td></tr>
+          <tr><td class="rownum">5</td><td>FD-030</td><td>Calf Starter</td><td>320</td><td>kg</td><td>44</td><td>7</td><td>AgriPlus</td><td class="danger">Low Stock</td></tr>
+        </tbody>
+      </table>
+    </section>
+  </div>
+
+  <div class="tabs">
+    <button class="tab active" data-sheet="dashboard">Dashboard</button>
+    <button class="tab" data-sheet="herd">Herd Register</button>
+    <button class="tab" data-sheet="milk">Milk Production</button>
+    <button class="tab" data-sheet="feed">Feed Inventory</button>
+  </div>
+
+  <div class="statusbar">
+    <span id="status">Ready</span>
+    <span>Average: 24.84 &nbsp;&nbsp; Count: 10 &nbsp;&nbsp; Sum: 248.4</span>
+  </div>
+</div>
+
+<script>
+  const tabs = document.querySelectorAll('.tab');
+  const sheets = document.querySelectorAll('.sheet');
+  const formula = document.getElementById('formula');
+  const cellName = document.getElementById('cellName');
+  const status = document.getElementById('status');
+  let selectedCell = null;
+
+  tabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      tabs.forEach(t => t.classList.remove('active'));
+      sheets.forEach(s => s.classList.remove('active'));
+      tab.classList.add('active');
+      document.getElementById(tab.dataset.sheet).classList.add('active');
+      status.textContent = tab.textContent + ' loaded';
+    });
+  });
+
+  document.addEventListener('click', e => {
+    const td = e.target.closest('td[contenteditable="true"]');
+    if (!td) return;
+    selectedCell = td;
+    const row = td.parentElement.rowIndex + 1;
+    const col = td.cellIndex;
+    cellName.textContent = String.fromCharCode(64 + col) + row;
+    formula.value = td.textContent;
+    status.textContent = 'Cell ' + cellName.textContent + ' selected';
+  });
+
+  formula.addEventListener('input', () => {
+    if (selectedCell) selectedCell.textContent = formula.value;
+  });
+
+  function makeBold(){
+    if(selectedCell){
+      selectedCell.style.fontWeight =
+        selectedCell.style.fontWeight === '700' ? '400' : '700';
+    }
+  }
+
+  function makeItalic(){
+    if(selectedCell){
+      selectedCell.style.fontStyle =
+        selectedCell.style.fontStyle === 'italic' ? 'normal' : 'italic';
+    }
+  }
+
+  function addCow(){
+    const table = document.querySelector('#herdTable tbody');
+    const next = table.rows.length + 1;
+    const id = 180 + Math.floor(Math.random() * 60);
+    const names = ['Poppy','Luna','Nell','Ruby','Ivy','Mabel'];
+    const name = names[Math.floor(Math.random() * names.length)];
+    const row = table.insertRow();
+    row.innerHTML = `
+      <td class="rownum">${next}</td>
+      <td contenteditable="true">C-${id}</td>
+      <td contenteditable="true">${name}</td>
+      <td contenteditable="true">Holstein</td>
+      <td contenteditable="true">3</td>
+      <td contenteditable="true">22.5</td>
+      <td contenteditable="true">4 Jun 2011</td>
+      <td contenteditable="true">Premium Mix</td>
+      <td class="healthy" contenteditable="true">Healthy</td>
+      <td contenteditable="true">A3</td>`;
+    document.querySelector('[data-sheet="herd"]').click();
+    status.textContent = 'New herd record created';
+  }
+
+  function showAlert(){
+    document.querySelector('[data-sheet="herd"]').click();
+    status.textContent = '2 veterinary alerts found';
+    alert('Veterinary Alert\n\nC-152 Molly — Checkup overdue\nC-178 Maisie — Vaccination due');
+  }
+</script>
+</body>
+</html>

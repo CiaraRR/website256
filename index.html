@@ -20,14 +20,33 @@
         </span>
     </div>
 
-    <div class="topbar">
+ <div class="topbar">
+
+    <div class="menu-item">
+
         <span>File</span>
-        <span>Edit</span>
-        <span>View</span>
-        <span>Bookmarks</span>
-        <span>Tools</span>
-        <span>Help</span>
+
+        <div class="menu-dropdown">
+            <a>New Tab</a>
+            <a>New Window</a>
+            <a href="private_browsing.html"> New Private Window</a>
+            <a>Open Location</a>
+            <a>Close Tab</a>
+            <a>Close Window</a>
+            <a>Save Page As</a>
+            <a>Print</a>
+
+        </div>
+
     </div>
+
+    <span>Edit</span>
+    <span>View</span>
+    <span>Bookmarks</span>
+    <span>Tools</span>
+    <span>Help</span>
+
+</div>
 
     <div class="toolbar">
         <button class="toolbtn" type="button" onclick="history.back()">‹</button>
@@ -119,7 +138,6 @@
     </section>
 
     <footer class="home-footer">
-        <p> <button onclick="location.href='private_browsing.html'">Private Window</button></p>
         <a>About OpenBrowse</a> -
         <a>Privacy Policy</a> -
         <a>Terms of Use</a> -
@@ -130,9 +148,6 @@
 
 </main>
 
-<div class="taskbar">
-    ● 🗂 🌐 
-</div>
 
 </body>
 </html>

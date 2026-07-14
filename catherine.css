@@ -111,10 +111,14 @@ body{
 }
 
 .old-site .nav a:hover{
-    background:#144f9d;
+     background:#09366d;
 }
 
 .old-site .nav .sel{
+    background:#09366d;
+}
+
+.old-site .nav .sel:hover{
     background:#09366d;
 }
 
