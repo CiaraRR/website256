@@ -652,3 +652,76 @@ footer{
 .menu-dropdown a:hover{
     background:#d8e6f7;
 }
+
+/* ===== BROWSER DROP-DOWN MENU ===== */
+
+.topbar{
+    position:relative;
+    height:24px;
+    padding:0 8px;
+    display:flex;
+    align-items:center;
+    gap:2px;
+    overflow:visible;
+}
+
+.menu-item{
+    position:relative;
+    height:24px;
+}
+
+.menu-button{
+    height:24px;
+    padding:0 9px;
+    margin:0;
+    border:0;
+    background:transparent;
+    color:#111;
+    font-size:13px;
+    line-height:24px;
+    cursor:pointer;
+}
+
+.menu-button:hover,
+.menu-item:hover > .menu-button{
+    background:rgba(255,255,255,.45);
+}
+
+.menu-dropdown{
+    display:none;
+    position:absolute;
+    top:24px;
+    left:0;
+    width:225px;
+    padding:4px 0;
+    background:linear-gradient(#f8f8f8,#e2e2e2);
+    border:1px solid #818181;
+    box-shadow:3px 4px 10px rgba(0,0,0,.35);
+    z-index:10000;
+}
+
+.menu-item:hover .menu-dropdown,
+.menu-item:focus-within .menu-dropdown{
+    display:block;
+}
+
+.menu-dropdown a{
+    display:block;
+    padding:7px 15px;
+    color:#111;
+    font-size:14px;
+    line-height:18px;
+    text-decoration:none;
+    white-space:nowrap;
+}
+
+.menu-dropdown a:hover{
+    background:#2b65ad;
+    color:#fff;
+}
+
+.menu-separator{
+    height:1px;
+    margin:4px 7px;
+    background:#b8b8b8;
+}
