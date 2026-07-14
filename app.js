@@ -1,10 +1,11 @@
-const apps = {sheets:{name:'SpreadsheetsPro',icon:'▦',kind:'iframe',src:'spreadsheetspro.html'},
- browser:{name:'Web Search',icon:'🌐',kind:'iframe',src:'index.html'},
- mail:{name:'Mail',icon:'✉️',html:`<div class="generic"><div class="toolbar"><button class="btn">New</button><button class="btn">Reply</button><button class="btn">Forward</button><button class="btn">Delete</button></div><div class="mail"><div class="folders"><div class="folder on">Inbox (4)</div><div class="folder">Drafts</div><div class="folder">Sent Items</div><div class="folder">Deleted Items</div></div><div class="msgs"><div class="msg on"><b>Westfield Supplies</b><br><small>Delivery confirmation</small></div><div class="msg"><b>Elaine Foster</b><br><small>Updated schedule</small></div><div class="msg"><b>County Office</b><br><small>Inspection notice</small></div></div><div class="reader"><h2>Delivery confirmation</h2><p><b>From:</b> dispatch@westfield.local</p><p>Your scheduled delivery will arrive at <b>13:30 today</b>.</p><p>Please ensure the loading area is clear.</p><p>Regards,<br>Westfield Dispatch</p></div></div></div>`},
+const apps = {sheets:{name:'Spreadsheets',icon:'▦',kind:'iframe',src:'spreadsheetspro.html'},
+mail:{name:'Mail',icon:'✉️',html:`<div class="generic"><div class="toolbar"><button class="btn">New</button><button class="btn">Reply</button><button class="btn">Forward</button><button class="btn">Delete</button></div><div class="mail"><div class="folders"><div class="folder on">Inbox (4)</div><div class="folder">Drafts</div><div class="folder">Sent Items</div><div class="folder">Deleted Items</div></div><div class="msgs"><div class="msg on"><b>Westfield Supplies</b><br><small>Delivery confirmation</small></div><div class="msg"><b>Elaine Foster</b><br><small>Updated schedule</small></div><div class="msg"><b>County Office</b><br><small>Inspection notice</small></div></div><div class="reader"><h2>Delivery confirmation</h2><p><b>From:</b> dispatch@westfield.local</p><p>Your scheduled delivery will arrive at <b>13:30 today</b>.</p><p>Please ensure the loading area is clear.</p><p>Regards,<br>Westfield Dispatch</p></div></div></div>`},
  files:{name:'Documents',icon:'📁',html:`<div class="files"><div class="tree"><div>Favorites</div><div>Desktop</div><div>Downloads</div><div>Libraries</div><div>Documents</div><div>Computer</div><div>Local Disk (C:)</div></div><div><div class="toolbar"><button class="btn">Organize</button><button class="btn">Open</button><button class="btn">New folder</button></div><div class="filegrid"><div class="file" onclick="openApp('sheets')"><b>📊</b>Farm_Data_2011.xls</div><div class="file"><b>📄</b>Inspection_Report.pdf</div><div class="file"><b>📄</b>Invoice_0604.doc</div><div class="file"><b>📁</b>Archive</div><div class="file"><b>🖼️</b>County_Map.jpg</div></div></div></div>`},
  weather:{name:'Weather',icon:'☁️',html:`<div class="generic"><div class="toolbar"><button class="btn">Refresh</button><button class="btn">Locations</button></div><div class="panel"><h2>West County Weather</h2><div style="font-size:58px">☁ 14°C</div><p>Cloudy, feels like 12°C</p><table border="1" cellpadding="8" cellspacing="0" style="border-collapse:collapse;width:100%"><tr><th>Day</th><th>Condition</th><th>High</th><th>Low</th></tr><tr><td>Today</td><td>Cloudy</td><td>14°</td><td>8°</td></tr><tr><td>Saturday</td><td>Light rain</td><td>15°</td><td>9°</td></tr><tr><td>Sunday</td><td>Windy</td><td>13°</td><td>7°</td></tr></table></div></div>`},
  terminal:{name:'Command Prompt',icon:'⌨️',html:`<div class="term">Microsoft Windows [Version 6.1.7601]<br>Copyright (c) 2009 Microsoft Corporation. All rights reserved.<br><br>C:\\Users\\Office&gt; network_check<br>Checking local network ........ OK<br>File server ................... CONNECTED<br>Network devices ............... 8 ONLINE<br>Backup status ................. COMPLETED 02:00<br><br>C:\\Users\\Office&gt; _</div>`},
- settings:{name:'Control Panel',icon:'⚙️',html:`<div class="generic"><div class="toolbar"><button class="btn">Control Panel Home</button></div><div class="panel"><h2>Adjust your computer's settings</h2><div class="filegrid"><div class="file"><b>🖥️</b>System and Security</div><div class="file"><b>🌐</b>Network and Internet</div><div class="file"><b>🔊</b>Hardware and Sound</div><div class="file"><b>👤</b>User Accounts</div><div class="file"><b>🎨</b>Appearance</div><div class="file"><b>🕒</b>Clock and Region</div></div></div></div>`}
+ settings:{name:'Control Panel',icon:'⚙️',html:`<div class="generic"><div class="toolbar"><button class="btn">Control Panel Home</button></div><div class="panel"><h2>Adjust your computer's settings</h2><div class="filegrid"><div class="file"><b>🖥️</b>System and Security</div><div class="file"><b>🌐</b>Network and Internet</div><div class="file"><b>🔊</b>Hardware and Sound</div><div class="file"><b>👤</b>User Accounts</div><div class="file"><b>🎨</b>Appearance</div><div class="file"><b>🕒</b>Clock and Region</div></div></div></div>`},
+  browser:{name:'OpenBrowse',icon:'🌐',kind:'iframe',src:'index.html'}
+ 
 };
 
 const desktopIcons = document.getElementById("icons");
@@ -58,8 +59,12 @@ function openApp(id) {
     windowElement.style.left = `${165 + offset * 26}px`;
     windowElement.style.top = `${28 + offset * 21}px`;
 
+    const iframeSource = app.kind === "iframe"
+        ? `${app.src}${app.src.includes("?") ? "&" : "?"}embedded=1`
+        : "";
+
     const content = app.kind === "iframe"
-        ? `<iframe src="${app.src}" title="${app.name}"></iframe>`
+        ? `<iframe src="${iframeSource}" title="${app.name}"></iframe>`
         : app.html;
 
     windowElement.innerHTML = `
@@ -81,11 +86,71 @@ function openApp(id) {
     desktop.appendChild(windowElement);
     openWindows.set(id, windowElement);
 
+    const iframe = windowElement.querySelector("iframe");
+    if (iframe) {
+        prepareEmbeddedApp(iframe);
+    }
+
     attachWindowControls(windowElement, id);
     makeDraggable(windowElement);
     makeResizable(windowElement);
     createTaskButton(id, app, windowElement);
     focusWindow(windowElement);
+}
+
+
+function prepareEmbeddedApp(iframe) {
+    const applyEmbedFix = () => {
+        try {
+            const doc = iframe.contentDocument;
+            if (!doc || !doc.documentElement) return;
+
+            if (doc.body) {
+                doc.body.classList.add("embedded");
+            }
+
+            let style = doc.querySelector('style[data-desktop-embed-fix="true"]');
+
+            if (!style) {
+                style = doc.createElement("style");
+                style.setAttribute("data-desktop-embed-fix", "true");
+                style.textContent = `
+                    body.embedded > .browser > .titlebar,
+                    body.embedded .browser > .titlebar:first-child,
+                    body.embedded > .app > .titlebar,
+                    body.embedded > .titlebar {
+                        display: none !important;
+                    }
+
+                    body.embedded {
+                        margin: 0 !important;
+                    }
+
+                    body.embedded > .browser {
+                        border-top: 0 !important;
+                    }
+                `;
+                (doc.head || doc.documentElement).appendChild(style);
+            }
+
+            const internalBrowserTitle = doc.querySelector(
+                "body > .browser > .titlebar, body .browser > .titlebar:first-child"
+            );
+
+            if (internalBrowserTitle) {
+                internalBrowserTitle.style.setProperty("display", "none", "important");
+            }
+        } catch (error) {
+            console.warn("Could not apply embedded app styling:", error);
+        }
+    };
+
+    iframe.addEventListener("load", applyEmbedFix);
+
+    // Handle very fast local iframe loads.
+    requestAnimationFrame(applyEmbedFix);
+    setTimeout(applyEmbedFix, 100);
+    setTimeout(applyEmbedFix, 500);
 }
 
 function attachWindowControls(windowElement, id) {
