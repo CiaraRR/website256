@@ -82,13 +82,13 @@ function win(id,title,x,y,w,h,html,opts={}){
 function closeAll(){wins.innerHTML=''; notif.innerHTML=''; minTray.innerHTML=''; rail.innerHTML=''; openWins={}; layoutIndex=0;}
 function appendLog(t){let l=document.getElementById('liveLog'); if(l){l.textContent += `${new Date().toLocaleTimeString()}  ${t}\n`; l.scrollTop=l.scrollHeight;} addRail('Log',t)}
 function splash(){
-  const s=document.createElement('div'); s.className='splash'; s.innerHTML='<h1>Garda Digital Forensics Suite</h1><div class="body"><b>Analysis Workspace</b><br><br>Waiting for operator workstation.<br>Case GFU-11-0179 loaded read-only.<br><br><div class="progress"><div style="width:100%"></div></div></div>';
+  const s=document.createElement('div'); s.className='splash'; s.innerHTML='<h1>Garda Digital Forensics Suite</h1><div class="body"><b>Analysis Workspace</b><br><br>Waiting for operator workstation.<br>Case 24918452 loaded read-only.<br><br><div class="progress"><div style="width:100%"></div></div></div>';
   document.body.appendChild(s); setTimeout(()=>{s.classList.add('fadeOut'); setTimeout(()=>s.remove(),380)},1300);
 }
 function startup(){
   closeAll(); statusLeft.textContent='Connected to operator workstation'; setStatus('Analysis queue idle');
-  win('log','Recovery Log',null,null,430,370,`<div class="queueList" id="liveLog">09:41:08  Evidence workspace ready\n09:41:10  Waiting for operator search\n09:41:12  Case GFU-11-0179 loaded read-only\n</div>`,{status:'Live log connected'});
-  win('summary','Case Summary',null,null,520,300,`<div class="moduleTitle"><span class="moduleIcon">GF</span>Current Case</div><div class="kv"><b>Case</b><span>GFU-11-0179</span><b>Evidence</b><span>SUSPECT-PC.E01</span><b>Mode</b><span>Read-only forensic image</span><b>Brief</b><span>Search suspect computer for filename matches and browser artefacts</span><b>Current task</b><span>No evidence selected</span></div>`,{status:'No item loaded'});
+  win('log','Recovery Log',null,null,430,370,`<div class="queueList" id="liveLog">09:41:08  Evidence workspace ready\n09:41:10  Waiting for operator search\n09:41:12  Case 24918452 loaded read-only\n</div>`,{status:'Live log connected'});
+  win('summary','Case Summary',null,null,520,300,`<div class="moduleTitle"><span class="moduleIcon">GF</span>Current Case</div><div class="kv"><b>Case</b><span>24918452</span><b>Evidence</b><span>SUSPECT-PC.E01</span><b>Mode</b><span>Read-only forensic image</span><b>Brief</b><span>Search suspect computer for filename matches and browser artefacts</span><b>Current task</b><span>No evidence selected</span></div>`,{status:'No item loaded'});
   win('queue','Analysis Queue',null,null,430,270,`<div class="timelineMini"><b>Queued modules</b><br><br>□ File system index<br>□ Archive header scan<br>□ Metadata inspection<br>□ Keyword search<br>□ Browser artefacts<br>□ SQLite page recovery<br>□ Private browsing reconstruction</div>`,{status:'Queue waiting'});
 }
 function searchPrivateBrowsing(){

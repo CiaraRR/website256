@@ -1,5 +1,5 @@
 const treeEl=document.getElementById('tree'), body=document.querySelector('#results tbody'), logEl=document.getElementById('log'), bar=document.getElementById('bar'), props=document.getElementById('props'), hex=document.getElementById('hex');
-const drives=['Case GFU-11-0179','Suspect Computer Image — SUSPECT-PC.E01','C: NTFS Volume','Documents and Settings','Temporary Internet Files','Application Data','My Documents','RECYCLER','Unallocated Space','D: Evidence Mirror','Keyword Lists','Reports'];
+const drives=['Case 24918452','Suspect Computer Image — SUSPECT-PC.E01','C: NTFS Volume','Documents and Settings','Temporary Internet Files','Application Data','My Documents','RECYCLER','Unallocated Space','D: Evidence Mirror','Keyword Lists','Reports'];
 treeEl.innerHTML=drives.map((d,i)=>`<div class="treeitem">${i<2?'▾':'▸'} ${d}</div>`).join('');
 function addLog(t){ logEl.textContent += `[${new Date().toLocaleTimeString()}] ${t}\n`; logEl.scrollTop=logEl.scrollHeight; }
 function setProgress(p){bar.style.width=p+'%'}
