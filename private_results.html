@@ -1,0 +1,182 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>OpenBrowse Private Search</title>
+
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="private.css">
+</head>
+
+<body class="private-mode">
+
+    <div class="browser">
+        <div class="titlebar">
+            <span class="window-title">◉ OpenBrowse 6 — Private Browsing</span>
+
+            <span class="winbuttons">
+                <button class="winbtn" type="button">−</button>
+                <button class="winbtn" type="button">▢</button>
+                <button class="winbtn close" type="button">×</button>
+            </span>
+        </div>
+
+        <div class="topbar">
+            <span>File</span>
+            <span>Edit</span>
+            <span>View</span>
+            <span>Bookmarks</span>
+            <span>Tools</span>
+            <span>Help</span>
+        </div>
+
+        <div class="toolbar">
+            <button class="toolbtn" type="button" title="Back" onclick="history.back()">‹</button>
+            <button class="toolbtn" type="button" title="Forward" onclick="history.forward()">›</button>
+            <button class="toolbtn" type="button" title="Refresh" onclick="location.reload()">↻</button>
+            <button class="toolbtn" type="button" title="Stop">✕</button>
+
+            <div class="addr">
+                private://search
+
+                <span class="icons">
+                    <span class="icon" title="Private Browsing">◉</span>
+                    <span class="icon" title="Settings">⚙</span>
+                </span>
+            </div>
+        </div>
+    </div>
+
+    <div class="private-banner">◉ You are browsing privately.</div>
+
+    <main class="private-search-page">
+        <section class="private-results-panel">
+
+            <div class="private-search-header">
+                <div class="private-icon" aria-hidden="true"></div>
+                <div>
+                    <h1>OpenBrowse Private Search</h1>
+                </div>
+            </div>
+
+            <form action="private_results.html"
+                  class="private-form"
+                  autocomplete="off">
+                <input
+                    type="text"
+                    name="q"
+                    placeholder="Search privately..."
+                    autocomplete="off"
+                    autofocus
+                >
+
+                <button type="submit">Search</button>
+            </form>
+
+            <p class="result-count">About 247,000 results (0.23 seconds)</p>
+
+            <div class="blank-results">
+                <article class="private-result">
+                    <a href="#">Averin talos dravik meros enka velor salvik taren molis</a>
+                    <cite>www.averen-talor.irl</cite>
+                    <p>Vestra monik elvar noresin talek orven, traven solis erdak velori hanvek tora selvik meran doris avalen korast.</p>
+                </article>
+                <article class="private-result">
+                    <a href="#">Norev istari kalden verek noris telvak eralen morvek</a>
+                    <cite>www.norev-index.com</cite>
+                    <p>Taren molis ivrek norian velestra doran vekor salin, merost alven trakar venis eldar norvik taleris mona.</p>
+                </article>
+                <article class="private-result">
+                    <a href="#">Marek thalen orvist relan draven korik selora</a>
+                    <cite>www.thalen-archive.net</cite>
+                    <p>Solvik taren molas ivrek norian, elaris dovan trekala merin volast narvek ilora sentis dralen kovar.</p>
+                </article>
+                <article class="private-result">
+                    <a href="#">Velos traen iskara monel dorvik saltren koras</a>
+                    <cite>www.velos-data.org</cite>
+                    <p>Arvek relin toreska vanir dovan, selvik toren avalis merast korven dalen istrak velona daris kelven.</p>
+                </article>
+                <article class="private-result">
+                    <a href="#">Talven koris avren lokar telven dorast merin</a>
+                    <cite>www.talven-directory.net</cite>
+                    <p>Eralin vekor monik straven telos, norevik taren alvest korin saldra menok eravin doral silven toria.</p>
+                </article>
+                <article class="private-result">
+                    <a href="#">Dravos ikalen merost talin verak norven</a>
+                    <cite>www.dravos-index.com</cite>
+                    <p>Valek torin seran iskava dorel, merin tolav ekaris velora naven trovik salden merast elorin.</p>
+                </article>
+                <article class="private-result">
+                    <a href="#">Korven astra velin noras merast velorin dravik</a>
+                    <cite>www.korven-archive.irl</cite>
+                    <p>Trelin varos mekal norin selas, torvik aleran velast korin molvik erasta daren solvek nora valis.</p>
+                </article>
+                <article class="private-result">
+                    <a href="#">Elaris monvek tora salin drevor kalen</a>
+                    <cite>www.elaris-data.net</cite>
+                    <p>Venora talis ivrek molen dravos, selar torin malvek dorena istris kelor vanek merast alora.</p>
+                </article>
+                <article class="private-result">
+                    <a href="#">Istrel voran kalis meran dorvik salten ivren</a>
+                    <cite>www.istrel-search.org</cite>
+                    <p>Tarvek elorin naveska moris, salven korast meralin torvek dresta valin orska taren velis koran.</p>
+                </article>
+                <article class="private-result">
+                    <a href="#">Orvik salen drastra kelor malven toris</a>
+                    <cite>www.orvik-reference.com</cite>
+                    <p>Monera velis tarvek doran selik, narven ilora kresta venaris dolen trevik malora koren salik.</p>
+                </article>
+                <article class="private-result">
+                    <a href="#">Veskar iloren traksel merin norast dalen</a>
+                    <cite>www.veskar-records.net</cite>
+                    <p>Arven solik telas norvik meros, velan tresta korik salora dinvek moren tralis elven avora.</p>
+                </article>
+                <article class="private-result">
+                    <a href="#">Kalen morvik estral doren talvis noren</a>
+                    <cite>www.kalen-directory.org</cite>
+                    <p>Trevak iloren salik morven, darast velin koras temora nalen dravik soren valeska torin.</p>
+                </article>
+                <article class="private-result">
+                    <a href="#">Sorevik talora menis draven kelar norik</a>
+                    <cite>www.sorevik-listings.irl</cite>
+                    <p>Eldar vekora talis monaren selvik doras, kraven ilora torvek mestra nalis velorin daren.</p>
+                </article>
+                <article class="private-result">
+                    <a href="#">Valen iskora trevik moras elden karis</a>
+                    <cite>www.valen-search.net</cite>
+                    <p>Tralen merik doren salvis kora velan, istor navik erala monven dalis torik vena salora.</p>
+                </article>
+                <article class="private-result">
+                    <a href="#">Doren alvis merak toven silora krest</a>
+                    <cite>www.doren-index.org</cite>
+                    <p>Kalen noris velora taren, dravik mora selvan korik elaris naven torast malvek ilora.</p>
+                </article>
+                <article class="private-result">
+                    <a href="#">Merast korven talik osen draelin vora</a>
+                    <cite>www.merast-archive.com</cite>
+                    <p>Velin taros iskaven monar, kelora dravin solvek norin alest merava torik salven.</p>
+                </article>
+            </div>
+
+            <div class="private-links">
+                <a href="private_browsing.html">Return to private start page</a>
+                &nbsp;|&nbsp;
+                <a href="#" onclick="alert('Private Browsing Help is unavailable.'); return false;">Learn more</a>
+            </div>
+
+        </section>
+    </main>
+
+
+<script>
+(function(){
+    const params = new URLSearchParams(window.location.search);
+    const query = params.get("q");
+    const input = document.querySelector(".private-form input[name='q']");
+    if (input && query) input.value = query;
+}());
+</script>
+</body>
+</html>

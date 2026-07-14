@@ -3,430 +3,108 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
     <title>OpenBrowse Private Browsing</title>
-
     <link rel="stylesheet" href="style.css">
-
-    <style>
-        /* Private browsing page only */
-
-        body.private-mode{
-            background:#111;
-            color:#222;
-        }
-
-        .private-mode .browser{
-            background:linear-gradient(#565a61,#292c31);
-            border-bottom:1px solid #080808;
-            box-shadow:0 2px 5px rgba(0,0,0,.7);
-        }
-
-        .private-mode .titlebar{
-            background:linear-gradient(#676c74,#383c43);
-            color:#fff;
-            text-shadow:0 1px 1px #000;
-        }
-
-        .private-mode .topbar{
-            color:#fff;
-            background:#383c43;
-            border-top:1px solid rgba(255,255,255,.12);
-        }
-
-        .private-mode .toolbar{
-            background:linear-gradient(#4b5058,#292d33);
-        }
-
-        .private-mode .toolbtn{
-            color:#eee;
-            border:1px solid #111;
-            background:linear-gradient(#666b73,#353940);
-            box-shadow:
-                inset 1px 1px 0 rgba(255,255,255,.25),
-                0 1px 1px rgba(0,0,0,.5);
-        }
-
-        .private-mode .toolbtn:hover{
-            background:linear-gradient(#777d86,#454a52);
-        }
-
-        .private-mode .addr{
-            color:#ddd;
-            background:#202226;
-            border:1px solid #090909;
-            box-shadow:
-                inset 1px 1px 4px rgba(0,0,0,.9),
-                0 1px 0 rgba(255,255,255,.12);
-        }
-
-        .private-mode .icon{
-            color:#fff;
-        }
-
-        .private-page{
-         min-height:1400px;
-         padding:55px 25px 200px;
-         background:
-          radial-gradient(
-            circle at 50% 15%,
-            rgba(105,110,122,.45),
-            rgba(33,35,40,.95) 55%
-             ),
-             linear-gradient(#2d3036,#161719);
-        }
-
-       .private-panel{
-        width:720px;
-         max-width:100%;
-            margin:40px auto 120px;
-            padding:34px 42px 38px;
-            background:linear-gradient(#f8f8f8,#e6e6e6);
-            border:1px solid #050505;
-            box-shadow:
-                0 5px 20px rgba(0,0,0,.65),
-                inset 0 1px 0 #fff;
-        }
-
-        .private-heading{
-            display:flex;
-            align-items:center;
-            gap:24px;
-            padding-bottom:22px;
-            border-bottom:1px solid #bbb;
-        }
-
-        .private-icon{
-            width:92px;
-            height:92px;
-            flex:0 0 92px;
-            border-radius:50%;
-            display:flex;
-            align-items:center;
-            justify-content:center;
-            color:#fff;
-            background:
-                radial-gradient(
-                    circle at 35% 25%,
-                    #777d88,
-                    #25282d 72%
-                );
-            border:3px solid #1c1e22;
-            box-shadow:
-                inset 0 2px 3px rgba(255,255,255,.3),
-                0 3px 8px rgba(0,0,0,.4);
-            font-size:40px;
-            font-weight:bold;
-        }
-
-        .private-heading h1{
-            margin:0 0 5px;
-            color:#25282d;
-            font-size:30px;
-            font-weight:normal;
-        }
-
-        .private-heading h2{
-            margin:0;
-            color:#555;
-            font-size:18px;
-            font-weight:normal;
-        }
-
-        .private-information{
-            margin:24px 0;
-            font-size:14px;
-            line-height:1.55;
-        }
-
-        .private-information h3{
-            margin:0 0 10px;
-            color:#292c31;
-            font-size:18px;
-        }
-
-        .private-information ul{
-            margin:12px 0 0;
-            padding-left:22px;
-        }
-
-        .private-information li{
-            margin-bottom:7px;
-        }
-
-        .private-warning{
-            margin:22px 0;
-            padding:12px 14px;
-            background:#fff9d9;
-            border:1px solid #c7ad55;
-            color:#423914;
-            font-size:13px;
-        }
-
-        .private-search{
-            display:flex;
-            gap:10px;
-            margin-top:25px;
-        }
-
-        .private-search input{
-            flex:1;
-            min-width:0;
-            height:35px;
-            padding:6px 9px;
-            border:1px solid #777;
-            background:#fff;
-            font-size:16px;
-        }
-
-        .private-search button{
-            width:105px;
-            height:35px;
-            border:1px solid #333;
-            background:linear-gradient(#fff,#cfd3d8);
-            font-size:15px;
-            cursor:pointer;
-        }
-
-        .private-search button:hover{
-            background:linear-gradient(#fff,#bcc2c9);
-        }
-
-        .private-links{
-            margin-top:18px;
-            text-align:center;
-            font-size:13px;
-        }
-
-        .private-links a{
-            color:#0000cc;
-            text-decoration:underline;
-            cursor:pointer;
-        }
-
-        .private-mode .taskbar{
-            display:flex;
-            align-items:center;
-            background:linear-gradient(#27292d,#111);
-            border-top:1px solid #555;
-        }
-
-        .private-task{
-            margin-left:12px;
-            padding:3px 12px;
-            color:#fff;
-            background:linear-gradient(#555a62,#2c3036);
-            border:1px solid #080808;
-        }
-
-        .private-clock{
-            margin-left:auto;
-        }
-
-        @media(max-width:650px){
-            .private-page{
-                padding:25px 12px;
-            }
-
-            .private-panel{
-                padding:25px 20px;
-            }
-
-            .private-heading{
-                display:block;
-                text-align:center;
-            }
-
-            .private-icon{
-                margin:0 auto 15px;
-            }
-
-            .private-search{
-                display:block;
-            }
-
-            .private-search button{
-                width:100%;
-                margin-top:8px;
-            }
-        }
-    </style>
+    <link rel="stylesheet" href="private.css">
 </head>
-
 <body class="private-mode">
 
-    <!-- OpenBrowse browser window -->
-    <div class="browser">
-
-        <div class="titlebar">
-            <span class="window-title">
-                ◉ OpenBrowse 6 - Private Browsing
-            </span>
-
-            <span class="winbuttons">
-                <button class="winbtn min" type="button">−</button>
-                <button class="winbtn max" type="button">▢</button>
-                <button class="winbtn close" type="button">×</button>
-            </span>
-        </div>
-
-        <div class="topbar">
-            <span>File</span>
-            <span>Edit</span>
-            <span>View</span>
-            <span>Bookmarks</span>
-            <span>Tools</span>
-            <span>Help</span>
-        </div>
-
-        <div class="toolbar">
-            <button
-                class="toolbtn"
-                type="button"
-                title="Back"
-                onclick="history.back()"
-            >
-                ‹
-            </button>
-
-            <button
-                class="toolbtn"
-                type="button"
-                title="Forward"
-                onclick="history.forward()"
-            >
-                ›
-            </button>
-
-            <button
-                class="toolbtn"
-                type="button"
-                title="Refresh"
-                onclick="location.reload()"
-            >
-                ↻
-            </button>
-
-            <button
-                class="toolbtn"
-                type="button"
-                title="Stop"
-            >
-                ✕
-            </button>
-
-            <div class="addr">
-        
-
-                <span class="icons">
-                    <span
-                        class="icon"
-                        title="Private Browsing"
-                    >
-                        ◉
-                    </span>
-
-                    <span
-                        class="icon"
-                        title="Settings"
-                        onclick="alert('OpenBrowse Private Browsing\nVersion 6.0.14')"
-                    >
-                        ⚙
-                    </span>
-                </span>
-            </div>
-        </div>
+<div class="browser">
+    <div class="titlebar">
+        <span class="window-title">◉ OpenBrowse 6 — Private Browsing</span>
+        <span class="winbuttons">
+            <button class="winbtn min" type="button">−</button>
+            <button class="winbtn max" type="button">▢</button>
+            <button class="winbtn close" type="button">×</button>
+        </span>
     </div>
 
-    <!-- Private browsing start page -->
-    <main class="private-page">
+    <div class="topbar">
+        <span>File</span><span>Edit</span><span>View</span>
+        <span>Bookmarks</span><span>Tools</span><span>Help</span>
+    </div>
 
-        <section class="private-panel">
+    <div class="toolbar">
+        <button class="toolbtn" type="button" title="Back" onclick="history.back()">‹</button>
+        <button class="toolbtn" type="button" title="Forward" onclick="history.forward()">›</button>
+        <button class="toolbtn" type="button" title="Refresh" onclick="location.reload()">↻</button>
+        <button class="toolbtn" type="button" title="Stop">✕</button>
 
-            <div class="private-heading">
+        <div class="addr">
+            private://start
+            <span class="icons">
+                <span class="icon" title="Private Browsing">◉</span>
+                <span class="icon" title="Settings"
+                      onclick="alert('OpenBrowse Private Browsing\nVersion 6.0.14')">⚙</span>
+            </span>
+        </div>
+    </div>
+</div>
 
-                <div class="private-icon" aria-hidden="true">
-                    ◉
-                </div>
+<main class="incognito-page">
+    <section class="incognito-card">
 
-                <div>
-                    <h1>Private Browsing</h1>
+        <div class="openbrowse-private-logo" aria-label="OpenBrowse">
+            <span>OB</span>
+        </div>
 
-                    <h2>
-                        OpenBrowse will not save information about
-                        this browsing session.
-                    </h2>
-                </div>
+        <h1>You've gone private</h1>
 
-            </div>
+       
+        <p class="intro">
+            Others who use this computer won't see your activity, so you can browse
+            more privately. This won't change how data is collected by websites you
+            visit and services they use.
+        </p>
 
-            <div class="private-information">
+    
+              <form action="private_results.html" class="incognito-search" autocomplete="off">
+            <input type="text" name="q" aria-label="Private web search"
+                   placeholder="Search privately..." autocomplete="off" autofocus>
+            <button type="submit">Search</button>
+        </form>
 
-                <h3>You are now browsing privately</h3>
+<div class="leave-private">
 
-                <p>
-                    While this window is open, OpenBrowse will not keep
-                    a record of the pages you visit or the searches you make.
-                </p>
+    <a href="index.html">
+        Leave private browsing
+    </a>
 
+</div>
+        <div class="privacy-columns">
+            <section>
+                <h2>OpenBrowse won't save</h2>
                 <ul>
-                    <li>Browsing history will not be saved.</li>
-                    <li>Search history will not be saved.</li>
-                    <li>Temporary cookies will be removed when this window closes.</li>
-                    <li>Downloaded files and saved bookmarks will remain on the computer.</li>
+                    <li>Your browsing history</li>
+                    <li>Cookies and site data after this window closes</li>
+                    <li>Information entered in forms</li>
                 </ul>
+            </section>
 
-            </div>
+            <section>
+                <h2>Your activity might still be visible to</h2>
+                <ul>
+                    <li>Websites you visit</li>
+                    <li>Your employer or school</li>
+                    <li>Your Internet service provider</li>
+                </ul>
+            </section>
+        </div>
 
-            <div class="private-warning">
-                <strong>Please note:</strong>
-                Private Browsing does not make you anonymous on the Internet.
-                Websites, network administrators and Internet service providers
-                may still be able to record your activity.
-            </div>
-<h3>OpenBrowse Private Browsing does not protect you from:</h3>
+        <div class="privacy-notice">
+            <strong>Private browsing is active</strong>
+            <p>
+                Files you download and bookmarks you create will remain on this
+                computer after the private window is closed.
+            </p>
+        </div>
 
-<ul>
-    <li>Monitoring by your employer or school.</li>
-    <li>Tracking by websites and advertisers.</li>
-    <li>Internet service provider records.</li>
-    <li>Downloaded files remaining on your computer.</li>
-    <li>Bookmarks saved during this session.</li>
-    <li>Malicious software or viruses.</li>
-</ul>
-            <form
-                action="search_engine.html"
-                class="private-search"
-                autocomplete="off"
-            >
-                <input
-                    type="text"
-                    name="q"
-                    aria-label="Private web search"
-                    autocomplete="off"
-                    autofocus
-                >
+   
 
-                <button type="submit">
-                    Search
-                </button>
-            </form>
+    </section>
+</main>
 
-            <div class="private-links">
-                <a onclick="location.href='index.html'">
-                    Return to normal browsing
-                </a>
-                &nbsp;|&nbsp;
-                <a onclick="alert('Private Browsing Help is unavailable.')">
-                    Learn more
-                </a>
-            </div>
 
-        </section>
-
-    </main>
-
-    </div>
 
 </body>
 </html>
