@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>An Garda Síochána - Reports Archive</title>
+  <link rel="stylesheet" href="reports.css">
+</head>
+<body>
+  <main class="app">
+    <header class="titlebar" id="resetHotspot" title="Double-click to reset">
+      <div class="brand"><span class="crest">GS</span><div><strong>An Garda Síochána</strong><small>Case Reports Archive 4.2</small></div></div>
+      <div class="case">Case GFU-11-0179</div>
+    </header>
+    <nav class="menubar">File&nbsp;&nbsp; Edit&nbsp;&nbsp; View&nbsp;&nbsp; Reports&nbsp;&nbsp; Attachments&nbsp;&nbsp; Tools&nbsp;&nbsp; Help</nav>
+
+    <section class="workspace">
+      <aside class="sidebar">
+        <div class="pane-title">Case File</div>
+        <div class="tree">
+          <div class="tree-row open">▾ GFU-11-0179</div>
+          <div class="tree-row indent selected">Reports</div>
+          <div class="tree-row indent">Witness Statements</div>
+          <div class="tree-row indent">Forensic Reports</div>
+          <div class="tree-row indent">Medical / Pathology</div>
+          <div class="tree-row indent">CCTV Review</div>
+          <div class="tree-row indent">Attachments</div>
+        </div>
+        <div class="case-meta">
+          <b>Case status</b><span>Active</span>
+          <b>Opened</b><span>14/03/2011</span>
+          <b>Classification</b><span>Restricted</span>
+          <b>Workstation</b><span>GDA-WS-07</span>
+        </div>
+      </aside>
+
+      <section class="report-list">
+        <div class="pane-title">Available Reports</div>
+        <table>
+          <thead><tr><th>Report</th><th>Type</th><th>Date</th><th>Status</th></tr></thead>
+          <tbody id="reportRows"></tbody>
+        </table>
+      </section>
+
+      <section class="details">
+        <div class="pane-title">Report Details</div>
+        <div id="detailsBody" class="details-body">Select a report.</div>
+      </section>
+
+      <section class="viewer">
+        <div class="viewer-head">
+          <div><b id="viewerTitle">Document Viewer</b><span id="viewerSubtitle">No report open</span></div>
+          <div class="viewer-actions">
+            <button id="prevBtn">◄ Previous</button>
+            <span id="pageInfo">Page 0 of 0</span>
+            <button id="nextBtn">Next ►</button>
+            <button id="closeBtn">Close</button>
+          </div>
+        </div>
+        <div id="loading" class="loading hidden"><div class="loading-box"><b>Retrieving archived report...</b><div class="progress"><div></div></div></div></div>
+        <article id="documentPage" class="document empty"><div class="empty-message">Double-click a report to open it.</div></article>
+      </section>
+    </section>
+
+    <footer class="statusbar"><span id="statusLeft">Reports archive ready</span><span>Read-only access</span><span>4 reports indexed</span></footer>
+  </main>
+  <script src="reports.js"></script>
+</body>
+</html>
