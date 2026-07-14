@@ -17,9 +17,10 @@ body:before {
     background:radial-gradient(ellipse at 75% 20%,rgba(255,255,255,.30),transparent 27%),linear-gradient(25deg,transparent 0 48%,rgba(255,255,255,.06) 49% 51%,transparent 52%);
     pointer-events:none}
 #desktop {
-    height:calc(100% - 42px);
-    position:relative;
-    padding:14px}
+    height: calc(100% - 42px);
+    position: relative;
+    padding: 210px 14px 14px 14px;
+}
 .icons {
     display:grid;
     grid-template-columns:repeat(2,80px);
