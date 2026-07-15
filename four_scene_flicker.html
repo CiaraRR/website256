@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CRT Flicker Scene Picker</title>
+  <style>
+    :root {
+      --r: 12;
+      --g: 90;
+      --b: 150;
+      --noise-opacity: 0.08;
+      --scan-opacity: 0.16;
+      --speed: 1;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html, body {
+      width: 100%;
+      height: 100%;
+      margin: 0;
+      overflow: hidden;
+      background: #000;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    body {
+      position: relative;
+      transition: background-color 120ms linear;
+    }
+
+    .effect,
+    .vignette,
+    .scanlines,
+    .noise,
+    .phosphor,
+    .tracking {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+    }
+
+    .scanlines {
+      opacity: var(--scan-opacity);
+      background: repeating-linear-gradient(
+        to bottom,
+        rgba(255,255,255,0.09) 0 1px,
+        transparent 2px 4px
+      );
+    }
+
+    .noise {
+      opacity: var(--noise-opacity);
+      background-image: repeating-radial-gradient(
+        circle at 0 0,
+        rgba(255,255,255,0.55) 0 1px,
+        transparent 2px 5px
+      );
+      background-size: 8px 8px;
+      mix-blend-mode: screen;
+    }
+
+    .phosphor {
+      opacity: 0.07;
+      background: repeating-linear-gradient(
+        to right,
+        rgba(255,0,0,0.35) 0 1px,
+        rgba(0,255,0,0.35) 1px 2px,
+        rgba(0,100,255,0.35) 2px 3px
+      );
+    }
+
+    .vignette {
+      background: radial-gradient(
+        ellipse at center,
+        transparent 45%,
+        rgba(0,0,0,0.35) 78%,
+        rgba(0,0,0,0.82) 100%
+      );
+    }
+
+    .tracking {
+      inset: auto 0 auto 0;
+      height: 12%;
+      top: 40%;
+      opacity: 0;
+      background: rgba(220,240,255,0.12);
+      filter: blur(12px);
+    }
+
+    .controls {
+      position: fixed;
+      left: 50%;
+      bottom: 24px;
+      transform: translateX(-50%);
+      z-index: 10;
+      width: min(92vw, 760px);
+      padding: 16px;
+      border: 1px solid rgba(255,255,255,0.16);
+      border-radius: 16px;
+      background: rgba(0,0,0,0.68);
+      backdrop-filter: blur(10px);
+      color: white;
+      box-shadow: 0 10px 35px rgba(0,0,0,0.45);
+    }
+
+    .controls h1 {
+      margin: 0 0 12px;
+      font-size: 18px;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+    }
+
+    .scene-buttons {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+
+    button {
+      appearance: none;
+      border: 1px solid rgba(255,255,255,0.18);
+      border-radius: 10px;
+      padding: 11px 10px;
+      color: white;
+      background: rgba(255,255,255,0.08);
+      cursor: pointer;
+      font-size: 14px;
+      transition: transform 120ms ease, background 120ms ease;
+    }
+
+    button:hover {
+      background: rgba(255,255,255,0.15);
+      transform: translateY(-1px);
+    }
+
+    button.active {
+      background: rgba(100,180,255,0.26);
+      border-color: rgba(160,220,255,0.55);
+    }
+
+    .bottom-row {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 12px;
+      align-items: center;
+    }
+
+    .speed-control {
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      gap: 10px;
+      align-items: center;
+      font-size: 13px;
+    }
+
+    input[type="range"] {
+      width: 100%;
+    }
+
+    .random-button {
+      min-width: 150px;
+      background: rgba(80,160,120,0.24);
+    }
+
+    .scene-name {
+      position: fixed;
+      top: 22px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 9;
+      color: rgba(255,255,255,0.72);
+      font-size: 14px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      text-shadow: 0 0 14px rgba(255,255,255,0.22);
+    }
+
+    @media (max-width: 680px) {
+      .scene-buttons {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .bottom-row {
+        grid-template-columns: 1fr;
+      }
+
+      .random-button {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="effect"></div>
+  <div class="noise" id="noise"></div>
+  <div class="scanlines"></div>
+  <div class="phosphor" id="phosphor"></div>
+  <div class="tracking" id="tracking"></div>
+  <div class="vignette"></div>
+
+  <div class="scene-name" id="sceneName">Blue CRT</div>
+
+  <section class="controls">
+    <h1>Choose a Scene</h1>
+
+    <div class="scene-buttons">
+      <button data-scene="0" class="active">Blue CRT</button>
+      <button data-scene="1">Green Monitor</button>
+      <button data-scene="2">Blackout VHS</button>
+      <button data-scene="3">Cold Static</button>
+    </div>
+
+    <div class="bottom-row">
+      <label class="speed-control">
+        <span>Flicker speed</span>
+        <input id="speed" type="range" min="0.5" max="2" step="0.1" value="1" />
+        <span id="speedValue">1.0×</span>
+      </label>
+
+      <button class="random-button" id="randomButton">Pick Random Scene</button>
+    </div>
+  </section>
+
+  <script>
+    const scenes = [
+      {
+        name: "Blue CRT",
+        rgb: [18, 95, 175],
+        dark: [0, 7, 18],
+        noise: 0.08,
+        scan: 0.18,
+        phosphor: 0.07,
+        minDelay: 140,
+        maxDelay: 500,
+        longHoldChance: 0.05
+      },
+      {
+        name: "Green Monitor",
+        rgb: [10, 155, 85],
+        dark: [0, 12, 7],
+        noise: 0.10,
+        scan: 0.22,
+        phosphor: 0.04,
+        minDelay: 180,
+        maxDelay: 620,
+        longHoldChance: 0.08
+      },
+      {
+        name: "Blackout VHS",
+        rgb: [25, 55, 95],
+        dark: [0, 0, 0],
+        noise: 0.16,
+        scan: 0.14,
+        phosphor: 0.06,
+        minDelay: 220,
+        maxDelay: 720,
+        longHoldChance: 0.16
+      },
+      {
+        name: "Cold Static",
+        rgb: [35, 135, 165],
+        dark: [0, 10, 14],
+        noise: 0.22,
+        scan: 0.25,
+        phosphor: 0.08,
+        minDelay: 90,
+        maxDelay: 360,
+        longHoldChance: 0.04
+      }
+    ];
+
+    let currentScene = 0;
+    let speed = 1;
+
+    const noise = document.getElementById("noise");
+    const phosphor = document.getElementById("phosphor");
+    const tracking = document.getElementById("tracking");
+    const sceneName = document.getElementById("sceneName");
+    const speedInput = document.getElementById("speed");
+    const speedValue = document.getElementById("speedValue");
+    const buttons = [...document.querySelectorAll("[data-scene]")];
+
+    function random(min, max) {
+      return Math.random() * (max - min) + min;
+    }
+
+    function setScene(index) {
+      currentScene = index;
+      const scene = scenes[index];
+
+      sceneName.textContent = scene.name;
+      noise.style.opacity = scene.noise;
+      phosphor.style.opacity = scene.phosphor;
+      document.documentElement.style.setProperty("--scan-opacity", scene.scan);
+
+      buttons.forEach((button, i) => {
+        button.classList.toggle("active", i === index);
+      });
+    }
+
+    buttons.forEach((button) => {
+      button.addEventListener("click", () => {
+        setScene(Number(button.dataset.scene));
+      });
+    });
+
+    document.getElementById("randomButton").addEventListener("click", () => {
+      let next = currentScene;
+      while (next === currentScene) {
+        next = Math.floor(Math.random() * scenes.length);
+      }
+      setScene(next);
+    });
+
+    speedInput.addEventListener("input", () => {
+      speed = Number(speedInput.value);
+      speedValue.textContent = speed.toFixed(1) + "×";
+    });
+
+    function flicker() {
+      const scene = scenes[currentScene];
+      const brightness = Math.random() < 0.18
+        ? random(0.08, 0.34)
+        : random(0.32, 1);
+
+      const r = Math.floor(scene.rgb[0] * brightness);
+      const g = Math.floor(scene.rgb[1] * brightness);
+      const b = Math.floor(scene.rgb[2] * brightness);
+
+      document.body.style.backgroundColor = `rgb(${r}, ${g}, ${b})`;
+
+      let delay = random(scene.minDelay, scene.maxDelay) / speed;
+
+      if (Math.random() < scene.longHoldChance) {
+        document.body.style.backgroundColor =
+          `rgb(${scene.dark[0]}, ${scene.dark[1]}, ${scene.dark[2]})`;
+        delay = random(900, 2400) / speed;
+      }
+
+      if (Math.random() < 0.08) {
+        tracking.style.opacity = "1";
+        tracking.style.top = `${random(0, 88)}%`;
+
+        setTimeout(() => {
+          tracking.style.opacity = "0";
+        }, random(220, 650) / speed);
+      }
+
+      if (Math.random() < 0.06) {
+        const oldOpacity = noise.style.opacity;
+        noise.style.opacity = Math.min(scene.noise + 0.28, 0.55);
+
+        setTimeout(() => {
+          noise.style.opacity = oldOpacity || scene.noise;
+        }, random(180, 520) / speed);
+      }
+
+      setTimeout(flicker, delay);
+    }
+
+    setScene(0);
+    flicker();
+  </script>
+</body>
+</html>
