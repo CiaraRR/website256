@@ -14,7 +14,7 @@ const taskButtons = document.getElementById("tasks");
 const desktop = document.getElementById("desktop");
 const startMenu = document.getElementById("menu");
 const startButton = document.getElementById("orb");
-const clock = document.getElementById("clock");
+const clock = document.querySelector(".clock");
 
 const openWindows = new Map();
 let topZIndex = 50;
@@ -59,12 +59,8 @@ function openApp(id) {
     windowElement.style.left = `${165 + offset * 26}px`;
     windowElement.style.top = `${28 + offset * 21}px`;
 
-    const iframeSource = app.kind === "iframe"
-        ? `${app.src}${app.src.includes("?") ? "&" : "?"}embedded=1`
-        : "";
-
     const content = app.kind === "iframe"
-        ? `<iframe src="${iframeSource}" title="${app.name}"></iframe>`
+        ? `<iframe src="${app.src}" title="${app.name}"></iframe>`
         : app.html;
 
     windowElement.innerHTML = `
@@ -86,71 +82,11 @@ function openApp(id) {
     desktop.appendChild(windowElement);
     openWindows.set(id, windowElement);
 
-    const iframe = windowElement.querySelector("iframe");
-    if (iframe) {
-        prepareEmbeddedApp(iframe);
-    }
-
     attachWindowControls(windowElement, id);
     makeDraggable(windowElement);
     makeResizable(windowElement);
     createTaskButton(id, app, windowElement);
     focusWindow(windowElement);
-}
-
-
-function prepareEmbeddedApp(iframe) {
-    const applyEmbedFix = () => {
-        try {
-            const doc = iframe.contentDocument;
-            if (!doc || !doc.documentElement) return;
-
-            if (doc.body) {
-                doc.body.classList.add("embedded");
-            }
-
-            let style = doc.querySelector('style[data-desktop-embed-fix="true"]');
-
-            if (!style) {
-                style = doc.createElement("style");
-                style.setAttribute("data-desktop-embed-fix", "true");
-                style.textContent = `
-                    body.embedded > .browser > .titlebar,
-                    body.embedded .browser > .titlebar:first-child,
-                    body.embedded > .app > .titlebar,
-                    body.embedded > .titlebar {
-                        display: none !important;
-                    }
-
-                    body.embedded {
-                        margin: 0 !important;
-                    }
-
-                    body.embedded > .browser {
-                        border-top: 0 !important;
-                    }
-                `;
-                (doc.head || doc.documentElement).appendChild(style);
-            }
-
-            const internalBrowserTitle = doc.querySelector(
-                "body > .browser > .titlebar, body .browser > .titlebar:first-child"
-            );
-
-            if (internalBrowserTitle) {
-                internalBrowserTitle.style.setProperty("display", "none", "important");
-            }
-        } catch (error) {
-            console.warn("Could not apply embedded app styling:", error);
-        }
-    };
-
-    iframe.addEventListener("load", applyEmbedFix);
-
-    // Handle very fast local iframe loads.
-    requestAnimationFrame(applyEmbedFix);
-    setTimeout(applyEmbedFix, 100);
-    setTimeout(applyEmbedFix, 500);
 }
 
 function attachWindowControls(windowElement, id) {
@@ -296,13 +232,12 @@ function toggleStartMenu(force) {
 }
 
 function updateClock() {
-    const now = new Date();
-    const time = now.toLocaleTimeString([], {
-        hour: "2-digit",
-        minute: "2-digit"
-    });
+    if (!clock) return;
 
-    clock.innerHTML = `${time}<br>04/06/2011`;
+    const FILM_TIME = "14:36";
+    const FILM_DATE = "04/06/2011";
+
+    clock.innerHTML = `${FILM_TIME}<br>${FILM_DATE}`;
 }
 
 startButton.addEventListener("click", () => toggleStartMenu());
@@ -313,7 +248,9 @@ document.addEventListener("click", event => {
     }
 });
 
-buildLauncherItems();
-updateClock();
-setInterval(updateClock, 1000);
-openApp("sheets");
+window.addEventListener("DOMContentLoaded", () => {
+    buildLauncherItems();
+    updateClock();
+
+    openApp("sheets");
+});
