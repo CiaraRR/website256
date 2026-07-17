@@ -145,7 +145,7 @@ input{
     overflow:hidden;
     background:
         linear-gradient(rgba(216,239,249,.397),rgba(217,236,251,.48)),
-        url("images/worldmap.png") center 0 no-repeat,
+        url("../images/worldmap.png") center 0 no-repeat,
         linear-gradient(#eef6ff,#b3e1fa);
     background-size:cover,1500px auto,cover;
 }
