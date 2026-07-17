@@ -248,6 +248,22 @@ document.addEventListener("click", event => {
     }
 });
 
+
+const shutdownButton = document.querySelector(".shutdown");
+
+shutdownButton?.addEventListener("click", event => {
+    event.preventDefault();
+    event.stopPropagation();
+
+    toggleStartMenu(false);
+    document.body.style.transition = "opacity 0.35s ease";
+    document.body.style.opacity = "0";
+
+    window.setTimeout(() => {
+        window.top.location.href = "hub.html";
+    }, 350);
+});
+
 window.addEventListener("DOMContentLoaded", () => {
     buildLauncherItems();
     updateClock();
