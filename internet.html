@@ -3,6 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="noindex, nofollow">
     <title>OpenBrowse Home</title>
     <link rel="stylesheet" href="stylesheets/style.css">
 
@@ -105,14 +106,35 @@ body.openbrowse-embedded > .browser {
         </span>
     </div>
 
-    <div class="topbar">
-        <span>File</span>
-        <span>Edit</span>
-        <span>View</span>
-        <span>Bookmarks</span>
-        <span>Tools</span>
-        <span>Help</span>
+<div class="topbar">
+
+    <div class="menu-item">
+        <button class="menu-button" type="button">File</button>
+
+        <div class="menu-dropdown">
+            <a href="#">New Tab</a>
+            <a href="#">New Window</a>
+            <a href="private_browsing.html">New Private Window</a>
+
+            <div class="menu-separator"></div>
+
+            <a href="#">Open Location…</a>
+            <a href="#">Close Tab</a>
+            <a href="#">Close Window</a>
+            <a href="#">Save Page As…</a>
+            <a href="#">Print…</a>
+        </div>
     </div>
+
+    <button class="menu-button" type="button">Edit</button>
+    <button class="menu-button" type="button">View</button>
+    <button class="menu-button" type="button">Bookmarks</button>
+    <button class="menu-button" type="button">Tools</button>
+    <button class="menu-button" type="button">Help</button>
+
+</div>
+
+    
 
     <div class="toolbar">
         <button class="toolbtn" type="button" onclick="history.back()">‹</button>
@@ -139,8 +161,8 @@ body.openbrowse-embedded > .browser {
         <h1>OpenBrowse</h1>
         <h2>Search the Web</h2>
 
-        <form action="maps.html" method="get" class="hero-search" autocomplete="off">
-        <input name="q" value="" placeholder="Search Maps" autocomplete="off">
+        <form action="search_engine.html" class="hero-search" autocomplete="off">
+        <input name="q" value="" autocomplete="off">
         <button type="submit">Search</button>
     </form>
 
@@ -214,9 +236,6 @@ body.openbrowse-embedded > .browser {
 
 </main>
 
-<div class="taskbar">
-    ● 🗂 🌐 
-</div>
 
 
 <script id="openbrowse-embedded-script">

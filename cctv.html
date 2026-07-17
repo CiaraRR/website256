@@ -1,88 +1,76 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Garda CCTV </title>
-  <link rel="stylesheet" href="cctv.css">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>CCTV Review Station</title>
+<link rel="stylesheet" href="cctv.css">
 </head>
 <body>
-  <main class="app">
-    <header class="titlebar" id="directorHotspot" title="Double-click for director controls">
-      <div class="app-title">
-        <span class="crest-placeholder">GS</span>
-        <div>
-          <strong>An Garda Síochána</strong>
-          <small>CCTV Review Console v3.4</small>
+<main class="app">
+  <header class="topbar">
+    <div><b>GARDA CCTV REVIEW</b><small>Evidence Viewing Terminal</small></div>
+    <div class="case">CASE 24918452 · READ ONLY</div>
+  </header>
+
+  <nav class="toolbar">
+    <button id="playBtn" type="button">▶ Play</button>
+    <button id="pauseBtn" type="button">Ⅱ Pause</button>
+    <button id="rewindBtn" type="button">↶ Rewind</button>
+    <span class="divider"></span>
+
+    <label>
+      Camera
+      <select id="cameraSelect">
+        <option value="0">CAM 1</option>
+        <option value="1">CAM 2</option>
+        <option value="2">CAM 3</option>
+        <option value="3">CAM 4</option>
+      </select>
+    </label>
+
+    <span class="readonly">VIEWING ONLY</span>
+  </nav>
+
+  <section class="workspace">
+    <aside class="camera-list" id="cameraList"></aside>
+
+    <section class="viewer">
+      <div class="screen" id="screen">
+        <video id="video" controls playsinline preload="metadata"></video>
+
+        <div class="fallback" id="fallback">
+          <div class="noise"></div>
+          <div class="scene">
+            <span class="road"></span>
+            <span class="building"></span>
+            <span class="vehicle"></span>
+          </div>
         </div>
-      </div>
-      <div class="case-meta">
-        <span>Case:24918452</span>
-        <span id="systemState">READY</span>
-      </div>
-    </header>
 
-    <nav class="menubar">
-      File&nbsp;&nbsp; Edit&nbsp;&nbsp; View&nbsp;&nbsp; Playback&nbsp;&nbsp; Cameras&nbsp;&nbsp; Evidence&nbsp;&nbsp; Tools&nbsp;&nbsp; Help
-    </nav>
-
-    <section id="cameraGrid" class="camera-grid"></section>
-
-    <section class="lower">
-      <div class="playback-pane">
-        <div class="pane-title">Playback Control</div>
-        <div class="transport-row">
-          <button id="rewindBtn">◄◄</button>
-          <button id="playBtn">►</button>
-          <button id="stopBtn">■</button>
-          <button id="forwardBtn">►►</button>
-          <input id="timeline" type="range" min="0" max="1000" value="0">
+        <div class="overlay top">
+          <span id="cameraLabel">CAM 1</span>
+          <span></span>
         </div>
+
+        <div class="paused" id="paused">PAUSED</div>
       </div>
 
-      <div class="log-pane">
-        <div class="pane-title">Review Log</div>
-        <div id="reviewLog" class="review-log"></div>
-      </div>
-
-      <div class="status-pane">
-        <div class="pane-title">Current Session</div>
-        <dl>
-          <dt>Case</dt><dd>GFU-11-0179</dd>
-          <dt>Feeds loaded</dt><dd id="feedCount">0 / 4</dd>
-          <dt>Selected camera</dt><dd id="selectedCamera">CAM-01</dd>
-          <dt>Review status</dt><dd id="reviewStatus">Idle</dd>
-          <dt>Evidence export</dt><dd>Disabled</dd>
-        </dl>
+      <div class="timeline">
+        <span id="currentTime">00:00:00</span>
+        <input id="scrubber" type="range" min="0" max="1000" value="0">
+        <span id="durationTime">00:00:00</span>
       </div>
     </section>
+  </section>
 
-    <footer class="statusbar">
-      <span>Evidence Workstation 02</span>
-      <span id="footerMessage">Archive review ready</span>
-      <span>Read-only mode</span>
-    </footer>
-  </main>
+  <footer>
+    <span id="status">Archive ready</span>
+    <span>GDA-WS-07</span>
+    <span>INTERNAL · PROP SYSTEM</span>
+  </footer>
+</main>
 
-  <div id="vfxPlate" class="vfx-plate hidden"></div>
-
-  <div id="directorPanel" class="director hidden">
-    <div class="director-window">
-      <div class="director-title">
-        <b>Director Controls</b>
-        <button id="closeDirector">×</button>
-      </div>
-      <p>Choose temporary clips for this session or place permanent files in the videos folder.</p>
-      <div id="directorRows"></div>
-      <p><b>Shortcuts:</b> G = Full Green, B = Full Black, V = Green camera windows only, C = Normal CCTV, F = Fullscreen.</p>
-      <div class="director-actions">
-        <button id="resetBtn">Reset Console</button>
-        <button id="closeDirectorBottom">Close</button>
-      </div>
-    </div>
-  </div>
-
-  <script src="config.js"></script>
-  <script src="cctv.js"></script>
+<script src="cctv.js"></script>
 </body>
 </html>

@@ -1,0 +1,80 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>DIGITAL INTERFACE PROP HUB</title>
+
+<style>
+body{
+    margin:0;
+    font-family:Segoe UI, Arial, sans-serif;
+    background:#0f1720;
+    color:#fff;
+}
+header{
+    background:#162331;
+    text-align:center;
+    padding:28px;
+}
+.grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
+    gap:18px;
+    padding:24px;
+}
+.card{
+    display:block;
+    text-decoration:none;
+    color:white;
+    background:#1e2d3a;
+    padding:18px;
+    border-radius:10px;
+}
+.card:hover{
+    background:#294258;
+}
+.icon{font-size:38px}
+h2{margin:8px 0}
+small{color:#c7d0d8}
+</style>
+</head>
+<body>
+<script>
+if (sessionStorage.getItem("loggedIn") !== "true") {
+    window.location.href = "index.html";
+}
+</script>
+<header>
+    <h1>DIGITAL INTERFACE PROP HUB</h1>
+    <p>Select a system to launch</p>
+</header>
+
+<div class="grid">
+
+<a class="card" href="desktop.html"><div class="icon">🖥️</div><h2>Pat's Desktop</h2><small>Pat's workstation</small></a>
+<a class="card" href="spreadsheetspro.html"><div class="icon">📊</div><h2>SheetWorks Pro</h2><small>Spreadsheet file</small></a>
+
+<a class="card" href="internet.html"><div class="icon">🌐</div><h2>OpenBrowse</h2><small>Internet homepage</small></a>
+<a class="card" href="private_browsing.html"><div class="icon">◉</div><h2>Private Browsing</h2><small>Incognito mode</small></a>
+<a class="card" href="maps.html"><div class="icon">🗺️</div><h2>Maps</h2><small>Faux Map viewer</small></a>
+
+<a class="card" href="desktop_garda.html"><div class="icon">💻</div><h2>Garda Desktop </h2><small>Garda desktop</small></a>
+<a class="card" href="garda_login.html"><div class="icon">🔐</div><h2>Garda Search</h2><small>Person Search</small></a>
+<a class="card" href="cctv.html"><div class="icon">📹</div><h2>CCTV Review</h2><small>Video console</small></a>
+<a class="card" href="reports.html"><div class="icon">📄</div><h2>Reports Archive</h2><small>Garda Case documents</small></a>
+<a class="card" href="evidence.html"><div class="icon">🧪</div><h2>Evidence Lab</h2><small>Forensics tools</small></a>
+<a class="card" href="operator.html"><div class="icon">💾</div><h2>Operator Console</h2><small>Digital examination</small></a>
+
+
+<a class="card" href="four_scene_flicker.html"><div class="icon">📺</div><h2>CRT Flicker</h2><small>CRT flicker scene picker</small></a>
+<a class="card" href="screens.html"><div class="icon">🟩</div><h2>Screen Graphics</h2><small>Chroma and colour screens</small></a>
+
+
+
+</div>
+
+</body>
+</html>
