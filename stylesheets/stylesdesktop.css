@@ -1,0 +1,319 @@
+/* Base */
+* {
+    box-sizing:border-box}
+html,body {
+    margin:0;
+    width:100%;
+    height:100%;
+    overflow:hidden;
+    font-family:"Segoe UI",Tahoma,Arial,sans-serif;
+    color:#111}
+body {
+    background:linear-gradient(145deg,#2769a7 0%,#4f9bd1 42%,#7fc2e6 74%,#b9e2f5 100%)}
+body:before {
+    content:"";
+    position:absolute;
+    inset:0;
+    background:radial-gradient(ellipse at 75% 20%,rgba(255,255,255,.30),transparent 27%),linear-gradient(25deg,transparent 0 48%,rgba(255,255,255,.06) 49% 51%,transparent 52%);
+    pointer-events:none}
+#desktop {
+    height: calc(100% - 42px);
+    position: relative;
+    padding: 210px 14px 14px 14px;
+}
+.icons {
+    display:grid;
+    grid-template-columns:repeat(2,80px);
+    grid-auto-rows:88px;
+    gap:8px 10px;
+    width:180px}
+.icon {
+    width:76px;
+    height:84px;
+    color:white;
+    text-align:center;
+    padding:5px;
+    border-radius:3px;
+     text-shadow:0 1px 1px rgba(0,0,0,.35);
+    user-select:none}
+.icon:hover {
+    background:#ffffff20;
+    outline:1px solid #ffffff70}
+.ico {
+    height:50px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:31px;
+    filter:none;}
+.icon span {
+    font-size:12px;
+    line-height:14px;
+    display:block}
+
+/* Taskbar */
+.taskbar {
+    height:42px;
+    background:linear-gradient(#41586d,#1c3043 54%,#132536 55%,#233a4e);
+    border-top:1px solid #ffffffa0;
+    display:flex;
+    align-items:center;
+    padding:0 6px;
+    color:white;
+    position:relative;
+    z-index:9999;
+    box-shadow:none;}
+.orb {
+    width:48px;
+    height:48px;
+    margin-top:-6px;
+    border-radius:50%;
+    border:2px solid #ffffffc0;
+    background:radial-gradient(circle at 35% 28%,#d5fbff,#38a1d9 32%,#166998 68%,#073a5b);
+    color:white;
+    font-size:23px;
+    font-weight:bold;
+    text-shadow:0 1px 2px #000;
+    box-shadow:0 0 8px #7ce8ff;
+    cursor:pointer}
+.tasks {
+    display:flex;
+    height:100%;
+    gap:3px;
+    margin-left:8px}
+.task {
+    width:50px;
+    height:36px;
+    margin-top:3px;
+    border:1px solid #ffffff36;
+    border-radius:4px;
+    background:linear-gradient(#527893,#2a4b64);
+    color:white;
+    font-size:20px}
+.task:hover,.task.on {
+    background:linear-gradient(#7ba3bf,#477797)}
+.tray {
+    margin-left:auto;
+    height:100%;
+    display:flex;
+    align-items:center;
+    gap:10px;
+    padding:0 9px;
+    font-size:12px;
+    background:#ffffff08;
+    border-left:1px solid #ffffff25}
+
+/* Application windows */
+.window {
+    position:absolute;
+    left:170px;
+    top:30px;
+    width:840px;
+    height:570px;
+    background:#fff;
+    border:1px solid #324657;
+    border-radius:4px;
+    box-shadow:0 4px 12px rgba(0,0,0,.25);;
+    display:flex;
+    flex-direction:column;
+    overflow:hidden}
+.window.max {
+    left:0!important;
+    top:0!important;
+    width:100%!important;
+    height:100%!important;
+    border-radius:0}
+.titlebar {
+    height:34px;
+    background:linear-gradient(#e2f5ff 0%,#8ebddd 11%,#4f86ac 49%,#326d97 53%,#5a8dab);
+    border-bottom:1px solid #244f6b;
+    color:white;
+    display:flex;
+    align-items:center;
+    padding-left:8px;
+    text-shadow:0 1px 2px #17394f;
+    cursor:move;
+    user-select:none}
+.titlebar b {
+    font-size:13px}
+.appico {
+    font-size:18px;
+    margin-right:7px}
+.controls {
+    margin-left:auto;
+    height:100%;
+    display:flex;
+    padding-right:4px}
+.controls button {
+    width:36px;
+    height:24px;
+    margin-top:3px;
+    border:1px solid #0005;
+    background:linear-gradient(#8fb9d4,#477d9f);
+    color:white}
+.controls button:last-child {
+    width:46px;
+    background:linear-gradient(#ef9b83,#c6412f 55%,#a61d12)}
+.body {
+    flex:1;
+    overflow:hidden;
+    background:white}
+.body iframe {
+    width:100%;
+    height:100%;
+    border:0;
+    background:white}
+.resize-handle {
+    position:absolute;
+    right:0;
+    bottom:0;
+    width:18px;
+    height:18px;
+    cursor:nwse-resize;
+    z-index:20;
+    background:linear-gradient(135deg,transparent 0 45%,#8a8a8a 46% 52%,transparent 53% 62%,#8a8a8a 63% 69%,transparent 70%)}
+.window.max .resize-handle {
+    display:none}
+
+/* Start menu */
+.startmenu {
+    position:absolute;
+    left:4px;
+    bottom:42px;
+    width:410px;
+    height:475px;
+    background:linear-gradient(90deg,#fafafa 0 62%,#d9ebf7 62%);
+    border:1px solid #1b4f73;
+    border-radius:7px 7px 0 0;
+    box-shadow:0 12px 35px #000a;
+    display:none;
+    z-index:10000;
+    overflow:hidden}
+.startmenu.open {
+    display:block}
+.starttop {
+    height:65px;
+    background:linear-gradient(#7fb3d2,#3b759c);
+    color:white;
+    display:flex;
+    align-items:center;
+    padding:8px 14px;
+    font-weight:600;
+    text-shadow:0 1px #1d3c52}
+.userpic {
+    width:48px;
+    height:48px;
+    border:2px solid white;
+    border-radius:4px;
+    background:#edf3f6;
+    color:#2c5c78;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:20px;
+    margin-right:10px}
+.startleft {
+    width:62%;
+    padding:10px;
+    float:left}
+.startright {
+    width:38%;
+    float:right;
+    padding:12px 10px;
+    color:#21445e}
+.startitem {
+    padding:7px;
+    border-radius:3px;
+    font-size:13px}
+.startitem:hover {
+    background:linear-gradient(#eaf5ff,#c9e4f7);
+    outline:1px solid #8fbad6}
+.startitem strong {
+    font-size:18px;
+    margin-right:8px}
+.searchbox {
+    position:absolute;
+    left:10px;
+    bottom:11px;
+    width:235px;
+    height:27px;
+    border:1px solid #8c9aa3;
+    padding:4px 7px}
+.shutdown {
+    position:absolute;
+    right:14px;
+    bottom:11px;
+    border:1px solid #7d4d24;
+    background:linear-gradient(#ffc786,#d5822d);
+    border-radius:3px;
+    padding:5px 12px}
+
+/* Built-in application content */
+.generic {
+    height:100%;
+    background:#f6f6f6}
+.toolbar {
+    height:42px;
+    background:linear-gradient(#fff,#e1e1e1);
+    border-bottom:1px solid #aaa;
+    padding:6px}
+.btn {
+    border:1px solid #999;
+    background:linear-gradient(#fff,#ddd);
+    padding:5px 9px;
+    margin-right:4px}
+.panel {
+    padding:22px}
+.mail {
+    display:grid;
+    grid-template-columns:180px 255px 1fr;
+    height:100%}
+.folders {
+    background:#e8f0f5;
+    border-right:1px solid #b7c6ce;
+    padding:10px}
+.folder {
+    padding:7px}
+.folder.on {
+    background:#b9d9ed;
+    border:1px solid #7eabc7}
+.msgs {
+    border-right:1px solid #bbb}
+.msg {
+    padding:10px;
+    border-bottom:1px solid #ccc}
+.msg.on {
+    background:#e7f2f8}
+.reader {
+    padding:18px}
+.files {
+    display:grid;
+    grid-template-columns:180px 1fr;
+    height:100%}
+.tree {
+    background:#edf3f6;
+    border-right:1px solid #bcc7ce;
+    padding:10px}
+.tree div {
+    padding:6px}
+.filegrid {
+    display:grid;
+    grid-template-columns:repeat(4,135px);
+    gap:18px;
+    padding:20px}
+.file {
+    text-align:center;
+    padding:9px}
+.file:hover {
+    background:#ddecf7;
+    outline:1px solid #8bb6d2}
+.file b {
+    display:block;
+    font-size:37px}
+.term {
+    height:100%;
+    background:#000;
+    color:#c0c0c0;
+    font:14px Consolas,monospace;
+    padding:15px;
+    line-height:1.55}

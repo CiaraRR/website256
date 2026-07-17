@@ -1,0 +1,279 @@
+/* ===== CATHERINE SITE ONLY ===== */
+
+body{
+    margin:0;
+    background:#d7dde5;
+    font-family:Arial,Helvetica,sans-serif;
+    color:#222;
+}
+
+.old-site{
+    max-width:1060px;
+    margin:25px auto;
+    background:#fff;
+    box-shadow:0 0 10px rgba(0,0,0,.25);
+}
+
+/* HEADER */
+
+.old-site .site-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:25px 30px;
+    background:linear-gradient(#ffffff,#eef3f8);
+}
+
+.old-site .brand{
+    display:flex;
+    gap:20px;
+    align-items:center;
+}
+
+.old-site .fingerprint{
+    width:80px;
+    height:80px;
+    border-radius:50%;
+    border:4px solid #0f4d98;
+    font-size:40px;
+    text-align:center;
+    line-height:72px;
+    color:#0f4d98;
+    flex:0 0 auto;
+}
+
+.old-site .brand h1{
+    margin:0;
+    color:#0f4d98;
+    font-size:32px;
+    line-height:1.05;
+    letter-spacing:.5px;
+}
+
+.old-site .brand p{
+    margin:8px 0 0;
+    color:#123b70;
+    font-size:15px;
+    line-height:1.25;
+}
+
+.old-site .call-box{
+    width:220px;
+    text-align:center;
+    border:1px solid #bfcad7;
+    background:#fff;
+    padding:15px;
+    flex:0 0 auto;
+}
+
+.old-site .call-box strong{
+    color:#0f4d98;
+    font-size:28px;
+    line-height:1.2;
+}
+
+/* NAVIGATION */
+
+.old-site .nav{
+    display:flex;
+    width:100%;
+    margin:0;
+    padding:0;
+    background:#0f4d98;
+}
+
+.old-site .nav a{
+    flex:0 0 auto;
+    min-width:145px;
+    height:54px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    color:#fff;
+    text-align:center;
+    text-decoration:none;
+    font-weight:bold;
+    font-size:14px;
+    line-height:1;
+
+    white-space:nowrap;
+    word-spacing:normal;
+    letter-spacing:normal;
+
+    background:#0f4d98;
+    border-right:1px solid rgba(255,255,255,.18);
+}
+
+.old-site .nav a:last-child{
+    border-right:0;
+}
+
+.old-site .nav a:hover{
+     background:#09366d;
+}
+
+.old-site .nav .sel{
+    background:#09366d;
+}
+
+.old-site .nav .sel:hover{
+    background:#09366d;
+}
+
+/* BREADCRUMB */
+
+.old-site .crumb{
+    padding:14px 24px;
+    color:#444;
+    font-size:14px;
+}
+
+/* CONTENT */
+
+.old-site .simple-profile{
+    display:grid;
+    grid-template-columns:220px 1fr 240px;
+    gap:30px;
+    padding:25px 30px 35px;
+}
+
+.old-site .profile-photo{
+    width:100%;
+    display:block;
+    border:1px solid #999;
+    padding:6px;
+    background:#fff;
+}
+
+.old-site .badge{
+    margin-top:15px;
+    background:#eef4fb;
+    border:1px solid #b8c5d5;
+    padding:15px;
+    text-align:center;
+    color:#0f4d98;
+    font-weight:bold;
+    line-height:1.15;
+}
+
+.old-site .badge span{
+    display:block;
+    margin-top:4px;
+}
+
+.old-site .profile-text h2{
+    color:#0f4d98;
+    margin:0 0 14px;
+    font-size:24px;
+}
+
+.old-site .profile-text h3{
+    color:#666;
+    font-style:italic;
+    font-weight:normal;
+    margin:0 0 18px;
+}
+
+.old-site .profile-text h4{
+    margin:18px 0 8px;
+}
+
+.old-site .profile-text p{
+    line-height:1.6;
+    margin:0 0 18px;
+}
+
+.old-site .profile-text ul{
+    margin-top:8px;
+}
+
+.old-site .contact-card{
+    border:1px solid #c6d1de;
+    background:#fafcff;
+    align-self:start;
+}
+
+.old-site .contact-card h3{
+    margin:0;
+    padding:12px;
+    background:#0f4d98;
+    color:#fff;
+    font-size:18px;
+}
+
+.old-site .contact-card p{
+    padding:0 15px;
+    line-height:1.6;
+}
+
+.old-site .contact-card hr{
+    border:0;
+    border-top:1px solid #bbb;
+}
+
+/* FOOTER */
+
+.old-site footer{
+    background:#0f4d98;
+    color:#fff;
+    padding:15px;
+    text-align:center;
+    font-size:13px;
+}
+
+.old-site footer a{
+    color:#fff;
+}
+
+/* RESPONSIVE */
+
+@media(max-width:960px){
+    .old-site{
+        margin:15px;
+    }
+
+    .old-site .site-header{
+        display:block;
+    }
+
+    .old-site .call-box{
+        margin-top:18px;
+    }
+
+    .old-site .simple-profile{
+        grid-template-columns:1fr;
+    }
+
+    .old-site .photo-column{
+        max-width:260px;
+    }
+
+    .old-site .nav{
+        flex-wrap:wrap;
+    }
+
+    .old-site .nav a{
+        flex:0 0 50%;
+    }
+}
+
+@media(max-width:600px){
+    .old-site .brand{
+        display:block;
+    }
+
+    .old-site .fingerprint{
+        margin-bottom:12px;
+    }
+
+    .old-site .brand h1{
+        font-size:24px;
+    }
+
+    .old-site .nav a{
+        flex:0 0 100%;
+    }
+}
+

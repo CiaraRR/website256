@@ -1,0 +1,228 @@
+*{box-sizing:border-box}
+html,body{margin:0;width:100%;height:100%;overflow:hidden}
+body{font:12px Tahoma,Arial,sans-serif;background:#111;color:#dce7ee}
+
+.app{
+  height:100vh;
+  display:grid;
+  grid-template-rows:42px 38px 1fr 24px;
+  background:#18232b
+}
+
+.topbar{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:0 12px;
+  background:linear-gradient(#587487,#284657 48%,#173344 49%,#294b5e);
+  border-bottom:1px solid #7892a1;
+  text-shadow:0 1px #000
+}
+
+.topbar b{display:block;font-size:15px}
+.topbar small{display:block;color:#c2d2dc}
+.case{font-weight:bold}
+
+.toolbar{
+  display:flex;
+  align-items:center;
+  gap:7px;
+  padding:5px 8px;
+  background:#d7dce0;
+  color:#15222b;
+  border-bottom:1px solid #667984
+}
+
+.toolbar button,.toolbar select{
+  height:26px;
+  border:1px solid #657786;
+  background:linear-gradient(#fff,#c4cdd4);
+  font:12px Tahoma
+}
+
+.toolbar button{min-width:72px;cursor:pointer}
+.toolbar button:hover{background:linear-gradient(#fff,#aebfcb);border-color:#345c75}
+.divider{height:24px;border-left:1px solid #87949d}
+
+.readonly{
+  margin-left:auto;
+  color:#7d1717;
+  font-weight:bold;
+  border:1px solid #a66;
+  padding:4px 8px;
+  background:#f0dddd
+}
+
+.workspace{
+  min-height:0;
+  display:grid;
+  grid-template-columns:220px 1fr
+}
+
+.camera-list{
+  background:#101820;
+  border-right:1px solid #536773;
+  padding:8px;
+  overflow:auto
+}
+
+.camera{
+  display:block;
+  width:100%;
+  padding:13px 10px;
+  border:1px solid #324754;
+  margin-bottom:8px;
+  background:#1b2a34;
+  color:#dce7ee;
+  text-align:left;
+  cursor:pointer;
+  transition:background .12s,border-color .12s,transform .12s
+}
+
+.camera:hover{
+  background:#28475a;
+  border-color:#8cb3c9;
+  transform:translateX(3px)
+}
+
+.camera:focus-visible{
+  outline:2px solid #c6e5f5;
+  outline-offset:2px
+}
+
+.camera.active{
+  background:#315267;
+  border-color:#a5cce2;
+  box-shadow:inset 4px 0 0 #d8edf8
+}
+
+.camera b{display:block;font-size:13px}
+
+.viewer{
+  min-width:0;
+  min-height:0;
+  padding:12px;
+  display:flex;
+  flex-direction:column;
+  background:#27343d
+}
+
+.screen{
+  position:relative;
+  flex:1;
+  min-height:0;
+  background:#030506;
+  border:2px solid #778894;
+  box-shadow:0 5px 20px #000;
+  overflow:hidden;
+  cursor:zoom-in
+}
+
+.screen:fullscreen{cursor:zoom-out;border:0}
+
+.screen video,.fallback{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  object-fit:cover
+}
+
+.screen video{display:none;background:#000}
+.fallback{background:linear-gradient(#505960,#232a2f);filter:grayscale(1) contrast(1.2)}
+
+.noise{
+  position:absolute;
+  inset:0;
+  opacity:.12;
+  background:repeating-linear-gradient(0deg,#fff 0 1px,transparent 1px 4px);
+  animation:flicker .18s infinite
+}
+
+.scene{position:absolute;inset:0}
+.road{position:absolute;left:-10%;right:-10%;height:38%;bottom:0;background:#444;transform:skewY(-5deg)}
+.building{position:absolute;width:42%;height:43%;right:12%;bottom:30%;background:#697176;border:5px solid #30373b}
+.vehicle{position:absolute;width:20%;height:11%;left:21%;bottom:27%;background:#1d2326;border-radius:18px 27px 4px 4px;animation:drive 18s linear infinite}
+
+.overlay{
+  position:absolute;
+  left:12px;
+  right:12px;
+  display:flex;
+  justify-content:space-between;
+  font:bold 14px monospace;
+  color:#fff;
+  text-shadow:1px 1px #000;
+  pointer-events:none
+}
+
+.overlay.top{top:10px}
+
+.paused{
+  display:none;
+  position:absolute;
+  left:50%;
+  top:50%;
+  transform:translate(-50%,-50%);
+  padding:10px 18px;
+  background:#000a;
+  border:1px solid #fff;
+  font:bold 20px monospace
+}
+
+.screen.is-paused .paused{display:block}
+.screen.is-paused .vehicle,.screen.is-paused .noise{animation-play-state:paused}
+
+.timeline{
+  height:42px;
+  display:flex;
+  align-items:center;
+  gap:10px;
+  font-family:monospace
+}
+
+.timeline input{flex:1}
+
+footer{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:0 8px;
+  background:#c8d0d5;
+  color:#18232b;
+  border-top:1px solid #74848e
+}
+
+@keyframes drive{0%{left:-25%}100%{left:110%}}
+@keyframes flicker{50%{opacity:.17}}
+
+
+/* Fullscreen video and audio-control fixes */
+.screen video {
+  z-index: 2;
+  pointer-events: auto;
+}
+
+.screen .fallback {
+  z-index: 1;
+}
+
+.screen .overlay,
+.screen .paused {
+  z-index: 3;
+  pointer-events: none;
+}
+
+.screen:fullscreen,
+.screen:-webkit-full-screen {
+  width: 100vw;
+  height: 100vh;
+  background: #000;
+}
+
+.screen:fullscreen video,
+.screen:-webkit-full-screen video {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}

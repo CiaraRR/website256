@@ -1,0 +1,611 @@
+
+/* ==================================================
+   OPENBROWSE PRIVATE MODE
+   Used by:
+   - private_browsing.html
+   - private_results.html
+================================================== */
+
+*{
+    box-sizing:border-box;
+}
+
+body.private-mode{
+    margin:0;
+    min-width:760px;
+    background:#202124;
+    color:#e8eaed;
+    font-family:Arial,Verdana,sans-serif;
+}
+
+/* ==================================================
+   DARK BROWSER CHROME
+================================================== */
+
+.private-mode .browser{
+    background:linear-gradient(#565a61,#292c31);
+    border-bottom:1px solid #080808;
+    box-shadow:0 2px 5px rgba(0,0,0,.7);
+}
+
+.private-mode .titlebar{
+    background:linear-gradient(#676c74,#383c43);
+    color:#fff;
+    text-shadow:0 1px 1px #000;
+}
+
+.private-mode .topbar{
+    color:#fff;
+    background:#383c43;
+}
+
+.private-mode .toolbar{
+    background:linear-gradient(#4b5058,#292d33);
+}
+
+.private-mode .toolbtn{
+    color:#eee;
+    border:1px solid #111;
+    background:linear-gradient(#666b73,#353940);
+    box-shadow:
+        inset 1px 1px 0 rgba(255,255,255,.2),
+        0 1px 1px rgba(0,0,0,.5);
+}
+
+.private-mode .toolbtn:hover{
+    background:linear-gradient(#7a818b,#454a52);
+}
+
+.private-mode .addr{
+    color:#ddd;
+    background:#202226;
+    border:1px solid #090909;
+    box-shadow:
+        inset 0 1px 4px rgba(0,0,0,.85),
+        0 1px 0 rgba(255,255,255,.1);
+}
+
+.private-mode .icon{
+    color:#fff;
+}
+
+/* ==================================================
+   PRIVATE BROWSING START PAGE
+================================================== */
+
+.incognito-page{
+    min-height:1250px;
+    padding:48px 20px 180px;
+
+    background:
+        radial-gradient(
+            circle at 50% 5%,
+            rgba(100,103,110,.22),
+            transparent 42%
+        ),
+        #202124;
+}
+
+.incognito-card{
+    width:1100px;
+    max-width:calc(100% - 80px);
+    margin:0 auto;
+    text-align:center;
+}
+
+/* Black OpenBrowse logo */
+
+.openbrowse-private-logo{
+    width:118px;
+    height:118px;
+    margin:0 auto 28px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    border-radius:50%;
+    border:3px solid #08090b;
+
+    background:
+        radial-gradient(
+            circle at 35% 25%,
+            #666b72,
+            #111318 72%
+        );
+
+    box-shadow:
+        inset 0 2px 5px rgba(255,255,255,.22),
+        0 5px 14px rgba(0,0,0,.55);
+}
+
+.openbrowse-private-logo span{
+    color:#f1f3f4;
+    font-size:44px;
+    font-weight:bold;
+    letter-spacing:-2px;
+}
+
+/* Main heading */
+
+.incognito-card h1{
+    margin:0 0 22px;
+    color:#f1f3f4;
+    font-size:42px;
+    font-weight:normal;
+}
+
+/* Intro paragraph */
+
+.intro{
+    max-width:960px;
+    margin:0 auto 38px;
+
+    color:#bdc1c6;
+    font-size:18px;
+    line-height:1.55;
+    text-align:left;
+}
+
+/* Two information columns */
+
+.privacy-columns{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:80px;
+
+    max-width:1000px;
+    margin:0 auto;
+
+    text-align:left;
+}
+
+.privacy-columns h2{
+    margin:0 0 12px;
+    color:#e8eaed;
+    font-size:19px;
+}
+
+.privacy-columns ul{
+    margin:0;
+    padding-left:24px;
+
+    color:#bdc1c6;
+    font-size:17px;
+    line-height:1.7;
+}
+
+/* Dark information notice */
+
+.privacy-notice{
+    max-width:1000px;
+    margin:38px auto 0;
+    padding:22px 26px;
+
+    text-align:left;
+
+    background:#303134;
+    border:1px solid #3c4043;
+
+    color:#e8eaed;
+}
+
+.privacy-notice strong{
+    font-size:17px;
+}
+
+.privacy-notice p{
+    margin:8px 0 0;
+
+    color:#bdc1c6;
+    font-size:15px;
+    line-height:1.5;
+}
+
+/* Centred private search */
+
+.incognito-search{
+    width:820px;
+    max-width:100%;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    gap:14px;
+
+    margin:42px auto 0;
+}
+
+.incognito-search input{
+    flex:1;
+    min-width:0;
+    height:52px;
+
+    padding:8px 15px;
+
+    border:2px solid #4285f4;
+    border-radius:4px;
+
+    background:#303134;
+    color:#fff;
+
+    font-size:18px;
+    outline:none;
+}
+
+.incognito-search input::placeholder{
+    color:#8b8d91;
+}
+
+.incognito-search input:focus{
+    border-color:#69a1ff;
+    box-shadow:0 0 0 1px #69a1ff;
+}
+
+.incognito-search button{
+    width:145px;
+    height:52px;
+
+    border:1px solid #777;
+
+    background:linear-gradient(#fff,#cfd3d8);
+    color:#111;
+
+    font-size:18px;
+    cursor:pointer;
+}
+
+.incognito-search button:hover{
+    background:linear-gradient(#fff,#bcc2c9);
+}
+
+/* ==================================================
+   PRIVATE RESULTS PAGE
+================================================== */
+
+.private-search-page{
+    min-height:1450px;
+    padding:14px 25px 180px;
+
+    background:
+        radial-gradient(
+            circle at 50% 10%,
+            rgba(105,110,122,.45),
+            rgba(33,35,40,.95) 58%
+        ),
+        linear-gradient(#2d3036,#161719);
+}
+
+.private-banner{
+    padding:10px 20px;
+
+    color:#fff;
+
+    background:linear-gradient(#50545b,#2b2d31);
+    border-bottom:1px solid #111;
+
+    font-size:13px;
+}
+
+.private-results-panel{
+    width:1120px;
+    max-width:calc(100% - 40px);
+
+    margin:12px auto 100px;
+    padding:28px 42px 44px;
+
+    color:#222;
+
+    background:linear-gradient(#fafafa,#e8e8e8);
+    border:1px solid #050505;
+
+    box-shadow:
+        0 5px 20px rgba(0,0,0,.65),
+        inset 0 1px 0 #fff;
+}
+
+/* Results heading */
+
+.private-search-header{
+    display:flex;
+    align-items:center;
+    gap:24px;
+
+    padding-bottom:22px;
+
+    border-bottom:1px solid #bbb;
+}
+
+.private-icon{
+    width:82px;
+    height:82px;
+    flex:0 0 82px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    border-radius:50%;
+    border:3px solid #08090b;
+
+    color:#fff;
+
+    background:
+        radial-gradient(
+            circle at 35% 25%,
+            #666b72,
+            #111318 72%
+        );
+
+    box-shadow:
+        inset 0 2px 3px rgba(255,255,255,.3),
+        0 3px 8px rgba(0,0,0,.4);
+}
+
+.private-icon::before{
+    content:"OB";
+    font-size:28px;
+    font-weight:bold;
+}
+
+.private-search-header h1{
+    margin:0;
+
+    color:#25282d;
+
+    font-size:30px;
+    font-weight:normal;
+}
+
+/* Results search form */
+
+.private-form{
+    display:flex;
+    gap:10px;
+
+    margin-top:25px;
+}
+
+.private-form input{
+    flex:1;
+    min-width:0;
+    height:39px;
+
+    padding:6px 10px;
+
+    border:1px solid #777;
+    background:#fff;
+
+    font-size:16px;
+}
+
+.private-form button{
+    width:115px;
+    height:39px;
+
+    border:1px solid #333;
+
+    background:linear-gradient(#fff,#cfd3d8);
+
+    font-size:15px;
+    cursor:pointer;
+}
+
+.private-form button:hover{
+    background:linear-gradient(#fff,#bcc2c9);
+}
+
+.result-count{
+    margin:18px 0 22px;
+
+    color:#666;
+
+    font-size:13px;
+}
+
+.blank-results{
+    padding-top:22px;
+
+    border-top:1px solid #ccc;
+
+    color:#333;
+    font-style:normal;
+}
+
+/* Individual results */
+
+.private-result{
+    width:100%;
+    margin-bottom:24px;
+}
+
+.private-result a{
+    display:block;
+    max-width:900px;
+
+    color:#0000cc;
+
+    text-decoration:underline;
+
+    font-size:18px;
+    line-height:1.25;
+}
+
+.private-result cite{
+    display:block;
+
+    margin:3px 0;
+
+    color:#008000;
+
+    font-size:12px;
+    font-style:normal;
+}
+
+.private-result p{
+    max-width:920px;
+
+    margin:0;
+
+    color:#333;
+
+    font-size:13px;
+    line-height:1.4;
+}
+
+/* ==================================================
+   LINKS AND TASKBAR
+================================================== */
+
+.private-links{
+    margin-top:28px;
+
+    text-align:center;
+
+    font-size:13px;
+}
+
+.private-links a{
+    color:#0000cc;
+    text-decoration:underline;
+    cursor:pointer;
+}
+
+.private-mode .taskbar{
+    display:flex;
+    align-items:center;
+
+    background:linear-gradient(#27292d,#111);
+    border-top:1px solid #555;
+}
+
+.private-task{
+    margin-left:12px;
+    padding:3px 12px;
+
+    color:#fff;
+
+    background:linear-gradient(#555a62,#2c3036);
+    border:1px solid #080808;
+}
+
+.private-clock{
+    margin-left:auto;
+}
+
+/* ==================================================
+   RESPONSIVE
+================================================== */
+
+@media(max-width:800px){
+
+    body.private-mode{
+        min-width:0;
+    }
+
+    .incognito-page,
+    .private-search-page{
+        padding:24px 12px 120px;
+    }
+
+    .incognito-card,
+    .private-results-panel{
+        max-width:100%;
+    }
+
+    .incognito-card h1{
+        font-size:32px;
+    }
+
+    .intro{
+        font-size:15px;
+    }
+
+    .privacy-columns{
+        grid-template-columns:1fr;
+        gap:26px;
+    }
+
+    .privacy-columns ul{
+        font-size:15px;
+    }
+
+    .incognito-search,
+    .private-form{
+        display:block;
+        width:100%;
+    }
+
+    .incognito-search button,
+    .private-form button{
+        width:100%;
+        margin-top:8px;
+    }
+
+    .private-results-panel{
+        padding:24px 20px 30px;
+    }
+
+    .private-search-header{
+        display:block;
+        text-align:center;
+    }
+
+    .private-icon{
+        margin:0 auto 15px;
+    }
+}
+
+
+/* ===== FINAL REVIEW FIXES ===== */
+
+.private-mode .winbtn{
+    color:#fff;
+}
+
+.incognito-card{
+    padding-top:4px;
+}
+
+.openbrowse-private-logo,
+.private-icon{
+    user-select:none;
+}
+
+.private-results-panel{
+    overflow:hidden;
+}
+
+@media(min-width:1400px){
+    .incognito-card{
+        width:1000px;
+    }
+
+    .incognito-card h1{
+        font-size:38px;
+    }
+
+    .intro{
+        font-size:17px;
+    }
+
+    .privacy-columns ul{
+        font-size:16px;
+    }
+}
+
+
+.leave-private{
+    margin: 18px 0 40px;
+    text-align: center;
+}
+
+.leave-private a{
+    color: #8ab4f8;
+    font-size: 15px;
+    text-decoration: none;
+}
+
+.leave-private a:hover{
+    text-decoration: underline;
+}
