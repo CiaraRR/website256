@@ -4,7 +4,8 @@ mail:{name:'Mail',icon:'✉️',html:`<div class="generic"><div class="toolbar">
  weather:{name:'Weather',icon:'☁️',html:`<div class="generic"><div class="toolbar"><button class="btn">Refresh</button><button class="btn">Locations</button></div><div class="panel"><h2>West County Weather</h2><div style="font-size:58px">☁ 14°C</div><p>Cloudy, feels like 12°C</p><table border="1" cellpadding="8" cellspacing="0" style="border-collapse:collapse;width:100%"><tr><th>Day</th><th>Condition</th><th>High</th><th>Low</th></tr><tr><td>Today</td><td>Cloudy</td><td>14°</td><td>8°</td></tr><tr><td>Saturday</td><td>Light rain</td><td>15°</td><td>9°</td></tr><tr><td>Sunday</td><td>Windy</td><td>13°</td><td>7°</td></tr></table></div></div>`},
  terminal:{name:'Command Prompt',icon:'⌨️',html:`<div class="term">Microsoft Windows [Version 6.1.7601]<br>Copyright (c) 2009 Microsoft Corporation. All rights reserved.<br><br>C:\\Users\\Office&gt; network_check<br>Checking local network ........ OK<br>File server ................... CONNECTED<br>Network devices ............... 8 ONLINE<br>Backup status ................. COMPLETED 02:00<br><br>C:\\Users\\Office&gt; _</div>`},
  settings:{name:'Control Panel',icon:'⚙️',html:`<div class="generic"><div class="toolbar"><button class="btn">Control Panel Home</button></div><div class="panel"><h2>Adjust your computer's settings</h2><div class="filegrid"><div class="file"><b>🖥️</b>System and Security</div><div class="file"><b>🌐</b>Network and Internet</div><div class="file"><b>🔊</b>Hardware and Sound</div><div class="file"><b>👤</b>User Accounts</div><div class="file"><b>🎨</b>Appearance</div><div class="file"><b>🕒</b>Clock and Region</div></div></div></div>`},
-  browser:{name:'OpenBrowse',icon:'🌐',kind:'iframe',src:'internet.html'}
+  browser:{name:'OpenBrowse',icon:'🌐',kind:'iframe',src:'internet.html'},
+audioLab:{name:'AudioLab Pro',icon:'🎧',kind:'iframe',src:'audiolab.html'}
  
 };
 
@@ -38,6 +39,128 @@ function buildLauncherItems() {
             toggleStartMenu(false);
         });
         startMenuItems.appendChild(startItem);
+    });
+}
+
+
+
+let activeAudioDropOverlay = null;
+
+function removeAudioDropOverlay() {
+    activeAudioDropOverlay?.remove();
+    activeAudioDropOverlay = null;
+}
+
+function showAudioDropOverlay(recording) {
+    removeAudioDropOverlay();
+
+    const audioWindow = openWindows.get("audioLab");
+    if (!audioWindow || audioWindow.style.display === "none") return;
+
+    const body = audioWindow.querySelector(".body");
+    const frame = audioWindow.querySelector("iframe");
+    if (!body || !frame) return;
+
+    const overlay = document.createElement("div");
+    overlay.className = "audio-drop-overlay";
+    overlay.innerHTML = `
+        <div>
+            <strong>Drop recording into AudioLab Pro</strong>
+            <span>${recording.name}</span>
+        </div>
+    `;
+
+    overlay.addEventListener("dragenter", event => {
+        event.preventDefault();
+        overlay.classList.add("ready");
+    });
+
+    overlay.addEventListener("dragover", event => {
+        event.preventDefault();
+        event.dataTransfer.dropEffect = "copy";
+        overlay.classList.add("ready");
+    });
+
+    overlay.addEventListener("dragleave", event => {
+        if (event.relatedTarget && overlay.contains(event.relatedTarget)) return;
+        overlay.classList.remove("ready");
+    });
+
+    overlay.addEventListener("drop", event => {
+        event.preventDefault();
+        event.stopPropagation();
+
+        frame.contentWindow?.postMessage({
+            type: "load-prop-audio",
+            name: recording.name,
+            src: recording.src,
+            label: recording.label
+        }, "*");
+
+        removeAudioDropOverlay();
+        focusWindow(audioWindow);
+    });
+
+    body.appendChild(overlay);
+    activeAudioDropOverlay = overlay;
+}
+
+function buildPropRecordingFiles() {
+    const recordings = [
+        {
+            name: "Recording_01.wav",
+            src: "recordings/Recording_01.wav",
+            label: "",
+        }
+    ];
+
+    recordings.forEach(recording => {
+        const item = document.createElement("div");
+        item.className = "icon prop-file";
+        item.draggable = true;
+        item.title = "Drag this recording into AudioLab Pro";
+        item.innerHTML = `
+            <div class="ico">🎵</div>
+            <span>${recording.name}</span>
+        `;
+
+        item.addEventListener("dragstart", event => {
+            const payload = JSON.stringify({
+                type: "prop-audio",
+                name: recording.name,
+                src: recording.src,
+                label: recording.label
+            });
+
+            event.dataTransfer.effectAllowed = "copy";
+            event.dataTransfer.setData("application/x-openbrowse-audio", payload);
+            event.dataTransfer.setData("text/plain", payload);
+
+            // Put a real drop target above the iframe. Without this overlay,
+            // some browsers stop the drag when the cursor crosses into an iframe.
+            window.setTimeout(() => showAudioDropOverlay(recording), 0);
+        });
+
+        item.addEventListener("dragend", () => {
+            window.setTimeout(removeAudioDropOverlay, 50);
+        });
+
+        item.addEventListener("dblclick", () => {
+            openApp("audioLab");
+
+            window.setTimeout(() => {
+                const audioWindow = openWindows.get("audioLab");
+                const frame = audioWindow?.querySelector("iframe");
+                frame?.contentWindow?.postMessage({
+                    type: "load-prop-audio",
+                    name: recording.name,
+                    src: recording.src,
+                    label: recording.label
+                }, "*");
+            }, 350);
+        });
+
+        desktopIcons.appendChild(item);
     });
 }
 
@@ -134,6 +257,8 @@ function focusWindow(windowElement) {
 }
 
 function closeApp(id) {
+    if (id === "audioLab") removeAudioDropOverlay();
+
     const windowElement = openWindows.get(id);
     windowElement?.remove();
     openWindows.delete(id);
@@ -149,6 +274,13 @@ function minimizeApp(id) {
     document.querySelector(`.task[data-id="${id}"]`)?.classList.remove("on");
 }
 
+function createPointerShield(mode) {
+    const shield = document.createElement("div");
+    shield.className = "desktop-pointer-shield" + (mode === "resize" ? " resize-mode" : "");
+    document.body.appendChild(shield);
+    return shield;
+}
+
 function makeDraggable(windowElement) {
     const titlebar = windowElement.querySelector(".titlebar");
     let dragging = false;
@@ -156,32 +288,54 @@ function makeDraggable(windowElement) {
     let startY = 0;
     let startLeft = 0;
     let startTop = 0;
+    let shield = null;
 
     titlebar.addEventListener("mousedown", event => {
         if (
+            event.button !== 0 ||
             event.target.tagName === "BUTTON" ||
             windowElement.classList.contains("max")
         ) {
             return;
         }
 
+        event.preventDefault();
         dragging = true;
         startX = event.clientX;
         startY = event.clientY;
         startLeft = windowElement.offsetLeft;
         startTop = windowElement.offsetTop;
         focusWindow(windowElement);
-    });
 
-    document.addEventListener("mousemove", event => {
-        if (!dragging) return;
+        document.body.classList.add("window-moving");
+        shield = createPointerShield("move");
 
-        windowElement.style.left = `${startLeft + event.clientX - startX}px`;
-        windowElement.style.top = `${Math.max(0, startTop + event.clientY - startY)}px`;
-    });
+        const move = moveEvent => {
+            if (!dragging) return;
 
-    document.addEventListener("mouseup", () => {
-        dragging = false;
+            const requestedLeft = startLeft + moveEvent.clientX - startX;
+            const requestedTop = startTop + moveEvent.clientY - startY;
+
+            // Keep enough of the title bar visible to recover the window.
+            const minLeft = -windowElement.offsetWidth + 120;
+            const maxLeft = desktop.clientWidth - 120;
+            const maxTop = Math.max(0, desktop.clientHeight - 34);
+
+            windowElement.style.left = `${Math.max(minLeft, Math.min(maxLeft, requestedLeft))}px`;
+            windowElement.style.top = `${Math.max(0, Math.min(maxTop, requestedTop))}px`;
+        };
+
+        const stop = () => {
+            dragging = false;
+            document.body.classList.remove("window-moving");
+            shield?.remove();
+            shield = null;
+            document.removeEventListener("mousemove", move, true);
+            document.removeEventListener("mouseup", stop, true);
+        };
+
+        document.addEventListener("mousemove", move, true);
+        document.addEventListener("mouseup", stop, true);
     });
 }
 
@@ -192,9 +346,10 @@ function makeResizable(windowElement) {
     let startY = 0;
     let startWidth = 0;
     let startHeight = 0;
+    let shield = null;
 
     handle.addEventListener("mousedown", event => {
-        if (windowElement.classList.contains("max")) return;
+        if (event.button !== 0 || windowElement.classList.contains("max")) return;
 
         event.preventDefault();
         event.stopPropagation();
@@ -205,24 +360,38 @@ function makeResizable(windowElement) {
         startWidth = windowElement.offsetWidth;
         startHeight = windowElement.offsetHeight;
         focusWindow(windowElement);
-    });
 
-    document.addEventListener("mousemove", event => {
-        if (!resizing) return;
+        document.body.classList.add("window-resizing");
+        shield = createPointerShield("resize");
 
-        const maximumWidth = window.innerWidth - windowElement.offsetLeft;
-        const maximumHeight = desktop.clientHeight - windowElement.offsetTop;
-        const requestedWidth = startWidth + event.clientX - startX;
-        const requestedHeight = startHeight + event.clientY - startY;
+        const move = moveEvent => {
+            if (!resizing) return;
 
-        windowElement.style.width = `${Math.max(420, Math.min(maximumWidth, requestedWidth))}px`;
-        windowElement.style.height = `${Math.max(300, Math.min(maximumHeight, requestedHeight))}px`;
-    });
+            const maximumWidth = Math.max(420, desktop.clientWidth - windowElement.offsetLeft);
+            const maximumHeight = Math.max(300, desktop.clientHeight - windowElement.offsetTop);
+            const requestedWidth = startWidth + moveEvent.clientX - startX;
+            const requestedHeight = startHeight + moveEvent.clientY - startY;
 
-    document.addEventListener("mouseup", () => {
-        resizing = false;
+            windowElement.style.width =
+                `${Math.max(420, Math.min(maximumWidth, requestedWidth))}px`;
+            windowElement.style.height =
+                `${Math.max(300, Math.min(maximumHeight, requestedHeight))}px`;
+        };
+
+        const stop = () => {
+            resizing = false;
+            document.body.classList.remove("window-resizing");
+            shield?.remove();
+            shield = null;
+            document.removeEventListener("mousemove", move, true);
+            document.removeEventListener("mouseup", stop, true);
+        };
+
+        document.addEventListener("mousemove", move, true);
+        document.addEventListener("mouseup", stop, true);
     });
 }
+
 
 function toggleStartMenu(force) {
     const shouldOpen = force ?? !startMenu.classList.contains("open");
@@ -235,9 +404,7 @@ function updateClock() {
     if (!clock) return;
 
     const FILM_TIME = "14:36";
-    const FILM_DATE = "04/06/2011";
-
-    clock.innerHTML = `${FILM_TIME}<br>${FILM_DATE}`;
+    clock.textContent = FILM_TIME;
 }
 
 startButton.addEventListener("click", () => toggleStartMenu());
@@ -266,6 +433,7 @@ shutdownButton?.addEventListener("click", event => {
 
 window.addEventListener("DOMContentLoaded", () => {
     buildLauncherItems();
+    buildPropRecordingFiles();
     updateClock();
 
     openApp("sheets");
