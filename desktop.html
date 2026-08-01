@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Desktop</title>
+    <link rel="stylesheet" href="stylesheets/stylesdesktop.css">
+</head>
+<body>
+    <main id="desktop">
+        <div class="icons" id="icons"></div>
+    </main>
+
+    <section class="startmenu" id="menu" aria-hidden="true">
+        <header class="starttop">
+            <div class="userpic">PQ</div>
+            Patrick Quirke
+        </header>
+
+        <div class="startleft" id="startleft"></div>
+
+        <nav class="startright" aria-label="System locations">
+            <div class="startitem">Documents</div>
+            <div class="startitem">Pictures</div>
+            <div class="startitem">Computer</div>
+            <div class="startitem">Control Panel</div>
+            <div class="startitem">Devices and Printers</div>
+            <div class="startitem">Help and Support</div>
+        </nav>
+
+        <input class="searchbox" type="search" placeholder="Search programs and files">
+        <button class="shutdown" type="button">Shut down</button>
+    </section>
+
+    <footer class="taskbar">
+        <button class="orb" id="orb" type="button" aria-label="Open Start menu">⊞</button>
+        <div class="tasks" id="tasks"></div>
+        <div class="tray">
+            <span>▲</span>
+            <span>📶</span>
+            <span>🔊</span>
+           
+        </div>
+    </footer>
+
+    <script src="javascrips/app.js"></script>
+</body>
+</html>
