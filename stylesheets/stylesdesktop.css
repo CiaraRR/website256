@@ -317,3 +317,107 @@ body:before {
     font:14px Consolas,monospace;
     padding:15px;
     line-height:1.55}
+
+/* Draggable prop recording */
+.prop-file {
+    cursor: grab;
+}
+.prop-file:active {
+    cursor: grabbing;
+}
+.prop-file .ico {
+    position: relative;
+}
+.prop-file .ico::after {
+    content: "WAV";
+    position: absolute;
+    right: 3px;
+    bottom: 2px;
+    padding: 1px 3px;
+    border: 1px solid #7d8f9c;
+    background: #eef5f8;
+    color: #27465b;
+    font-size: 8px;
+    line-height: 10px;
+    text-shadow: none;
+}
+
+
+/* Two-monitor / stretched-browser support */
+html, body {
+    min-width: 100%;
+    min-height: 100%;
+}
+
+#desktop {
+    width: 100vw;
+    max-width: none;
+    overflow: hidden;
+}
+
+/* This transparent layer prevents iframes from swallowing mouse events
+   while an application window is being dragged or resized. */
+.desktop-pointer-shield {
+    position: fixed;
+    inset: 0;
+    z-index: 2147483000;
+    background: transparent;
+    cursor: move;
+}
+
+.desktop-pointer-shield.resize-mode {
+    cursor: nwse-resize;
+}
+
+body.window-moving,
+body.window-resizing {
+    user-select: none;
+}
+
+
+/* Reliable desktop-file drop target above the AudioLab iframe */
+.window .body {
+    position: relative;
+}
+
+.audio-drop-overlay {
+    position: absolute;
+    inset: 0;
+    z-index: 5000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(211, 225, 236, 0.76);
+    border: 4px dashed rgba(38, 92, 132, 0.75);
+    color: #173d59;
+    text-align: center;
+    pointer-events: auto;
+}
+
+.audio-drop-overlay > div {
+    min-width: 310px;
+    padding: 24px 30px;
+    border: 1px solid #547d99;
+    border-radius: 5px;
+    background: linear-gradient(#ffffff, #dcecf6);
+    box-shadow: 0 5px 18px rgba(0,0,0,.28);
+}
+
+.audio-drop-overlay strong,
+.audio-drop-overlay span {
+    display: block;
+}
+
+.audio-drop-overlay strong {
+    margin-bottom: 8px;
+    font-size: 18px;
+}
+
+.audio-drop-overlay span {
+    font-size: 13px;
+}
+
+.audio-drop-overlay.ready {
+    background: rgba(193, 224, 246, 0.9);
+    border-color: #0b5fa1;
+}
