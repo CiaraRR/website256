@@ -1,0 +1,379 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AudioLab Pro</title>
+<style>
+*{box-sizing:border-box}
+html,body{margin:0;width:100%;height:100%;overflow:hidden;font-family:Tahoma,"Segoe UI",Arial,sans-serif;color:#111;background:#c8c8c8}
+.app{height:100%;display:flex;flex-direction:column;background:#bdbdbd}
+.menu{height:24px;display:flex;align-items:center;gap:20px;padding:0 9px;border-bottom:1px solid #8d8d8d;background:linear-gradient(#f4f4f4,#d8d8d8);font-size:12px}
+.toolbar{min-height:70px;display:flex;align-items:center;gap:10px;padding:6px 8px;border-bottom:1px solid #7f7f7f;background:linear-gradient(#ececec,#c9c9c9)}
+.transport{display:flex;gap:5px;padding-right:12px;border-right:1px solid #999}
+.tool{width:43px;height:43px;border:1px solid #777;border-radius:3px;background:linear-gradient(#fff,#cfcfcf);font-size:21px;box-shadow:inset 0 1px #fff;cursor:pointer}
+.tool:active{background:linear-gradient(#bfcfe0,#e7f1fa)}
+.tool[disabled]{opacity:.45;cursor:default}
+.record{color:#b00000}
+.meters{display:flex;flex-direction:column;gap:5px;min-width:170px;font-size:11px}
+.meter{height:13px;border:1px solid #5a5a5a;background:#202020;padding:1px}
+.meter-fill{width:12%;height:100%;background:linear-gradient(90deg,#34ad49,#c8d632,#e18b21)}
+.timebox{margin-left:auto;padding:4px 10px;border:2px inset #ddd;background:#171717;color:#64e5ff;font:24px Consolas,monospace;letter-spacing:1px}
+.project{flex:1;display:flex;flex-direction:column;overflow:hidden;background:#737373}
+.ruler{height:28px;margin-left:150px;position:relative;border-bottom:1px solid #333;background:#dedede;overflow:hidden}
+.ruler-labels{position:absolute;inset:0;display:flex;justify-content:space-between;padding:7px 8px 0;font-size:10px;color:#222}
+.track{flex:1;min-height:170px;display:grid;grid-template-columns:150px 1fr;margin:5px;border:1px solid #343434;background:#d8d8d8}
+.track-panel{padding:8px;border-right:1px solid #444;background:linear-gradient(#d5e4ee,#9fb7c8);font-size:11px}
+.track-name{font-weight:bold;margin-bottom:8px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.track-btn{width:56px;margin:2px 1px;border:1px solid #666;background:#ddd;font-size:10px}
+.gain{width:100%;margin-top:8px}
+.wave-area{position:relative;overflow:hidden;background:#d6d6d6}
+canvas{display:block;width:100%;height:100%}
+.playhead{position:absolute;top:0;bottom:0;left:0;width:2px;background:#d80000;pointer-events:none}
+.drop-message{position:absolute;inset:18px;display:flex;align-items:center;justify-content:center;border:2px dashed #666;background:rgba(255,255,255,.72);font-size:16px;color:#333;text-align:center}
+.wave-area.dragover .drop-message{border-color:#173f8f;background:rgba(217,235,255,.9);color:#173f8f}
+.status{height:26px;display:flex;align-items:center;padding:0 9px;border-top:1px solid #777;background:linear-gradient(#eee,#c9c9c9);font-size:11px}
+.status span:last-child{margin-left:auto}
+.hidden{display:none}
+</style>
+</head>
+<body>
+<div class="app">
+  <div class="menu"><span>File</span><span>Edit</span><span>View</span><span>Transport</span><span>Tracks</span><span>Generate</span><span>Effect</span><span>Analyze</span><span>Help</span></div>
+
+  <div class="toolbar">
+    <div class="transport">
+      <button class="tool" id="skipStart" title="Skip to Start">⏮</button>
+      <button class="tool" id="play" title="Play">▶</button>
+      <button class="tool" id="pause" title="Pause">Ⅱ</button>
+      <button class="tool" id="stop" title="Stop">■</button>
+      <button class="tool record" title="Record (prop only)">●</button>
+      <button class="tool" id="skipEnd" title="Skip to End">⏭</button>
+    </div>
+
+    <div class="meters">
+      <div>Playback level</div>
+      <div class="meter"><div class="meter-fill" id="meterFill"></div></div>
+      <div>Microphone level</div>
+      <div class="meter"><div class="meter-fill" style="width:4%"></div></div>
+    </div>
+
+    <button class="tool" id="openFile" title="Import an audio file">📂</button>
+    <input id="fileInput" type="file" accept="audio/*" hidden>
+    <div class="timebox" id="time">00:00.000</div>
+  </div>
+
+  <div class="project">
+    <div class="ruler"><div class="ruler-labels" id="ruler"></div></div>
+    <div class="track">
+      <div class="track-panel">
+        <div class="track-name" id="trackName">Audio Track</div>
+        <button class="track-btn">Mute</button><button class="track-btn">Solo</button>
+        <div style="margin-top:9px">Mono, 44100Hz<br>32-bit float</div>
+        <input class="gain" type="range" min="0" max="1" step=".01" value=".85" id="gain">
+      </div>
+      <div class="wave-area" id="dropZone">
+        <canvas id="wave"></canvas>
+        <div class="playhead" id="playhead"></div>
+        <div class="drop-message" id="dropMessage">
+          Drag Recording_01.wav here<br>or click the folder button
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="status"><span id="status">Stopped.</span><span id="selection">Project Rate (Hz): 44100</span></div>
+</div>
+
+<audio id="audio" preload="metadata"></audio>
+
+<script>
+const audio = document.getElementById("audio");
+const canvas = document.getElementById("wave");
+const ctx = canvas.getContext("2d");
+const dropZone = document.getElementById("dropZone");
+const dropMessage = document.getElementById("dropMessage");
+const playhead = document.getElementById("playhead");
+const trackName = document.getElementById("trackName");
+const statusText = document.getElementById("status");
+const timeText = document.getElementById("time");
+const meterFill = document.getElementById("meterFill");
+const fileInput = document.getElementById("fileInput");
+const gain = document.getElementById("gain");
+let objectUrl = null;
+let animationId = null;
+
+function formatTime(seconds) {
+  if (!Number.isFinite(seconds)) seconds = 0;
+  const minutes = Math.floor(seconds / 60);
+  const secs = Math.floor(seconds % 60);
+  const ms = Math.floor((seconds % 1) * 1000);
+  return `${String(minutes).padStart(2,"0")}:${String(secs).padStart(2,"0")}.${String(ms).padStart(3,"0")}`;
+}
+
+function resizeCanvas() {
+  const ratio = window.devicePixelRatio || 1;
+  canvas.width = Math.max(1, Math.floor(canvas.clientWidth * ratio));
+  canvas.height = Math.max(1, Math.floor(canvas.clientHeight * ratio));
+  ctx.setTransform(ratio,0,0,ratio,0,0);
+  if (trackName.textContent && trackName.textContent !== "Audio Track") {
+    drawSyntheticWaveform(trackName.textContent);
+  } else {
+    drawPlaceholder();
+  }
+}
+
+function drawPlaceholder() {
+  const w = canvas.clientWidth;
+  const h = canvas.clientHeight;
+  ctx.clearRect(0,0,w,h);
+  ctx.strokeStyle = "#8b8b8b";
+  ctx.lineWidth = 1;
+  ctx.beginPath();
+  ctx.moveTo(0,h/2);
+  ctx.lineTo(w,h/2);
+  ctx.stroke();
+}
+
+function drawSyntheticWaveform(seedText = "Recording_01.wav") {
+  const w = canvas.clientWidth;
+  const h = canvas.clientHeight;
+  let seed = 0;
+
+  for (let i = 0; i < seedText.length; i++) {
+    seed = (seed * 31 + seedText.charCodeAt(i)) >>> 0;
+  }
+
+  function random() {
+    seed = (1664525 * seed + 1013904223) >>> 0;
+    return seed / 4294967296;
+  }
+
+  ctx.clearRect(0, 0, w, h);
+  ctx.fillStyle = "#d6d6d6";
+  ctx.fillRect(0, 0, w, h);
+
+  // Draw subtle vertical timeline divisions.
+  ctx.strokeStyle = "rgba(80,80,80,.18)";
+  ctx.lineWidth = 1;
+  for (let x = 0; x < w; x += 80) {
+    ctx.beginPath();
+    ctx.moveTo(x, 0);
+    ctx.lineTo(x, h);
+    ctx.stroke();
+  }
+
+  // Draw a convincing speech-style waveform.
+  ctx.strokeStyle = "#18276f";
+  ctx.lineWidth = 1;
+  ctx.beginPath();
+
+  let envelope = 0.18;
+  for (let x = 0; x < w; x++) {
+    if (x % 24 === 0) {
+      envelope = 0.10 + random() * 0.78;
+    }
+
+    const phraseGap =
+      (x > w * 0.18 && x < w * 0.22) ||
+      (x > w * 0.47 && x < w * 0.51) ||
+      (x > w * 0.73 && x < w * 0.77);
+
+    const localEnvelope = phraseGap ? envelope * 0.12 : envelope;
+    const detail =
+      Math.sin(x * 0.41) * 0.36 +
+      Math.sin(x * 0.13) * 0.28 +
+      (random() - 0.5) * 0.72;
+
+    const amplitude = Math.max(2, Math.abs(detail) * localEnvelope * h * 0.46);
+    ctx.moveTo(x, h / 2 - amplitude);
+    ctx.lineTo(x, h / 2 + amplitude);
+  }
+  ctx.stroke();
+
+  ctx.strokeStyle = "#666";
+  ctx.beginPath();
+  ctx.moveTo(0, h / 2);
+  ctx.lineTo(w, h / 2);
+  ctx.stroke();
+}
+
+function drawWaveform(buffer) {
+  const data = buffer.getChannelData(0);
+  const w = canvas.clientWidth;
+  const h = canvas.clientHeight;
+  ctx.clearRect(0,0,w,h);
+  ctx.fillStyle = "#d6d6d6";
+  ctx.fillRect(0,0,w,h);
+  ctx.strokeStyle = "#1c296a";
+  ctx.lineWidth = 1;
+  ctx.beginPath();
+
+  const samplesPerPixel = Math.max(1, Math.floor(data.length / w));
+  for (let x = 0; x < w; x++) {
+    let min = 1, max = -1;
+    const start = x * samplesPerPixel;
+    const end = Math.min(data.length, start + samplesPerPixel);
+    for (let i = start; i < end; i++) {
+      const value = data[i];
+      if (value < min) min = value;
+      if (value > max) max = value;
+    }
+    ctx.moveTo(x, (1 + min) * h / 2);
+    ctx.lineTo(x, (1 + max) * h / 2);
+  }
+  ctx.stroke();
+
+  ctx.strokeStyle = "#777";
+  ctx.beginPath();
+  ctx.moveTo(0,h/2);
+  ctx.lineTo(w,h/2);
+  ctx.stroke();
+}
+
+async function analyseBlob(blob) {
+  try {
+    const arrayBuffer = await blob.arrayBuffer();
+    const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+    const decoded = await audioContext.decodeAudioData(arrayBuffer.slice(0));
+    drawWaveform(decoded);
+    await audioContext.close();
+  } catch {
+    drawSyntheticWaveform(trackName.textContent || "Audio Track");
+  }
+}
+
+async function loadLocalFile(file) {
+  if (!file || !file.type.startsWith("audio/")) {
+    statusText.textContent = "Unsupported file. Choose a WAV or MP3 recording.";
+    return;
+  }
+  if (objectUrl) URL.revokeObjectURL(objectUrl);
+  objectUrl = URL.createObjectURL(file);
+  audio.src = objectUrl;
+  trackName.textContent = file.name;
+  dropMessage.classList.add("hidden");
+  statusText.textContent = "Imported " + file.name;
+  await analyseBlob(file);
+}
+
+async function loadPropAudio(info) {
+  trackName.textContent = info.name || "Recording_01.wav";
+  statusText.textContent = "Loading " + trackName.textContent + "...";
+  audio.src = info.src;
+  dropMessage.classList.add("hidden");
+
+  try {
+    const response = await fetch(info.src);
+    if (!response.ok) throw new Error("missing");
+    const blob = await response.blob();
+    await analyseBlob(blob);
+    statusText.textContent = info.label || ("Imported " + trackName.textContent);
+  } catch {
+    // Browsers opened with file:/// often block fetch() even though the
+    // relative audio file itself can still play. Show a stable prop waveform
+    // instead of replacing the track with an error message.
+    drawSyntheticWaveform(info.name || "Recording_01.wav");
+    dropMessage.classList.add("hidden");
+    statusText.textContent = info.label || ("Imported " + trackName.textContent);
+  }
+}
+
+function updatePlayback() {
+  const duration = audio.duration || 0;
+  const current = audio.currentTime || 0;
+  timeText.textContent = formatTime(current);
+  playhead.style.left = (duration ? current / duration * 100 : 0) + "%";
+  meterFill.style.width = audio.paused ? "8%" : (22 + Math.random() * 68) + "%";
+  if (!audio.paused) animationId = requestAnimationFrame(updatePlayback);
+}
+
+document.getElementById("play").addEventListener("click", async () => {
+  if (!audio.src) return;
+  audio.volume = Number(gain.value);
+  try {
+    await audio.play();
+    statusText.textContent = "Playing.";
+    cancelAnimationFrame(animationId);
+    updatePlayback();
+  } catch {
+    statusText.textContent = "Unable to play the recording.";
+  }
+});
+
+document.getElementById("pause").addEventListener("click", () => {
+  audio.pause();
+  statusText.textContent = "Paused.";
+  updatePlayback();
+});
+
+document.getElementById("stop").addEventListener("click", () => {
+  audio.pause();
+  audio.currentTime = 0;
+  statusText.textContent = "Stopped.";
+  updatePlayback();
+});
+
+document.getElementById("skipStart").addEventListener("click", () => {
+  audio.currentTime = 0;
+  updatePlayback();
+});
+
+document.getElementById("skipEnd").addEventListener("click", () => {
+  if (Number.isFinite(audio.duration)) audio.currentTime = audio.duration;
+  updatePlayback();
+});
+
+document.getElementById("openFile").addEventListener("click", () => fileInput.click());
+fileInput.addEventListener("change", () => loadLocalFile(fileInput.files[0]));
+gain.addEventListener("input", () => audio.volume = Number(gain.value));
+audio.addEventListener("ended", () => {
+  statusText.textContent = "Stopped.";
+  updatePlayback();
+});
+audio.addEventListener("loadedmetadata", () => {
+  const labels = [];
+  const duration = audio.duration || 0;
+  for (let i=0;i<=5;i++) labels.push(formatTime(duration*i/5).slice(0,5));
+  document.getElementById("ruler").innerHTML = labels.map(x=>`<span>${x}</span>`).join("");
+});
+
+["dragenter","dragover"].forEach(type => dropZone.addEventListener(type, event => {
+  event.preventDefault();
+  event.stopPropagation();
+  dropZone.classList.add("dragover");
+  event.dataTransfer.dropEffect = "copy";
+}));
+
+["dragleave","drop"].forEach(type => dropZone.addEventListener(type, event => {
+  event.preventDefault();
+  event.stopPropagation();
+  dropZone.classList.remove("dragover");
+}));
+
+dropZone.addEventListener("drop", event => {
+  const file = event.dataTransfer.files && event.dataTransfer.files[0];
+  if (file) {
+    loadLocalFile(file);
+    return;
+  }
+
+  const raw = event.dataTransfer.getData("application/x-openbrowse-audio")
+           || event.dataTransfer.getData("text/plain");
+  try {
+    const info = JSON.parse(raw);
+    if (info.type === "prop-audio") loadPropAudio(info);
+  } catch {
+    statusText.textContent = "The dropped item is not an audio recording.";
+  }
+});
+
+window.addEventListener("message", event => {
+  if (event.data?.type === "load-prop-audio") loadPropAudio(event.data);
+});
+
+window.addEventListener("resize", resizeCanvas);
+resizeCanvas();
+</script>
+</body>
+</html>
