@@ -10,7 +10,7 @@ const apps = {
     name:'OpenBrowse',
     iconClass:'fi-browser',
     kind:'iframe',
-    src:'internet2.html'
+    src:'flyzip_website.html'
   },
   sheets:{
     name:'SheetWorks',
