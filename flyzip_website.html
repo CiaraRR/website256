@@ -7,7 +7,7 @@
     <div class="menu-item"><button class="menu-button">File</button><div class="menu-dropdown"><a>New Tab</a><a>New Window</a><a>New Private Window</a><div class="menu-separator"></div><a>Save Page As…</a><a>Print…</a></div></div>
     <button class="menu-button">Edit</button><button class="menu-button">View</button><button class="menu-button">Bookmarks</button><button class="menu-button">Tools</button><button class="menu-button">Help</button>
   </div>
-  <div class="toolbar"><button class="toolbtn" onclick="history.back()">‹</button><button class="toolbtn" onclick="history.forward()">›</button><button class="toolbtn" onclick="location.reload()">↻</button><button class="toolbtn">✕</button><div class="addr">https://www.flyzip.ie/manage-booking<span class="icons"><span class="icon" onclick="location.href='internet.html'">⌂</span><span class="icon">★</span><span class="icon">⚙</span></span></div></div>
+  <div class="toolbar"><button class="toolbtn" onclick="history.back()">‹</button><button class="toolbtn" onclick="history.forward()">›</button><button class="toolbtn" onclick="location.reload()">↻</button><button class="toolbtn">✕</button><div class="addr">https://www.flyzip.ie/manage-booking<span class="icons"><span class="icon" onclick="location.href='internet2.html'">⌂</span><span class="icon">★</span><span class="icon">⚙</span></span></div></div>
 </div>
 <div class="fz-shell"><header class="fz-head"><div class="fz-logo">FlyZip<small>AIRWAYS</small></div><div style="float:right;margin-top:-34px">Ireland &nbsp; | &nbsp; Help &nbsp; | &nbsp; Contact</div></header>
 <nav class="fz-nav"><a>Book Flights</a><a>Manage Booking</a><a>Online Check-in</a><a>Flight Status</a><a>Travel Information</a></nav>
@@ -32,8 +32,8 @@ printButton.addEventListener("click",function(){
  printButton.disabled=true;generating.style.display="inline";
  setTimeout(function(){
   generating.style.display="none";bar.classList.add("show");
-  const a=document.createElement("a");a.href="flyzip_boarding_passes_2011.pdf";a.download="FlyZip_Boarding_Passes.pdf";document.body.appendChild(a);a.click();a.remove();
-  setTimeout(function(){state.textContent="Download complete — 412 KB";actions.style.display="block";window.parent.postMessage({type:"flyzip-download-complete"},"*");},1100);
+  // Film prop only: simulate a download. Do NOT trigger a real browser download.
+setTimeout(function(){state.textContent="Download complete — 412 KB";actions.style.display="block";window.parent.postMessage({type:"flyzip-download-complete"},"*");},1100);
  },900);
 });
 document.getElementById("openPdf").addEventListener("click",function(){window.parent.postMessage({type:"flyzip-open-pdf"},"*");});
