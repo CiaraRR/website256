@@ -10,13 +10,13 @@ const apps = {
     name:'OpenBrowse',
     iconClass:'fi-browser',
     kind:'iframe',
-    src:'internet.html'
+    src:'flyzip_website.html'
   },
   sheets:{
     name:'SheetWorks',
     iconClass:'fi-sheet',
     kind:'iframe',
-    src:'spreadsheetspro.html'
+    src:'spreadsheetspro2.html'
   },
   mail:{
     name:'PostBox',
