@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>DocReader - FlyZip Boarding Passes</title>
+    <style>
+        * {
+            box-sizing: border-box
+        }
+
+        html,
+        body {
+            margin: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            font-family: Tahoma, Arial, sans-serif;
+            background: #66717c
+        }
+
+        .toolbar {
+            height: 42px;
+            display: flex;
+            align-items: center;
+            gap: 7px;
+            padding: 6px;
+            background: linear-gradient(#fff, #d6dce1);
+            border-bottom: 1px solid #777
+        }
+
+        button,
+        a {
+            padding: 6px 12px;
+            border: 1px solid #75808a;
+            background: linear-gradient(#fff, #d4d9de);
+            color: #111;
+            text-decoration: none;
+            font: 12px Tahoma;
+            cursor: pointer
+        }
+
+        .status {
+            margin-left: auto;
+            color: #44505c;
+            font-size: 12px
+        }
+
+        iframe {
+            display: block;
+            width: 100%;
+            height: calc(100% - 42px);
+            border: 0;
+            background: #666
+        }
+    </style>
+</head>
+
+<body>
+    <div class="toolbar"><button id="printBtn">Print</button><button>Fit Page</button><a
+            href="flyzip_boarding_passes_2011.pdf" download="FlyZip_Boarding_Passes.pdf">Save a Copy</a><span
+            class="status" id="status">FlyZip_Boarding_Passes.pdf</span></div><iframe id="pdf"
+        src="flyzip_boarding_passes_2011.pdf"></iframe>
+    <script>document.getElementById("printBtn").addEventListener("click", function () { const w = window.open("flyzip_boarding_passes_2011.pdf", "_blank"); document.getElementById("status").textContent = "Opening print view..."; if (w) setTimeout(function () { try { w.print() } catch (e) { } document.getElementById("status").textContent = "Print view opened."; }, 1000); });</script>
+</body>
+
+</html>
