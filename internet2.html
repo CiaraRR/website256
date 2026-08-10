@@ -1,73 +1,29 @@
 <!doctype html>
-<html lang="en">
-
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="robots" content="noindex,nofollow">
-  <title>OpenBrowse Home</title>
-  <link rel="stylesheet" href="stylesheets/styles_openbrowse.css">
-</head>
-
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow"><title>OpenBrowse Home</title><link rel="stylesheet" href="stylesheets/styles_openbrowse.css"></head>
 <body class="search">
-  <div class="browser">
-    <div class="titlebar"><span class="window-title">OpenBrowse 6</span><span class="winbuttons"><button
-          class="winbtn">−</button><button class="winbtn">▢</button><button class="winbtn close">×</button></span></div>
-    <div class="topbar">
-      <div class="menu-item"><button class="menu-button">File</button>
-        <div class="menu-dropdown"><a>New Tab</a><a>New Window</a><a>New Private Window</a>
-          <div class="menu-separator"></div><a>Save Page As…</a><a>Print…</a>
-        </div>
-      </div>
-      <button class="menu-button">Edit</button><button class="menu-button">View</button><button
-        class="menu-button">Bookmarks</button><button class="menu-button">Tools</button><button
-        class="menu-button">Help</button>
-    </div>
-    <div class="toolbar"><button class="toolbtn" onclick="history.back()">‹</button><button class="toolbtn"
-        onclick="history.forward()">›</button><button class="toolbtn" onclick="location.reload()">↻</button><button
-        class="toolbtn">✕</button>
-      <div class="addr">http://home.openbrowse.irl/<span class="icons"><span class="icon"
-            onclick="location.href='internet2.html'">⌂</span><span class="icon">★</span><span
-            class="icon">⚙</span></span></div>
-    </div>
+<div class="browser">
+  <div class="titlebar"><span class="window-title">OpenBrowse 6</span><span class="winbuttons"><button class="winbtn">−</button><button class="winbtn">▢</button><button class="winbtn close">×</button></span></div>
+  <div class="topbar">
+    <div class="menu-item"><button class="menu-button">File</button><div class="menu-dropdown"><a>New Tab</a><a>New Window</a><a>New Private Window</a><div class="menu-separator"></div><a>Save Page As…</a><a>Print…</a></div></div>
+    <button class="menu-button">Edit</button><button class="menu-button">View</button><button class="menu-button">Bookmarks</button><button class="menu-button">Tools</button><button class="menu-button">Help</button>
   </div>
-  <main class="home-page">
-    <section class="hero-panel">
-      <div class="ob-logo">OB</div>
-      <h1>OpenBrowse</h1>
-      <h2>Search the Web</h2>
-      <form action="search_engine2.html" class="hero-search" autocomplete="off"><input name="q" autocomplete="off"
-          autofocus><button type="submit">Search</button></form>
-      <div class="category-links"><a>Web</a><a>Images</a><a>News</a><a>Maps</a><a>Directory</a></div>
-    </section>
-    <section class="portal-grid">
-      <div class="portal-box">
-        <h3>Today</h3><strong>14°C</strong>
-        <p>Cloudy</p><a>More weather »</a>
-      </div>
-      <div class="portal-box">
-        <h3>Popular Searches</h3><a>local business directory</a><a>cheap flights</a><a>weather forecast</a><a>public
-          records</a>
-      </div>
-      <div class="portal-box">
-        <h3>OpenBrowse Directory</h3><a>Business</a><a>News</a><a>Travel</a><a>Reference</a>
-      </div>
-      <div class="portal-box">
-        <h3>Safety Notice</h3>
-        <p>Use trusted sources online. Never share private information with unknown websites.</p>
-      </div>
-    </section>
-    <footer class="home-footer">About OpenBrowse - Privacy Policy - Terms of Use - Help<br><br>© OpenBrowse. All rights
-      reserved.</footer>
-  </main>
-  <script>
-    (function () {
-      const p = new URLSearchParams(location.search);
-      if (window.self !== window.top || p.get("embedded") === "1") {
-        document.body.classList.add("openbrowse-embedded");
-      }
-    }());
-  </script>
-</body>
-
-</html>
+  <div class="toolbar"><button class="toolbtn" onclick="history.back()">‹</button><button class="toolbtn" onclick="history.forward()">›</button><button class="toolbtn" onclick="location.reload()">↻</button><button class="toolbtn">✕</button><div class="addr">http://home.openbrowse.irl/<span class="icons"><span class="icon" onclick="location.href='internet2.html'">⌂</span><span class="icon">★</span><span class="icon">⚙</span></span></div></div>
+</div>
+<main class="home-page">
+<section class="hero-panel"><div class="ob-logo">OB</div><h1>OpenBrowse</h1><h2>Search the Web</h2>
+<form action="search_engine2.html" class="hero-search" autocomplete="off"><input name="q" autocomplete="off" autofocus><button type="submit">Search</button></form>
+<div class="category-links"><a>Web</a><a>Images</a><a>News</a><a>Maps</a><a>Directory</a></div></section>
+<section class="portal-grid">
+<div class="portal-box"><h3>Today</h3><strong>14°C</strong><p>Cloudy</p><a>More weather »</a></div>
+<div class="portal-box"><h3>Popular Searches</h3><a>local business directory</a><a>cheap flights</a><a>weather forecast</a><a>public records</a></div>
+<div class="portal-box"><h3>OpenBrowse Directory</h3><a>Business</a><a>News</a><a>Travel</a><a>Reference</a></div>
+<div class="portal-box"><h3>Safety Notice</h3><p>Use trusted sources online. Never share private information with unknown websites.</p></div>
+</section><footer class="home-footer">About OpenBrowse - Privacy Policy - Terms of Use - Help<br><br>© OpenBrowse. All rights reserved.</footer></main>
+<script>
+(function(){
+  const p=new URLSearchParams(location.search);
+  if(window.self!==window.top || p.get("embedded")==="1"){
+    document.body.classList.add("openbrowse-embedded");
+  }
+}());
+</script></body></html>
