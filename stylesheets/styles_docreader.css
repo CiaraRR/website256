@@ -4,36 +4,246 @@ html,body{
     width:100%;
     height:100%;
     overflow:hidden;
-    font-family:Tahoma,Arial,sans-serif;
+    font-family:Tahoma,"Segoe UI",Arial,sans-serif;
     background:#66717c;
+    color:#20252a;
 }
-.toolbar{
-    height:42px;
+
+.docreader{
+    width:100%;
+    height:100%;
+    display:flex;
+    flex-direction:column;
+}
+
+.dr-toolbar{
+    height:48px;
     display:flex;
     align-items:center;
-    gap:7px;
-    padding:6px;
-    background:linear-gradient(#fff,#d6dce1);
-    border-bottom:1px solid #777;
+    gap:8px;
+    padding:6px 10px;
+    border-bottom:1px solid #293744;
+    background:linear-gradient(#4b5968,#303a45);
+    color:#fff;
 }
-button,a{
-    padding:6px 12px;
-    border:1px solid #75808a;
-    background:linear-gradient(#fff,#d4d9de);
-    color:#111;
-    text-decoration:none;
-    font:12px Tahoma;
+
+.dr-title{
+    width:285px;
+    overflow:hidden;
+    white-space:nowrap;
+    text-overflow:ellipsis;
+    font-weight:bold;
+    font-size:13px;
+}
+
+.dr-separator{
+    width:1px;
+    height:28px;
+    margin:0 5px;
+    background:#75818c;
+}
+
+.dr-tool,
+.dr-menu{
+    height:32px;
+    min-width:36px;
+    padding:0 10px;
+    border:1px solid #1d2730;
+    border-radius:2px;
+    background:linear-gradient(#5f6e7d,#3a4652);
+    color:#fff;
+    font:13px Tahoma,Arial,sans-serif;
     cursor:pointer;
 }
-.status{
+
+.dr-tool:hover,
+.dr-menu:hover{
+    background:linear-gradient(#718294,#465665);
+}
+
+.dr-tool:active,
+.dr-menu:active{
+    background:#313c47;
+}
+
+.dr-page-number{
+    display:flex;
+    align-items:center;
+    gap:6px;
+    font-size:13px;
+}
+
+.dr-page-number input{
+    width:40px;
+    height:29px;
+    padding:3px;
+    text-align:center;
+    border:1px solid #222;
+    background:#20252a;
+    color:#fff;
+    font:13px Tahoma,Arial,sans-serif;
+}
+
+.dr-zoom{
+    min-width:68px;
+    height:29px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    border:1px solid #222;
+    background:#20252a;
+    color:#fff;
+    font-weight:bold;
+}
+
+.dr-spacer{flex:1}
+
+.dr-print{
+    min-width:78px;
+}
+
+.dr-view{
+    flex:1;
+    overflow:auto;
+    padding:28px;
+    background:#7e878f;
+    text-align:center;
+}
+
+.dr-paper{
+    display:inline-block;
+    position:relative;
+    background:#fff;
+    box-shadow:0 6px 22px rgba(0,0,0,.45);
+    transform-origin:top center;
+}
+
+.dr-paper img{
+    display:block;
+    width:794px;
+    max-width:none;
+    height:auto;
+    user-select:none;
+    pointer-events:none;
+}
+
+.dr-status{
+    height:25px;
+    display:flex;
+    align-items:center;
+    padding:0 9px;
+    border-top:1px solid #59636c;
+    background:linear-gradient(#e8ecef,#cdd3d8);
+    color:#42505d;
+    font-size:11px;
+}
+
+.dr-status .right{
     margin-left:auto;
-    color:#44505c;
+}
+
+.faux-print-overlay{
+    position:fixed;
+    inset:0;
+    display:none;
+    align-items:center;
+    justify-content:center;
+    background:rgba(0,0,0,.46);
+    z-index:9999;
+}
+
+.faux-print-overlay.show{
+    display:flex;
+}
+
+.faux-print-dialog{
+    width:560px;
+    border:1px solid #51606d;
+    background:#f2f2f2;
+    box-shadow:0 13px 35px rgba(0,0,0,.55);
+}
+
+.faux-print-title{
+    height:34px;
+    display:flex;
+    align-items:center;
+    padding:0 12px;
+    border-bottom:1px solid #214b70;
+    background:linear-gradient(#72a9d2,#2f6795);
+    color:#fff;
+    font-weight:bold;
+}
+
+.faux-print-body{
+    padding:18px;
+}
+
+.print-row{
+    display:grid;
+    grid-template-columns:135px 1fr;
+    align-items:center;
+    gap:10px;
+    margin-bottom:12px;
+}
+
+.print-row select,
+.print-row input{
+    height:30px;
+    padding:4px 7px;
+    border:1px solid #8b959e;
+    background:#fff;
+    font:13px Tahoma,Arial,sans-serif;
+}
+
+.print-options{
+    margin-top:14px;
+    padding:12px;
+    border:1px solid #c0c7cd;
+    background:#fff;
+}
+
+.print-progress{
+    display:none;
+    margin-top:14px;
+}
+
+.print-progress.show{
+    display:block;
+}
+
+.print-progress-bar{
+    height:17px;
+    overflow:hidden;
+    border:1px solid #75818c;
+    background:#fff;
+}
+
+.print-progress-fill{
+    width:0;
+    height:100%;
+    background:linear-gradient(#78b2d8,#3977a7);
+    transition:width .25s linear;
+}
+
+.print-status{
+    margin-top:7px;
+    color:#4e5d68;
     font-size:12px;
 }
-iframe{
-    display:block;
-    width:100%;
-    height:calc(100% - 42px);
-    border:0;
-    background:#666;
+
+.faux-print-buttons{
+    display:flex;
+    justify-content:flex-end;
+    gap:8px;
+    padding:12px 18px;
+    border-top:1px solid #b5bcc2;
+    background:#e3e7ea;
+}
+
+.faux-print-buttons button{
+    min-width:90px;
+    height:31px;
+    border:1px solid #7b8791;
+    background:linear-gradient(#fff,#d6dce1);
+    cursor:pointer;
 }
