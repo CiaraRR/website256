@@ -4,11 +4,11 @@
 <head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>SheetWorksPro.xls</title>
+<title>Office_Accounts_2011.xls</title>
 <style>
   :root{
-    --green:#217346;
-    --green-dark:#185c37;
+    --green:#2f5f8f;
+    --green-dark:#244b72;
     --line:#d7d7d7;
     --soft:#f3f5f4;
     --text:#252525;
@@ -84,7 +84,7 @@
     cursor:pointer;
   }
 
-  .tool:hover{background:#e7f1eb;border-color:#c8dfd1}
+  .tool:hover{background:#e8f0f7;border-color:#c9d8e7}
 
   .icon{
     display:block;
@@ -180,7 +180,7 @@
   }
 
   .header-cell{
-    background:#e2f0d9;
+    background:#dce8f3;
     font-weight:600;
   }
 
@@ -191,7 +191,7 @@
 
   .dashboard{
     padding:24px;
-    background:#f4f7f5;
+    background:#f3f6f9;
     min-height:100%;
   }
 
@@ -204,14 +204,14 @@
 
   .card{
     background:white;
-    border:1px solid #d9e2dc;
+    border:1px solid #d9e2ea;
     border-radius:7px;
     padding:16px;
     box-shadow:0 2px 6px rgba(0,0,0,.04);
   }
 
   .card .kpi-label{
-    color:#66736b;
+    color:#657482;
     font-size:12px;
     text-transform:uppercase;
     letter-spacing:.05em;
@@ -226,7 +226,7 @@
 
   .card .sub{
     font-size:12px;
-    color:#78857d;
+    color:#788795;
     margin-top:4px;
   }
 
@@ -250,7 +250,7 @@
   }
 
   .bar{
-    background:linear-gradient(#4f9b70,#217346);
+    background:linear-gradient(#6f9bc2,#2f5f8f);
     min-height:20px;
     border-radius:4px 4px 0 0;
     margin-bottom:6px;
@@ -327,193 +327,252 @@
 </head>
 <body>
 <div class="app">
+
 <div class="menu">
-<span>Home</span><span>Insert</span><span>Data</span><span>Formulas</span><span>Review</span><span>View</span>
+    <span>Home</span><span>Insert</span><span>Data</span>
+    <span>Formulas</span><span>Review</span><span>View</span>
 </div>
+
 <div class="ribbon">
-<div class="tool-group">
-<button class="tool"><span class="icon">📋</span><span class="label">Paste</span></button>
-<button class="tool"><span class="icon">✂️</span><span class="label">Cut</span></button>
-<button class="tool"><span class="icon">📄</span><span class="label">Copy</span></button>
+
+    <div class="tool-group">
+        <button class="tool"><span class="icon">▣</span><span class="label">Paste</span></button>
+        <button class="tool"><span class="icon">✂</span><span class="label">Cut</span></button>
+        <button class="tool"><span class="icon">▤</span><span class="label">Copy</span></button>
+    </div>
+
+    <div class="tool-group">
+        <button class="tool" onclick="makeBold()"><span class="icon"><b>B</b></span><span class="label">Bold</span></button>
+        <button class="tool" onclick="makeItalic()"><span class="icon"><i>I</i></span><span class="label">Italic</span></button>
+        <button class="tool"><span class="icon">□</span><span class="label">Borders</span></button>
+    </div>
+
+    <div class="tool-group">
+        <button class="tool" onclick="addInvoice()"><span class="icon">＋</span><span class="label">New Row</span></button>
+        <button class="tool" onclick="showAlert()"><span class="icon">!</span><span class="label">Data Alert</span></button>
+        <button class="tool"><span class="icon">▦</span><span class="label">Data Form</span></button>
+        <button class="tool"><span class="icon">▥</span><span class="label">Report</span></button>
+    </div>
+
+    <div class="tool-group">
+        <select>
+            <option>Office Accounts</option>
+            <option>Administration</option>
+            <option>Supplier Records</option>
+        </select>
+    </div>
+
 </div>
-<div class="tool-group">
-<button class="tool" onclick="makeBold()"><span class="icon"><b>B</b></span><span class="label">Bold</span></button>
-<button class="tool" onclick="makeItalic()"><span class="icon"><i>I</i></span><span class="label">Italic</span></button>
-<button class="tool"><span class="icon">▤</span><span class="label">Borders</span></button>
-</div>
-<div class="tool-group">
-<button class="tool" onclick="addCow()"><span class="icon">🐄</span><span class="label">New Row</span></button>
-<button class="tool" onclick="showAlert()"><span class="icon">💉</span><span class="label">Data Alert</span></button>
-<button class="tool"><span class="icon">🌾</span><span class="label">Data Form</span></button>
-<button class="tool"><span class="icon">📈</span><span class="label">Report</span></button>
-</div>
-<div class="tool-group">
-<select>
-<option>Farm Data</option>
-<option>North Field Unit</option>
-<option>Calving Barn</option>
-</select>
-</div>
-</div>
+
 <div class="formula-row">
-<div class="name-box" id="cellName">A1</div>
-<div class="fx">fx</div>
-<input class="formula-input" id="formula" value="=SUM(E2:E11)"/>
+    <div class="name-box" id="cellName">A1</div>
+    <div class="fx">fx</div>
+    <input class="formula-input" id="formula" value="=SUM(E2:E17)">
 </div>
+
 <div class="workspace">
+
 <section class="sheet active" id="dashboard">
 <div class="dashboard">
-<h2 style="margin-top:0">Farm Data — Historical Overview 2011–2014</h2><p class="muted" style="margin-top:-8px">Archived herd and production records</p>
+
+<h2 style="margin-top:0">Office Accounts — Operational Overview</h2>
+<p class="muted" style="margin-top:-8px">
+Internal administration and supplier records, 2011–2014
+</p>
+
 <div class="dashboard-grid">
+
 <div class="card">
-<div class="kpi-label">Total Herd</div>
-<div class="kpi">146</div>
-<div class="sub">+3 this month</div>
+<div class="kpi-label">Open Invoices</div>
+<div class="kpi">3</div>
+<div class="sub">1 due this week</div>
 </div>
+
 <div class="card">
-<div class="kpi-label">Milk Today</div>
-<div class="kpi">3,621 L</div>
-<div class="sub">98.4% of target</div>
+<div class="kpi-label">June Spend</div>
+<div class="kpi">€738.75</div>
+<div class="sub">Current month</div>
 </div>
+
 <div class="card">
-<div class="kpi-label">Average Yield</div>
-<div class="kpi">24.8 L</div>
-<div class="sub">Per milking cow</div>
+<div class="kpi-label">Active Suppliers</div>
+<div class="kpi">7</div>
+<div class="sub">1 under review</div>
 </div>
+
 <div class="card">
-<div class="kpi-label">Health Alerts</div>
-<div class="kpi">4</div>
-<div class="sub">2 require attention</div>
+<div class="kpi-label">Open Projects</div>
+<div class="kpi">3</div>
+<div class="sub">2 due this quarter</div>
 </div>
+
 <div class="card wide">
-<div class="kpi-label">Weekly Milk Output</div>
+<div class="kpi-label">Monthly Office Expenditure — 2011</div>
 <div class="chart">
-<div class="bar-wrap"><div class="bar" style="height:66%"></div>Mon</div>
-<div class="bar-wrap"><div class="bar" style="height:72%"></div>Tue</div>
-<div class="bar-wrap"><div class="bar" style="height:75%"></div>Wed</div>
-<div class="bar-wrap"><div class="bar" style="height:69%"></div>Thu</div>
-<div class="bar-wrap"><div class="bar" style="height:82%"></div>Fri</div>
-<div class="bar-wrap"><div class="bar" style="height:78%"></div>Sat</div>
-<div class="bar-wrap"><div class="bar" style="height:86%"></div>Sun</div>
+<div class="bar-wrap"><div class="bar" style="height:46%"></div>Jan</div>
+<div class="bar-wrap"><div class="bar" style="height:61%"></div>Feb</div>
+<div class="bar-wrap"><div class="bar" style="height:54%"></div>Mar</div>
+<div class="bar-wrap"><div class="bar" style="height:78%"></div>Apr</div>
+<div class="bar-wrap"><div class="bar" style="height:69%"></div>May</div>
+<div class="bar-wrap"><div class="bar" style="height:58%"></div>Jun</div>
 </div>
 </div>
+
 <div class="card">
-<div class="kpi-label">Upcoming Tasks</div>
+<div class="kpi-label">Today</div>
 <ul class="activity">
-<li>08:30 — Vaccinate group B</li>
-<li>10:00 — Inspect north pasture</li>
-<li>13:30 — Feed delivery</li>
-<li>16:00 — Evening milking</li>
+<li>09:30 — Accounts review</li>
+<li>11:00 — Supplier call</li>
+<li>14:30 — Staff meeting</li>
+<li>16:15 — File monthly returns</li>
 </ul>
 </div>
+
 <div class="card">
-<div class="kpi-label">Farm Conditions</div>
+<div class="kpi-label">Office Status</div>
 <ul class="activity">
-<li>Temperature: 16°C</li>
-<li>Rainfall: 4.2 mm</li>
-<li>Tank level: 72%</li>
-<li>Feed stock: 18 days</li>
+<li>Printer: Ready</li>
+<li>Archive transfer: 62%</li>
+<li>Pending approvals: 3</li>
+<li>Storage capacity: 71%</li>
 </ul>
 </div>
+
 </div>
 </div>
 </section>
-<section class="sheet" id="herd">
-<table id="herdTable">
+
+<section class="sheet" id="accounts">
+<table id="accountsTable">
 <thead>
 <tr>
 <th class="rownum corner"></th>
-<th class="col-a">A</th><th class="col-b">B</th><th class="col-c">C</th>
-<th class="col-d">D</th><th class="col-e">E</th><th class="col-f">F</th>
-<th class="col-g">G</th><th class="col-h">H</th><th class="col-i">I</th>
+<th>Invoice</th><th>Supplier</th><th>Description</th>
+<th>Date</th><th>Amount</th><th>Status</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td class="rownum">1</td>
-<td class="header-cell">Cow ID</td>
-<td class="header-cell">Animal ID</td>
-<td class="header-cell">Breed</td>
-<td class="header-cell">Age</td>
-<td class="header-cell">Milk L/day</td>
-<td class="header-cell">Last Checkup</td>
-<td class="header-cell">Feed Type</td>
+<td class="header-cell">Invoice</td>
+<td class="header-cell">Supplier</td>
+<td class="header-cell">Description</td>
+<td class="header-cell">Date</td>
+<td class="header-cell">Amount</td>
 <td class="header-cell">Status</td>
-<td class="header-cell">Barn</td>
 </tr>
-<tr><td class="rownum">2</td><td contenteditable="true">C-104</td><td contenteditable="true">104</td><td contenteditable="true">Holstein</td><td contenteditable="true">5</td><td contenteditable="true">28.4</td><td contenteditable="true">2 Jun 2011</td><td contenteditable="true">Premium Mix</td><td class="healthy" contenteditable="true">Healthy</td><td contenteditable="true">A2</td></tr>
-<tr><td class="rownum">3</td><td contenteditable="true">C-117</td><td contenteditable="true">117</td><td contenteditable="true">Jersey</td><td contenteditable="true">3</td><td contenteditable="true">19.7</td><td contenteditable="true">29 May 2011</td><td contenteditable="true">Grass Blend</td><td class="healthy" contenteditable="true">Healthy</td><td contenteditable="true">B1</td></tr>
-<tr><td class="rownum">4</td><td contenteditable="true">C-123</td><td contenteditable="true">123</td><td contenteditable="true">Holstein</td><td contenteditable="true">6</td><td contenteditable="true">31.2</td><td contenteditable="true">1 Jun 2011</td><td contenteditable="true">Premium Mix</td><td class="warning" contenteditable="true">Pregnant</td><td contenteditable="true">A1</td></tr>
-<tr><td class="rownum">5</td><td contenteditable="true">C-131</td><td contenteditable="true">131</td><td contenteditable="true">Angus</td><td contenteditable="true">4</td><td contenteditable="true">0.0</td><td contenteditable="true">31 May 2011</td><td contenteditable="true">Grain Mix</td><td contenteditable="true">Dry Herd</td><td contenteditable="true">C3</td></tr>
-<tr><td class="rownum">6</td><td contenteditable="true">C-145</td><td contenteditable="true">145</td><td contenteditable="true">Jersey</td><td contenteditable="true">2</td><td contenteditable="true">17.9</td><td contenteditable="true">3 Jun 2011</td><td contenteditable="true">Grass Blend</td><td class="healthy" contenteditable="true">Healthy</td><td contenteditable="true">B2</td></tr>
-<tr><td class="rownum">7</td><td contenteditable="true">C-152</td><td contenteditable="true">152</td><td contenteditable="true">Friesian</td><td contenteditable="true">7</td><td contenteditable="true">25.6</td><td class="danger" contenteditable="true">15 May 2011</td><td contenteditable="true">Senior Mix</td><td class="danger" contenteditable="true">Checkup Due</td><td contenteditable="true">A4</td></tr>
-<tr><td class="rownum">8</td><td contenteditable="true">C-159</td><td contenteditable="true">159</td><td contenteditable="true">Holstein</td><td contenteditable="true">4</td><td contenteditable="true">29.8</td><td contenteditable="true">30 May 2011</td><td contenteditable="true">Premium Mix</td><td class="healthy" contenteditable="true">Healthy</td><td contenteditable="true">A2</td></tr>
-<tr><td class="rownum">9</td><td contenteditable="true">C-163</td><td contenteditable="true">163</td><td contenteditable="true">Jersey</td><td contenteditable="true">5</td><td contenteditable="true">21.4</td><td contenteditable="true">26 May 2011</td><td contenteditable="true">Grass Blend</td><td contenteditable="true">Monitoring</td><td contenteditable="true">B3</td></tr>
-<tr><td class="rownum">10</td><td contenteditable="true">C-171</td><td contenteditable="true">171</td><td contenteditable="true">Friesian</td><td contenteditable="true">3</td><td contenteditable="true">24.1</td><td contenteditable="true">2 Jun 2011</td><td contenteditable="true">Premium Mix</td><td class="healthy" contenteditable="true">Healthy</td><td contenteditable="true">A3</td></tr>
-<tr><td class="rownum">11</td><td contenteditable="true">C-178</td><td contenteditable="true">178</td><td contenteditable="true">Holstein</td><td contenteditable="true">6</td><td contenteditable="true">30.3</td><td contenteditable="true">22 May 2011</td><td contenteditable="true">Premium Mix</td><td class="warning" contenteditable="true">Vaccination Due</td><td contenteditable="true">A1</td></tr>
-<tr><td class="rownum">12</td><td contenteditable="true">C-192</td><td contenteditable="true">192</td><td contenteditable="true">Holstein</td><td contenteditable="true">3</td><td contenteditable="true">17.8</td><td contenteditable="true">18 Jun 2012</td><td contenteditable="true">Premium Mix</td><td contenteditable="true">Monitoring</td><td contenteditable="true">B2</td></tr><tr><td class="rownum">13</td><td contenteditable="true">C-193</td><td contenteditable="true">193</td><td contenteditable="true">Angus</td><td contenteditable="true">5</td><td contenteditable="true">21.9</td><td contenteditable="true">8 Sep 2012</td><td contenteditable="true">Grass Blend</td><td contenteditable="true">Monitoring</td><td contenteditable="true">B2</td></tr><tr><td class="rownum">14</td><td contenteditable="true">C-194</td><td contenteditable="true">194</td><td contenteditable="true">Friesian</td><td contenteditable="true">5</td><td contenteditable="true">27.4</td><td contenteditable="true">16 Nov 2012</td><td contenteditable="true">Grain Mix</td><td class="healthy" contenteditable="true">Pregnant</td><td contenteditable="true">A3</td></tr><tr><td class="rownum">15</td><td contenteditable="true">C-195</td><td contenteditable="true">195</td><td contenteditable="true">Holstein</td><td contenteditable="true">8</td><td contenteditable="true">23.4</td><td contenteditable="true">20 Feb 2012</td><td contenteditable="true">Grass Blend</td><td class="healthy" contenteditable="true">Pregnant</td><td contenteditable="true">A2</td></tr><tr><td class="rownum">16</td><td contenteditable="true">C-196</td><td contenteditable="true">194</td><td contenteditable="true">Angus</td><td contenteditable="true">4</td><td contenteditable="true">32.2</td><td contenteditable="true">23 Aug 2012</td><td contenteditable="true">Senior Mix</td><td class="healthy" contenteditable="true">Monitoring</td><td contenteditable="true">B1</td></tr><tr><td class="rownum">17</td><td contenteditable="true">C-197</td><td contenteditable="true">197</td><td contenteditable="true">Angus</td><td contenteditable="true">2</td><td contenteditable="true">25.7</td><td contenteditable="true">27 Jan 2013</td><td contenteditable="true">Senior Mix</td><td class="healthy" contenteditable="true">Healthy</td><td contenteditable="true">B2</td></tr><tr><td class="rownum">18</td><td contenteditable="true">C-198</td><td contenteditable="true">194</td><td contenteditable="true">Friesian</td><td contenteditable="true">4</td><td contenteditable="true">28.0</td><td contenteditable="true">10 Mar 2013</td><td contenteditable="true">Grain Mix</td><td class="warning" contenteditable="true">Healthy</td><td contenteditable="true">A3</td></tr><tr><td class="rownum">19</td><td contenteditable="true">C-199</td><td contenteditable="true">199</td><td contenteditable="true">Friesian</td><td contenteditable="true">3</td><td contenteditable="true">17.4</td><td contenteditable="true">12 May 2013</td><td contenteditable="true">Senior Mix</td><td class="warning" contenteditable="true">Monitoring</td><td contenteditable="true">B2</td></tr><tr><td class="rownum">20</td><td contenteditable="true">C-200</td><td contenteditable="true">199</td><td contenteditable="true">Angus</td><td contenteditable="true">5</td><td contenteditable="true">27.9</td><td contenteditable="true">22 Jul 2013</td><td contenteditable="true">Premium Mix</td><td class="healthy" contenteditable="true">Monitoring</td><td contenteditable="true">A3</td></tr><tr><td class="rownum">21</td><td contenteditable="true">C-201</td><td contenteditable="true">195</td><td contenteditable="true">Jersey</td><td contenteditable="true">5</td><td contenteditable="true">29.6</td><td contenteditable="true">23 Oct 2013</td><td contenteditable="true">Grain Mix</td><td class="warning" contenteditable="true">Monitoring</td><td contenteditable="true">A1</td></tr><tr><td class="rownum">22</td><td contenteditable="true">C-202</td><td contenteditable="true">194</td><td contenteditable="true">Friesian</td><td contenteditable="true">4</td><td contenteditable="true">28.4</td><td contenteditable="true">9 Feb 2013</td><td contenteditable="true">Senior Mix</td><td contenteditable="true">Healthy</td><td contenteditable="true">C3</td></tr><tr><td class="rownum">23</td><td contenteditable="true">C-203</td><td contenteditable="true">203</td><td contenteditable="true">Angus</td><td contenteditable="true">2</td><td contenteditable="true">24.6</td><td contenteditable="true">7 Apr 2013</td><td contenteditable="true">Grass Blend</td><td class="healthy" contenteditable="true">Healthy</td><td contenteditable="true">A1</td></tr><tr><td class="rownum">24</td><td contenteditable="true">C-204</td><td contenteditable="true">204</td><td contenteditable="true">Friesian</td><td contenteditable="true">2</td><td contenteditable="true">29.0</td><td contenteditable="true">8 Jun 2013</td><td contenteditable="true">Grass Blend</td><td contenteditable="true">Healthy</td><td contenteditable="true">A2</td></tr><tr><td class="rownum">25</td><td contenteditable="true">C-205</td><td contenteditable="true">199</td><td contenteditable="true">Jersey</td><td contenteditable="true">3</td><td contenteditable="true">19.7</td><td contenteditable="true">18 Sep 2013</td><td contenteditable="true">Grass Blend</td><td class="healthy" contenteditable="true">Monitoring</td><td contenteditable="true">A3</td></tr><tr><td class="rownum">26</td><td contenteditable="true">C-206</td><td contenteditable="true">203</td><td contenteditable="true">Friesian</td><td contenteditable="true">6</td><td contenteditable="true">18.8</td><td contenteditable="true">2 Dec 2013</td><td contenteditable="true">Grass Blend</td><td contenteditable="true">Healthy</td><td contenteditable="true">A1</td></tr><tr><td class="rownum">27</td><td contenteditable="true">C-207</td><td contenteditable="true">207</td><td contenteditable="true">Jersey</td><td contenteditable="true">6</td><td contenteditable="true">30.6</td><td contenteditable="true">18 Jan 2014</td><td contenteditable="true">Grass Blend</td><td contenteditable="true">Pregnant</td><td contenteditable="true">A1</td></tr><tr><td class="rownum">28</td><td contenteditable="true">C-208</td><td contenteditable="true">208</td><td contenteditable="true">Holstein</td><td contenteditable="true">6</td><td contenteditable="true">28.6</td><td contenteditable="true">2 Mar 2014</td><td contenteditable="true">Senior Mix</td><td class="warning" contenteditable="true">Pregnant</td><td contenteditable="true">B1</td></tr><tr><td class="rownum">29</td><td contenteditable="true">C-209</td><td contenteditable="true">194</td><td contenteditable="true">Holstein</td><td contenteditable="true">4</td><td contenteditable="true">27.9</td><td contenteditable="true">5 Apr 2014</td><td contenteditable="true">Grain Mix</td><td contenteditable="true">Healthy</td><td contenteditable="true">C3</td></tr><tr><td class="rownum">30</td><td contenteditable="true">C-210</td><td contenteditable="true">199</td><td contenteditable="true">Jersey</td><td contenteditable="true">8</td><td contenteditable="true">16.8</td><td contenteditable="true">19 May 2014</td><td contenteditable="true">Senior Mix</td><td class="healthy" contenteditable="true">Healthy</td><td contenteditable="true">C3</td></tr><tr><td class="rownum">31</td><td contenteditable="true">C-211</td><td contenteditable="true">204</td><td contenteditable="true">Angus</td><td contenteditable="true">8</td><td contenteditable="true">20.9</td><td contenteditable="true">28 Jun 2014</td><td contenteditable="true">Premium Mix</td><td class="healthy" contenteditable="true">Healthy</td><td contenteditable="true">B2</td></tr><tr><td class="rownum">32</td><td contenteditable="true">C-212</td><td contenteditable="true">193</td><td contenteditable="true">Friesian</td><td contenteditable="true">2</td><td contenteditable="true">31.7</td><td contenteditable="true">27 Jul 2014</td><td contenteditable="true">Senior Mix</td><td class="warning" contenteditable="true">Pregnant</td><td contenteditable="true">B1</td></tr><tr><td class="rownum">33</td><td contenteditable="true">C-213</td><td contenteditable="true">197</td><td contenteditable="true">Friesian</td><td contenteditable="true">3</td><td contenteditable="true">26.2</td><td contenteditable="true">24 Aug 2014</td><td contenteditable="true">Premium Mix</td><td class="healthy" contenteditable="true">Pregnant</td><td contenteditable="true">A2</td></tr><tr><td class="rownum">34</td><td contenteditable="true">C-214</td><td contenteditable="true">194</td><td contenteditable="true">Jersey</td><td contenteditable="true">6</td><td contenteditable="true">32.7</td><td contenteditable="true">6 Sep 2014</td><td contenteditable="true">Grain Mix</td><td class="warning" contenteditable="true">Healthy</td><td contenteditable="true">A3</td></tr><tr><td class="rownum">35</td><td contenteditable="true">C-215</td><td contenteditable="true">195</td><td contenteditable="true">Angus</td><td contenteditable="true">8</td><td contenteditable="true">32.6</td><td contenteditable="true">13 Oct 2014</td><td contenteditable="true">Grain Mix</td><td class="healthy" contenteditable="true">Healthy</td><td contenteditable="true">A3</td></tr><tr><td class="rownum">36</td><td contenteditable="true">C-216</td><td contenteditable="true">208</td><td contenteditable="true">Jersey</td><td contenteditable="true">7</td><td contenteditable="true">19.1</td><td contenteditable="true">20 Nov 2014</td><td contenteditable="true">Premium Mix</td><td class="healthy" contenteditable="true">Monitoring</td><td contenteditable="true">B1</td></tr><tr><td class="rownum">37</td><td contenteditable="true">C-217</td><td contenteditable="true">203</td><td contenteditable="true">Jersey</td><td contenteditable="true">4</td><td contenteditable="true">24.6</td><td contenteditable="true">6 Dec 2014</td><td contenteditable="true">Senior Mix</td><td class="healthy" contenteditable="true">Monitoring</td><td contenteditable="true">C3</td></tr><tr><td class="rownum">38</td><td contenteditable="true">C-218</td><td contenteditable="true">204</td><td contenteditable="true">Angus</td><td contenteditable="true">2</td><td contenteditable="true">25.8</td><td contenteditable="true">2 Jan 2014</td><td contenteditable="true">Senior Mix</td><td class="warning" contenteditable="true">Healthy</td><td contenteditable="true">C3</td></tr><tr><td class="rownum">39</td><td contenteditable="true">C-219</td><td contenteditable="true">194</td><td contenteditable="true">Friesian</td><td contenteditable="true">8</td><td contenteditable="true">26.5</td><td contenteditable="true">1 Feb 2014</td><td contenteditable="true">Grass Blend</td><td class="healthy" contenteditable="true">Healthy</td><td contenteditable="true">A1</td></tr><tr><td class="rownum">40</td><td contenteditable="true">C-220</td><td contenteditable="true">204</td><td contenteditable="true">Angus</td><td contenteditable="true">3</td><td contenteditable="true">30.8</td><td contenteditable="true">13 Mar 2014</td><td contenteditable="true">Premium Mix</td><td contenteditable="true">Pregnant</td><td contenteditable="true">C3</td></tr><tr><td class="rownum">41</td><td contenteditable="true">C-221</td><td contenteditable="true">207</td><td contenteditable="true">Friesian</td><td contenteditable="true">8</td><td contenteditable="true">18.8</td><td contenteditable="true">10 Apr 2014</td><td contenteditable="true">Grain Mix</td><td contenteditable="true">Healthy</td><td contenteditable="true">C3</td></tr></tbody>
+<tr><td class="rownum">2</td><td contenteditable="true">INV-1104</td><td contenteditable="true">Westfield Supplies</td><td contenteditable="true">Office materials</td><td contenteditable="true">03 Jan 2011</td><td contenteditable="true">€486.20</td><td contenteditable="true">Paid</td></tr>
+<tr><td class="rownum">3</td><td contenteditable="true">INV-1128</td><td contenteditable="true">Brennan Electrical</td><td contenteditable="true">Maintenance</td><td contenteditable="true">19 Jan 2011</td><td contenteditable="true">€1,245.00</td><td contenteditable="true">Paid</td></tr>
+<tr><td class="rownum">4</td><td contenteditable="true">INV-1187</td><td contenteditable="true">County Printworks</td><td contenteditable="true">Printing</td><td contenteditable="true">08 Feb 2011</td><td contenteditable="true">€732.40</td><td contenteditable="true">Paid</td></tr>
+<tr><td class="rownum">5</td><td contenteditable="true">INV-1261</td><td contenteditable="true">Harbour Telecom</td><td contenteditable="true">Telephone</td><td contenteditable="true">02 Mar 2011</td><td contenteditable="true">€318.75</td><td contenteditable="true">Paid</td></tr>
+<tr><td class="rownum">6</td><td contenteditable="true">INV-1319</td><td contenteditable="true">Midland Office Co.</td><td contenteditable="true">Stationery</td><td contenteditable="true">25 Mar 2011</td><td contenteditable="true">€269.90</td><td contenteditable="true">Paid</td></tr>
+<tr><td class="rownum">7</td><td contenteditable="true">INV-1384</td><td contenteditable="true">Westfield Supplies</td><td contenteditable="true">Storage units</td><td contenteditable="true">18 Apr 2011</td><td contenteditable="true">€1,680.00</td><td contenteditable="true">Pending</td></tr>
+<tr><td class="rownum">8</td><td contenteditable="true">INV-1441</td><td contenteditable="true">Civic Security Ltd</td><td contenteditable="true">Alarm service</td><td contenteditable="true">06 May 2011</td><td contenteditable="true">€540.00</td><td contenteditable="true">Paid</td></tr>
+<tr><td class="rownum">9</td><td contenteditable="true">INV-1496</td><td contenteditable="true">Brennan Electrical</td><td contenteditable="true">Lighting repair</td><td contenteditable="true">27 May 2011</td><td contenteditable="true">€886.30</td><td contenteditable="true">Pending</td></tr>
+<tr><td class="rownum">10</td><td contenteditable="true">INV-1532</td><td contenteditable="true">County Printworks</td><td contenteditable="true">Forms &amp; labels</td><td contenteditable="true">03 Jun 2011</td><td contenteditable="true">€412.65</td><td contenteditable="true">Due</td></tr>
+<tr><td class="rownum">11</td><td contenteditable="true">INV-1577</td><td contenteditable="true">Harbour Telecom</td><td contenteditable="true">Telephone</td><td contenteditable="true">30 Jun 2011</td><td contenteditable="true">€326.10</td><td contenteditable="true">Paid</td></tr>
+<tr><td class="rownum">12</td><td contenteditable="true">INV-2034</td><td contenteditable="true">Westfield Supplies</td><td contenteditable="true">Office materials</td><td contenteditable="true">17 Feb 2012</td><td contenteditable="true">€514.80</td><td contenteditable="true">Paid</td></tr>
+<tr><td class="rownum">13</td><td contenteditable="true">INV-2440</td><td contenteditable="true">County Printworks</td><td contenteditable="true">Annual forms</td><td contenteditable="true">11 Sep 2012</td><td contenteditable="true">€988.10</td><td contenteditable="true">Paid</td></tr>
+<tr><td class="rownum">14</td><td contenteditable="true">INV-3112</td><td contenteditable="true">Brennan Electrical</td><td contenteditable="true">Equipment service</td><td contenteditable="true">14 Mar 2013</td><td contenteditable="true">€1,106.00</td><td contenteditable="true">Paid</td></tr>
+<tr><td class="rownum">15</td><td contenteditable="true">INV-3721</td><td contenteditable="true">Harbour Telecom</td><td contenteditable="true">Line upgrade</td><td contenteditable="true">22 Oct 2013</td><td contenteditable="true">€764.25</td><td contenteditable="true">Paid</td></tr>
+<tr><td class="rownum">16</td><td contenteditable="true">INV-4160</td><td contenteditable="true">Midland Office Co.</td><td contenteditable="true">Filing cabinets</td><td contenteditable="true">10 Feb 2014</td><td contenteditable="true">€1,420.00</td><td contenteditable="true">Paid</td></tr>
+<tr><td class="rownum">17</td><td contenteditable="true">INV-4588</td><td contenteditable="true">Civic Security Ltd</td><td contenteditable="true">Annual service</td><td contenteditable="true">18 Jul 2014</td><td contenteditable="true">€598.00</td><td contenteditable="true">Pending</td></tr>
+</tbody>
 </table>
 </section>
-<section class="sheet" id="milk">
+
+<section class="sheet" id="suppliers">
 <table>
 <thead>
-<tr><th class="rownum"></th><th>Date</th><th>Morning L</th><th>Evening L</th><th>Total L</th><th>Fat %</th><th>Protein %</th><th>Tank Temp</th><th>Quality</th></tr>
+<tr>
+<th class="rownum corner"></th>
+<th>Code</th><th>Supplier</th><th>Category</th>
+<th>Contact</th><th>Telephone</th><th>Status</th>
+</tr>
 </thead>
 <tbody>
-<tr><td class="rownum">1</td><td class="header-cell">Date</td><td class="header-cell">Morning L</td><td class="header-cell">Evening L</td><td class="header-cell">Total L</td><td class="header-cell">Fat %</td><td class="header-cell">Protein %</td><td class="header-cell">Tank Temp</td><td class="header-cell">Quality</td></tr>
-<tr><td class="rownum">2</td><td contenteditable="true">29 May 2011</td><td contenteditable="true">1,742</td><td contenteditable="true">1,691</td><td contenteditable="true">3,433</td><td contenteditable="true">4.08</td><td contenteditable="true">3.39</td><td contenteditable="true">3.2°C</td><td class="healthy">Pass</td></tr>
-<tr><td class="rownum">3</td><td contenteditable="true">30 May 2011</td><td contenteditable="true">1,756</td><td contenteditable="true">1,708</td><td contenteditable="true">3,464</td><td contenteditable="true">4.11</td><td contenteditable="true">3.42</td><td contenteditable="true">3.3°C</td><td class="healthy">Pass</td></tr>
-<tr><td class="rownum">4</td><td contenteditable="true">31 May 2011</td><td contenteditable="true">1,801</td><td contenteditable="true">1,744</td><td contenteditable="true">3,545</td><td contenteditable="true">4.05</td><td contenteditable="true">3.37</td><td contenteditable="true">3.1°C</td><td class="healthy">Pass</td></tr>
-<tr><td class="rownum">5</td><td contenteditable="true">1 Jun 2011</td><td contenteditable="true">1,826</td><td contenteditable="true">1,755</td><td contenteditable="true">3,581</td><td contenteditable="true">4.09</td><td contenteditable="true">3.40</td><td contenteditable="true">3.2°C</td><td class="healthy">Pass</td></tr>
-<tr><td class="rownum">6</td><td contenteditable="true">2 Jun 2011</td><td contenteditable="true">1,847</td><td contenteditable="true">1,774</td><td contenteditable="true">3,621</td><td contenteditable="true">4.14</td><td contenteditable="true">3.43</td><td contenteditable="true">3.4°C</td><td class="healthy">Pass</td></tr>
-<tr><td class="rownum">7</td><td contenteditable="true">10 Jun 2011</td><td contenteditable="true">1,848</td><td contenteditable="true">1,816</td><td contenteditable="true">3,664</td><td contenteditable="true">4.08</td><td contenteditable="true">3.44</td><td contenteditable="true">3.2°C</td><td class="healthy">Pass</td></tr><tr><td class="rownum">8</td><td contenteditable="true">11 Jun 2011</td><td contenteditable="true">1,778</td><td contenteditable="true">1,735</td><td contenteditable="true">3,513</td><td contenteditable="true">4.17</td><td contenteditable="true">3.42</td><td contenteditable="true">3.1°C</td><td class="healthy">Pass</td></tr><tr><td class="rownum">9</td><td contenteditable="true">12 Jun 2011</td><td contenteditable="true">1,835</td><td contenteditable="true">1,761</td><td contenteditable="true">3,596</td><td contenteditable="true">4.06</td><td contenteditable="true">3.34</td><td contenteditable="true">3.1°C</td><td class="healthy">Pass</td></tr><tr><td class="rownum">10</td><td contenteditable="true">13 Jun 2011</td><td contenteditable="true">1,759</td><td contenteditable="true">1,747</td><td contenteditable="true">3,506</td><td contenteditable="true">4.04</td><td contenteditable="true">3.48</td><td contenteditable="true">3.1°C</td><td class="healthy">Pass</td></tr><tr><td class="rownum">11</td><td contenteditable="true">14 Jun 2011</td><td contenteditable="true">1,828</td><td contenteditable="true">1,710</td><td contenteditable="true">3,538</td><td contenteditable="true">4.13</td><td contenteditable="true">3.47</td><td contenteditable="true">3.5°C</td><td class="healthy">Pass</td></tr><tr><td class="rownum">12</td><td contenteditable="true">15 Jun 2011</td><td contenteditable="true">1,747</td><td contenteditable="true">1,705</td><td contenteditable="true">3,452</td><td contenteditable="true">4.13</td><td contenteditable="true">3.41</td><td contenteditable="true">3.1°C</td><td class="healthy">Pass</td></tr><tr><td class="rownum">13</td><td contenteditable="true">16 Jun 2011</td><td contenteditable="true">1,762</td><td contenteditable="true">1,809</td><td contenteditable="true">3,571</td><td contenteditable="true">4.18</td><td contenteditable="true">3.31</td><td contenteditable="true">3.1°C</td><td class="healthy">Pass</td></tr><tr><td class="rownum">14</td><td contenteditable="true">17 Jun 2011</td><td contenteditable="true">1,760</td><td contenteditable="true">1,754</td><td contenteditable="true">3,514</td><td contenteditable="true">4.04</td><td contenteditable="true">3.36</td><td contenteditable="true">3.2°C</td><td class="healthy">Pass</td></tr><tr><td class="rownum">15</td><td contenteditable="true">18 Jun 2011</td><td contenteditable="true">1,806</td><td contenteditable="true">1,763</td><td contenteditable="true">3,569</td><td contenteditable="true">4.1</td><td contenteditable="true">3.48</td><td contenteditable="true">3.1°C</td><td class="healthy">Pass</td></tr><tr><td class="rownum">16</td><td contenteditable="true">19 Jun 2011</td><td contenteditable="true">1,792</td><td contenteditable="true">1,691</td><td contenteditable="true">3,483</td><td contenteditable="true">4.19</td><td contenteditable="true">3.34</td><td contenteditable="true">3.3°C</td><td class="healthy">Pass</td></tr><tr><td class="rownum">17</td><td contenteditable="true">20 Jun 2011</td><td contenteditable="true">1,765</td><td contenteditable="true">1,738</td><td contenteditable="true">3,503</td><td contenteditable="true">4.15</td><td contenteditable="true">3.41</td><td contenteditable="true">3.1°C</td><td class="healthy">Pass</td></tr><tr><td class="rownum">18</td><td contenteditable="true">21 Jun 2011</td><td contenteditable="true">1,754</td><td contenteditable="true">1,832</td><td contenteditable="true">3,586</td><td contenteditable="true">4.09</td><td contenteditable="true">3.35</td><td contenteditable="true">3.2°C</td><td class="healthy">Pass</td></tr><tr><td class="rownum">19</td><td contenteditable="true">22 Jun 2011</td><td contenteditable="true">1,820</td><td contenteditable="true">1,818</td><td contenteditable="true">3,638</td><td contenteditable="true">4.16</td><td contenteditable="true">3.45</td><td contenteditable="true">3.4°C</td><td class="healthy">Pass</td></tr><tr><td class="rownum">20</td><td contenteditable="true">23 Jun 2011</td><td contenteditable="true">1,839</td><td contenteditable="true">1,812</td><td contenteditable="true">3,651</td><td contenteditable="true">4.04</td><td contenteditable="true">3.36</td><td contenteditable="true">3.2°C</td><td class="healthy">Pass</td></tr><tr><td class="rownum">21</td><td contenteditable="true">24 Jun 2011</td><td contenteditable="true">1,749</td><td contenteditable="true">1,781</td><td contenteditable="true">3,530</td><td contenteditable="true">4.08</td><td contenteditable="true">3.34</td><td contenteditable="true">3.1°C</td><td class="healthy">Pass</td></tr><tr><td class="rownum">22</td><td contenteditable="true">25 Jun 2011</td><td contenteditable="true">1,793</td><td contenteditable="true">1,757</td><td contenteditable="true">3,550</td><td contenteditable="true">4.1</td><td contenteditable="true">3.47</td><td contenteditable="true">3.3°C</td><td class="healthy">Pass</td></tr><tr><td class="rownum">23</td><td contenteditable="true">26 Jun 2011</td><td contenteditable="true">1,804</td><td contenteditable="true">1,764</td><td contenteditable="true">3,568</td><td contenteditable="true">4.14</td><td contenteditable="true">3.35</td><td contenteditable="true">3.0°C</td><td class="healthy">Pass</td></tr><tr><td class="rownum">24</td><td contenteditable="true">27 Jun 2011</td><td contenteditable="true">1,883</td><td contenteditable="true">1,728</td><td contenteditable="true">3,611</td><td contenteditable="true">4.02</td><td contenteditable="true">3.44</td><td contenteditable="true">3.2°C</td><td class="healthy">Pass</td></tr><tr><td class="rownum">25</td><td contenteditable="true">28 Jun 2011</td><td contenteditable="true">1,800</td><td contenteditable="true">1,706</td><td contenteditable="true">3,506</td><td contenteditable="true">4.2</td><td contenteditable="true">3.38</td><td contenteditable="true">3.4°C</td><td class="healthy">Pass</td></tr><tr><td class="rownum">26</td><td contenteditable="true">29 Jun 2011</td><td contenteditable="true">1,895</td><td contenteditable="true">1,778</td><td contenteditable="true">3,673</td><td contenteditable="true">4.1</td><td contenteditable="true">3.45</td><td contenteditable="true">3.5°C</td><td class="healthy">Pass</td></tr><tr><td class="rownum">27</td><td contenteditable="true">30 Jun 2011</td><td contenteditable="true">1,844</td><td contenteditable="true">1,819</td><td contenteditable="true">3,663</td><td contenteditable="true">4.06</td><td contenteditable="true">3.39</td><td contenteditable="true">3.3°C</td><td class="healthy">Pass</td></tr><tr><td class="rownum">28</td><td contenteditable="true">1 Jul 2011</td><td contenteditable="true">1,837</td><td contenteditable="true">1,731</td><td contenteditable="true">3,568</td><td contenteditable="true">4.19</td><td contenteditable="true">3.48</td><td contenteditable="true">3.4°C</td><td class="healthy">Pass</td></tr><tr><td class="rownum">29</td><td contenteditable="true">2 Jul 2011</td><td contenteditable="true">1,873</td><td contenteditable="true">1,790</td><td contenteditable="true">3,663</td><td contenteditable="true">4.04</td><td contenteditable="true">3.45</td><td contenteditable="true">3.2°C</td><td class="healthy">Pass</td></tr><tr><td class="rownum">30</td><td contenteditable="true">3 Jul 2011</td><td contenteditable="true">1,891</td><td contenteditable="true">1,744</td><td contenteditable="true">3,635</td><td contenteditable="true">4.08</td><td contenteditable="true">3.43</td><td contenteditable="true">3.4°C</td><td class="healthy">Pass</td></tr><tr><td class="rownum">31</td><td contenteditable="true">4 Jul 2011</td><td contenteditable="true">1,833</td><td contenteditable="true">1,725</td><td contenteditable="true">3,558</td><td contenteditable="true">4.14</td><td contenteditable="true">3.49</td><td contenteditable="true">3.1°C</td><td class="healthy">Pass</td></tr><tr><td class="rownum">32</td><td contenteditable="true">5 Jul 2011</td><td contenteditable="true">1,887</td><td contenteditable="true">1,822</td><td contenteditable="true">3,709</td><td contenteditable="true">4.07</td><td contenteditable="true">3.45</td><td contenteditable="true">3.1°C</td><td class="healthy">Pass</td></tr><tr><td class="rownum">33</td><td contenteditable="true">6 Jul 2011</td><td contenteditable="true">1,875</td><td contenteditable="true">1,765</td><td contenteditable="true">3,640</td><td contenteditable="true">4.16</td><td contenteditable="true">3.33</td><td contenteditable="true">3.2°C</td><td class="healthy">Pass</td></tr><tr><td class="rownum">34</td><td contenteditable="true">7 Jul 2011</td><td contenteditable="true">1,753</td><td contenteditable="true">1,806</td><td contenteditable="true">3,559</td><td contenteditable="true">4.01</td><td contenteditable="true">3.36</td><td contenteditable="true">3.2°C</td><td class="healthy">Pass</td></tr><tr><td class="rownum">35</td><td contenteditable="true">8 Jul 2011</td><td contenteditable="true">1,838</td><td contenteditable="true">1,814</td><td contenteditable="true">3,652</td><td contenteditable="true">4.04</td><td contenteditable="true">3.35</td><td contenteditable="true">3.0°C</td><td class="healthy">Pass</td></tr><tr><td class="rownum">36</td><td contenteditable="true">9 Jul 2011</td><td contenteditable="true">1,740</td><td contenteditable="true">1,798</td><td contenteditable="true">3,538</td><td contenteditable="true">4.16</td><td contenteditable="true">3.31</td><td contenteditable="true">3.5°C</td><td class="healthy">Pass</td></tr><tr><td class="rownum">37</td><td contenteditable="true">10 Jul 2011</td><td contenteditable="true">1,848</td><td contenteditable="true">1,810</td><td contenteditable="true">3,658</td><td contenteditable="true">4.05</td><td contenteditable="true">3.3</td><td contenteditable="true">3.4°C</td><td class="healthy">Pass</td></tr><tr><td class="rownum">38</td><td contenteditable="true">11 Jul 2011</td><td contenteditable="true">1,792</td><td contenteditable="true">1,754</td><td contenteditable="true">3,546</td><td contenteditable="true">4.17</td><td contenteditable="true">3.42</td><td contenteditable="true">3.1°C</td><td class="healthy">Pass</td></tr><tr><td class="rownum">39</td><td contenteditable="true">12 Jul 2011</td><td contenteditable="true">1,893</td><td contenteditable="true">1,779</td><td contenteditable="true">3,672</td><td contenteditable="true">4.03</td><td contenteditable="true">3.44</td><td contenteditable="true">3.2°C</td><td class="healthy">Pass</td></tr><tr><td class="rownum">40</td><td contenteditable="true">13 Jul 2011</td><td contenteditable="true">1,769</td><td contenteditable="true">1,791</td><td contenteditable="true">3,560</td><td contenteditable="true">4.12</td><td contenteditable="true">3.38</td><td contenteditable="true">3.5°C</td><td class="healthy">Pass</td></tr><tr><td class="rownum">41</td><td contenteditable="true">14 Jul 2011</td><td contenteditable="true">1,813</td><td contenteditable="true">1,830</td><td contenteditable="true">3,643</td><td contenteditable="true">4.12</td><td contenteditable="true">3.46</td><td contenteditable="true">3.3°C</td><td class="healthy">Pass</td></tr></tbody>
+<tr>
+<td class="rownum">1</td>
+<td class="header-cell">Code</td><td class="header-cell">Supplier</td>
+<td class="header-cell">Category</td><td class="header-cell">Contact</td>
+<td class="header-cell">Telephone</td><td class="header-cell">Status</td>
+</tr>
+<tr><td class="rownum">2</td><td contenteditable="true">SUP-001</td><td contenteditable="true">Westfield Supplies</td><td contenteditable="true">Office materials</td><td contenteditable="true">Patricia Nolan</td><td contenteditable="true">01 884 2103</td><td contenteditable="true">Active</td></tr>
+<tr><td class="rownum">3</td><td contenteditable="true">SUP-014</td><td contenteditable="true">Brennan Electrical</td><td contenteditable="true">Electrical</td><td contenteditable="true">K. Brennan</td><td contenteditable="true">01 774 1192</td><td contenteditable="true">Active</td></tr>
+<tr><td class="rownum">4</td><td contenteditable="true">SUP-021</td><td contenteditable="true">County Printworks</td><td contenteditable="true">Printing</td><td contenteditable="true">Declan Moore</td><td contenteditable="true">01 621 9074</td><td contenteditable="true">Active</td></tr>
+<tr><td class="rownum">5</td><td contenteditable="true">SUP-028</td><td contenteditable="true">Harbour Telecom</td><td contenteditable="true">Telecoms</td><td contenteditable="true">Accounts Desk</td><td contenteditable="true">01 805 4410</td><td contenteditable="true">Active</td></tr>
+<tr><td class="rownum">6</td><td contenteditable="true">SUP-033</td><td contenteditable="true">Midland Office Co.</td><td contenteditable="true">Furniture</td><td contenteditable="true">Nora Keane</td><td contenteditable="true">01 667 8201</td><td contenteditable="true">Active</td></tr>
+<tr><td class="rownum">7</td><td contenteditable="true">SUP-041</td><td contenteditable="true">Civic Security Ltd</td><td contenteditable="true">Security</td><td contenteditable="true">Service Desk</td><td contenteditable="true">01 702 1188</td><td contenteditable="true">Active</td></tr>
+<tr><td class="rownum">8</td><td contenteditable="true">SUP-052</td><td contenteditable="true">Northside Couriers</td><td contenteditable="true">Courier</td><td contenteditable="true">M. Flynn</td><td contenteditable="true">01 830 5722</td><td contenteditable="true">Review</td></tr>
+<tr><td class="rownum">9</td><td contenteditable="true">SUP-064</td><td contenteditable="true">Parkside Catering</td><td contenteditable="true">Catering</td><td contenteditable="true">Linda Ward</td><td contenteditable="true">01 644 3900</td><td contenteditable="true">Inactive</td></tr>
+</tbody>
 </table>
 </section>
-<section class="sheet" id="feed">
+
+<section class="sheet" id="projects">
 <table>
 <thead>
-<tr><th class="rownum"></th><th>Stock Code</th><th>Feed Type</th><th>Quantity</th><th>Unit</th><th>Daily Use</th><th>Days Left</th><th>Supplier</th><th>Status</th></tr>
+<tr>
+<th class="rownum corner"></th>
+<th>Project</th><th>Description</th><th>Start</th>
+<th>Due</th><th>Budget</th><th>Status</th><th>Department</th>
+</tr>
 </thead>
 <tbody>
-<tr><td class="rownum">1</td><td class="header-cell">Stock Code</td><td class="header-cell">Feed Type</td><td class="header-cell">Quantity</td><td class="header-cell">Unit</td><td class="header-cell">Daily Use</td><td class="header-cell">Days Left</td><td class="header-cell">Supplier</td><td class="header-cell">Status</td></tr>
-<tr><td class="rownum">2</td><td>FD-001</td><td>Premium Dairy Mix</td><td>12,400</td><td>kg</td><td>690</td><td>18</td><td>Westfield Feeds</td><td class="healthy">Normal</td></tr>
-<tr><td class="rownum">3</td><td>FD-014</td><td>Grass Silage</td><td>31,800</td><td>kg</td><td>1,950</td><td>16</td><td>On-site</td><td class="healthy">Normal</td></tr>
-<tr><td class="rownum">4</td><td>FD-022</td><td>Mineral Supplement</td><td>840</td><td>kg</td><td>52</td><td>16</td><td>AgriPlus</td><td class="warning">Reorder Soon</td></tr>
-<tr><td class="rownum">5</td><td>FD-030</td><td>Calf Starter</td><td>320</td><td>kg</td><td>44</td><td>7</td><td>AgriPlus</td><td class="danger">Low Stock</td></tr>
-<tr><td class="rownum">6</td><td contenteditable="true">FD-106</td><td contenteditable="true">Premium Dairy Mix</td><td contenteditable="true">3,045</td><td contenteditable="true">kg</td><td contenteditable="true">1496</td><td contenteditable="true">2</td><td contenteditable="true">On-site</td><td class="danger">Low Stock</td></tr><tr><td class="rownum">7</td><td contenteditable="true">FD-107</td><td contenteditable="true">Grass Silage</td><td contenteditable="true">34,388</td><td contenteditable="true">kg</td><td contenteditable="true">1344</td><td contenteditable="true">25</td><td contenteditable="true">Westfield Feeds</td><td class="healthy">Normal</td></tr><tr><td class="rownum">8</td><td contenteditable="true">FD-108</td><td contenteditable="true">Premium Dairy Mix</td><td contenteditable="true">5,090</td><td contenteditable="true">kg</td><td contenteditable="true">1987</td><td contenteditable="true">2</td><td contenteditable="true">On-site</td><td class="danger">Low Stock</td></tr><tr><td class="rownum">9</td><td contenteditable="true">FD-109</td><td contenteditable="true">Calf Starter</td><td contenteditable="true">34,982</td><td contenteditable="true">kg</td><td contenteditable="true">1117</td><td contenteditable="true">31</td><td contenteditable="true">AgriPlus</td><td class="healthy">Normal</td></tr><tr><td class="rownum">10</td><td contenteditable="true">FD-110</td><td contenteditable="true">Mineral Supplement</td><td contenteditable="true">13,510</td><td contenteditable="true">kg</td><td contenteditable="true">1794</td><td contenteditable="true">7</td><td contenteditable="true">On-site</td><td class="danger">Low Stock</td></tr><tr><td class="rownum">11</td><td contenteditable="true">FD-111</td><td contenteditable="true">Calf Starter</td><td contenteditable="true">28,452</td><td contenteditable="true">kg</td><td contenteditable="true">1347</td><td contenteditable="true">21</td><td contenteditable="true">Westfield Feeds</td><td class="healthy">Normal</td></tr><tr><td class="rownum">12</td><td contenteditable="true">FD-112</td><td contenteditable="true">Calf Starter</td><td contenteditable="true">31,612</td><td contenteditable="true">kg</td><td contenteditable="true">1620</td><td contenteditable="true">19</td><td contenteditable="true">On-site</td><td class="warning">Reorder Soon</td></tr><tr><td class="rownum">13</td><td contenteditable="true">FD-113</td><td contenteditable="true">Calf Starter</td><td contenteditable="true">6,422</td><td contenteditable="true">kg</td><td contenteditable="true">1874</td><td contenteditable="true">3</td><td contenteditable="true">Westfield Feeds</td><td class="danger">Low Stock</td></tr><tr><td class="rownum">14</td><td contenteditable="true">FD-114</td><td contenteditable="true">Premium Dairy Mix</td><td contenteditable="true">17,955</td><td contenteditable="true">kg</td><td contenteditable="true">1974</td><td contenteditable="true">9</td><td contenteditable="true">Westfield Feeds</td><td class="danger">Low Stock</td></tr><tr><td class="rownum">15</td><td contenteditable="true">FD-115</td><td contenteditable="true">Winter Feed</td><td contenteditable="true">32,731</td><td contenteditable="true">kg</td><td contenteditable="true">151</td><td contenteditable="true">216</td><td contenteditable="true">AgriPlus</td><td class="healthy">Normal</td></tr><tr><td class="rownum">16</td><td contenteditable="true">FD-116</td><td contenteditable="true">Grass Silage</td><td contenteditable="true">9,473</td><td contenteditable="true">kg</td><td contenteditable="true">956</td><td contenteditable="true">9</td><td contenteditable="true">AgriPlus</td><td class="danger">Low Stock</td></tr><tr><td class="rownum">17</td><td contenteditable="true">FD-117</td><td contenteditable="true">Winter Feed</td><td contenteditable="true">25,746</td><td contenteditable="true">kg</td><td contenteditable="true">386</td><td contenteditable="true">66</td><td contenteditable="true">AgriPlus</td><td class="healthy">Normal</td></tr><tr><td class="rownum">18</td><td contenteditable="true">FD-118</td><td contenteditable="true">Winter Feed</td><td contenteditable="true">14,521</td><td contenteditable="true">kg</td><td contenteditable="true">1606</td><td contenteditable="true">9</td><td contenteditable="true">On-site</td><td class="danger">Low Stock</td></tr><tr><td class="rownum">19</td><td contenteditable="true">FD-119</td><td contenteditable="true">Premium Dairy Mix</td><td contenteditable="true">27,467</td><td contenteditable="true">kg</td><td contenteditable="true">1421</td><td contenteditable="true">19</td><td contenteditable="true">Westfield Feeds</td><td class="warning">Reorder Soon</td></tr><tr><td class="rownum">20</td><td contenteditable="true">FD-120</td><td contenteditable="true">Calf Starter</td><td contenteditable="true">2,682</td><td contenteditable="true">kg</td><td contenteditable="true">1209</td><td contenteditable="true">2</td><td contenteditable="true">On-site</td><td class="danger">Low Stock</td></tr><tr><td class="rownum">21</td><td contenteditable="true">FD-121</td><td contenteditable="true">Winter Feed</td><td contenteditable="true">5,785</td><td contenteditable="true">kg</td><td contenteditable="true">886</td><td contenteditable="true">6</td><td contenteditable="true">Westfield Feeds</td><td class="danger">Low Stock</td></tr><tr><td class="rownum">22</td><td contenteditable="true">FD-122</td><td contenteditable="true">Mineral Supplement</td><td contenteditable="true">11,295</td><td contenteditable="true">kg</td><td contenteditable="true">1612</td><td contenteditable="true">7</td><td contenteditable="true">On-site</td><td class="danger">Low Stock</td></tr><tr><td class="rownum">23</td><td contenteditable="true">FD-123</td><td contenteditable="true">Grass Silage</td><td contenteditable="true">26,691</td><td contenteditable="true">kg</td><td contenteditable="true">1389</td><td contenteditable="true">19</td><td contenteditable="true">AgriPlus</td><td class="warning">Reorder Soon</td></tr><tr><td class="rownum">24</td><td contenteditable="true">FD-124</td><td contenteditable="true">Winter Feed</td><td contenteditable="true">15,928</td><td contenteditable="true">kg</td><td contenteditable="true">1483</td><td contenteditable="true">10</td><td contenteditable="true">On-site</td><td class="warning">Reorder Soon</td></tr><tr><td class="rownum">25</td><td contenteditable="true">FD-125</td><td contenteditable="true">Mineral Supplement</td><td contenteditable="true">6,984</td><td contenteditable="true">kg</td><td contenteditable="true">1176</td><td contenteditable="true">5</td><td contenteditable="true">On-site</td><td class="danger">Low Stock</td></tr><tr><td class="rownum">26</td><td contenteditable="true">FD-126</td><td contenteditable="true">Premium Dairy Mix</td><td contenteditable="true">32,946</td><td contenteditable="true">kg</td><td contenteditable="true">848</td><td contenteditable="true">38</td><td contenteditable="true">AgriPlus</td><td class="healthy">Normal</td></tr><tr><td class="rownum">27</td><td contenteditable="true">FD-127</td><td contenteditable="true">Premium Dairy Mix</td><td contenteditable="true">21,704</td><td contenteditable="true">kg</td><td contenteditable="true">779</td><td contenteditable="true">27</td><td contenteditable="true">Westfield Feeds</td><td class="healthy">Normal</td></tr><tr><td class="rownum">28</td><td contenteditable="true">FD-128</td><td contenteditable="true">Mineral Supplement</td><td contenteditable="true">13,211</td><td contenteditable="true">kg</td><td contenteditable="true">337</td><td contenteditable="true">39</td><td contenteditable="true">Westfield Feeds</td><td class="healthy">Normal</td></tr><tr><td class="rownum">29</td><td contenteditable="true">FD-129</td><td contenteditable="true">Mineral Supplement</td><td contenteditable="true">33,668</td><td contenteditable="true">kg</td><td contenteditable="true">802</td><td contenteditable="true">41</td><td contenteditable="true">AgriPlus</td><td class="healthy">Normal</td></tr><tr><td class="rownum">30</td><td contenteditable="true">FD-130</td><td contenteditable="true">Winter Feed</td><td contenteditable="true">32,798</td><td contenteditable="true">kg</td><td contenteditable="true">1578</td><td contenteditable="true">20</td><td contenteditable="true">AgriPlus</td><td class="healthy">Normal</td></tr><tr><td class="rownum">31</td><td contenteditable="true">FD-131</td><td contenteditable="true">Winter Feed</td><td contenteditable="true">34,686</td><td contenteditable="true">kg</td><td contenteditable="true">463</td><td contenteditable="true">74</td><td contenteditable="true">On-site</td><td class="healthy">Normal</td></tr><tr><td class="rownum">32</td><td contenteditable="true">FD-132</td><td contenteditable="true">Grass Silage</td><td contenteditable="true">20,817</td><td contenteditable="true">kg</td><td contenteditable="true">71</td><td contenteditable="true">293</td><td contenteditable="true">Westfield Feeds</td><td class="healthy">Normal</td></tr><tr><td class="rownum">33</td><td contenteditable="true">FD-133</td><td contenteditable="true">Winter Feed</td><td contenteditable="true">10,621</td><td contenteditable="true">kg</td><td contenteditable="true">1884</td><td contenteditable="true">5</td><td contenteditable="true">AgriPlus</td><td class="danger">Low Stock</td></tr><tr><td class="rownum">34</td><td contenteditable="true">FD-134</td><td contenteditable="true">Calf Starter</td><td contenteditable="true">20,058</td><td contenteditable="true">kg</td><td contenteditable="true">829</td><td contenteditable="true">24</td><td contenteditable="true">Westfield Feeds</td><td class="healthy">Normal</td></tr><tr><td class="rownum">35</td><td contenteditable="true">FD-135</td><td contenteditable="true">Winter Feed</td><td contenteditable="true">4,654</td><td contenteditable="true">kg</td><td contenteditable="true">1820</td><td contenteditable="true">2</td><td contenteditable="true">AgriPlus</td><td class="danger">Low Stock</td></tr><tr><td class="rownum">36</td><td contenteditable="true">FD-136</td><td contenteditable="true">Grass Silage</td><td contenteditable="true">28,369</td><td contenteditable="true">kg</td><td contenteditable="true">1645</td><td contenteditable="true">17</td><td contenteditable="true">Westfield Feeds</td><td class="warning">Reorder Soon</td></tr><tr><td class="rownum">37</td><td contenteditable="true">FD-137</td><td contenteditable="true">Premium Dairy Mix</td><td contenteditable="true">22,069</td><td contenteditable="true">kg</td><td contenteditable="true">1995</td><td contenteditable="true">11</td><td contenteditable="true">AgriPlus</td><td class="warning">Reorder Soon</td></tr><tr><td class="rownum">38</td><td contenteditable="true">FD-138</td><td contenteditable="true">Premium Dairy Mix</td><td contenteditable="true">12,226</td><td contenteditable="true">kg</td><td contenteditable="true">1680</td><td contenteditable="true">7</td><td contenteditable="true">On-site</td><td class="danger">Low Stock</td></tr><tr><td class="rownum">39</td><td contenteditable="true">FD-139</td><td contenteditable="true">Calf Starter</td><td contenteditable="true">29,507</td><td contenteditable="true">kg</td><td contenteditable="true">1808</td><td contenteditable="true">16</td><td contenteditable="true">On-site</td><td class="warning">Reorder Soon</td></tr><tr><td class="rownum">40</td><td contenteditable="true">FD-140</td><td contenteditable="true">Mineral Supplement</td><td contenteditable="true">31,361</td><td contenteditable="true">kg</td><td contenteditable="true">831</td><td contenteditable="true">37</td><td contenteditable="true">On-site</td><td class="healthy">Normal</td></tr><tr><td class="rownum">41</td><td contenteditable="true">FD-141</td><td contenteditable="true">Calf Starter</td><td contenteditable="true">19,291</td><td contenteditable="true">kg</td><td contenteditable="true">495</td><td contenteditable="true">38</td><td contenteditable="true">On-site</td><td class="healthy">Normal</td></tr></tbody>
+<tr>
+<td class="rownum">1</td>
+<td class="header-cell">Project</td><td class="header-cell">Description</td>
+<td class="header-cell">Start</td><td class="header-cell">Due</td>
+<td class="header-cell">Budget</td><td class="header-cell">Status</td>
+<td class="header-cell">Department</td>
+</tr>
+<tr><td class="rownum">2</td><td contenteditable="true">PR-11-01</td><td contenteditable="true">Records Room Reorganisation</td><td contenteditable="true">01 Feb 2011</td><td contenteditable="true">30 Jun 2011</td><td contenteditable="true">€8,500</td><td contenteditable="true">In Progress</td><td contenteditable="true">Admin</td></tr>
+<tr><td class="rownum">3</td><td contenteditable="true">PR-11-02</td><td contenteditable="true">Telephone System Review</td><td contenteditable="true">14 Mar 2011</td><td contenteditable="true">12 Aug 2011</td><td contenteditable="true">€4,200</td><td contenteditable="true">In Progress</td><td contenteditable="true">Facilities</td></tr>
+<tr><td class="rownum">4</td><td contenteditable="true">PR-11-03</td><td contenteditable="true">Archive Box Transfer</td><td contenteditable="true">02 May 2011</td><td contenteditable="true">30 Sep 2011</td><td contenteditable="true">€2,750</td><td contenteditable="true">Planned</td><td contenteditable="true">Records</td></tr>
+<tr><td class="rownum">5</td><td contenteditable="true">PR-12-01</td><td contenteditable="true">Reception Refurbishment</td><td contenteditable="true">09 Jan 2012</td><td contenteditable="true">25 May 2012</td><td contenteditable="true">€14,800</td><td contenteditable="true">Complete</td><td contenteditable="true">Facilities</td></tr>
+<tr><td class="rownum">6</td><td contenteditable="true">PR-12-04</td><td contenteditable="true">Supplier Review</td><td contenteditable="true">04 Sep 2012</td><td contenteditable="true">20 Dec 2012</td><td contenteditable="true">€1,200</td><td contenteditable="true">Complete</td><td contenteditable="true">Accounts</td></tr>
+<tr><td class="rownum">7</td><td contenteditable="true">PR-13-02</td><td contenteditable="true">Document Indexing</td><td contenteditable="true">11 Feb 2013</td><td contenteditable="true">18 Oct 2013</td><td contenteditable="true">€6,950</td><td contenteditable="true">Complete</td><td contenteditable="true">Records</td></tr>
+<tr><td class="rownum">8</td><td contenteditable="true">PR-13-05</td><td contenteditable="true">Network Cabinet Upgrade</td><td contenteditable="true">07 Oct 2013</td><td contenteditable="true">28 Feb 2014</td><td contenteditable="true">€5,600</td><td contenteditable="true">Complete</td><td contenteditable="true">IT</td></tr>
+<tr><td class="rownum">9</td><td contenteditable="true">PR-14-03</td><td contenteditable="true">Filing System Refresh</td><td contenteditable="true">03 Mar 2014</td><td contenteditable="true">18 Jul 2014</td><td contenteditable="true">€3,850</td><td contenteditable="true">In Progress</td><td contenteditable="true">Admin</td></tr>
+</tbody>
 </table>
 </section>
+
 </div>
+
 <div class="tabs">
 <button class="tab active" data-sheet="dashboard">Dashboard</button>
-<button class="tab" data-sheet="herd">Herd Register</button>
-<button class="tab" data-sheet="milk">Milk Production</button>
-<button class="tab" data-sheet="feed">Feed Inventory</button>
+<button class="tab" data-sheet="accounts">Accounts</button>
+<button class="tab" data-sheet="suppliers">Suppliers</button>
+<button class="tab" data-sheet="projects">Projects</button>
 </div>
+
 <div class="statusbar">
 <span id="status">Ready</span>
-<span>Average: 24.84    Count: 10    Sum: 248.4</span>
+<span>Office_Accounts_2011.xls &nbsp;&nbsp; Internal</span>
 </div>
+
 </div>
+
 <script>
-  const tabs = document.querySelectorAll('.tab');
-  const sheets = document.querySelectorAll('.sheet');
-  const formula = document.getElementById('formula');
-  const cellName = document.getElementById('cellName');
-  const status = document.getElementById('status');
-  let selectedCell = null;
+const tabs = document.querySelectorAll('.tab');
+const sheets = document.querySelectorAll('.sheet');
+const formula = document.getElementById('formula');
+const cellName = document.getElementById('cellName');
+const status = document.getElementById('status');
+let selectedCell = null;
 
-  tabs.forEach(tab => {
+tabs.forEach(tab => {
     tab.addEventListener('click', () => {
-      tabs.forEach(t => t.classList.remove('active'));
-      sheets.forEach(s => s.classList.remove('active'));
-      tab.classList.add('active');
-      document.getElementById(tab.dataset.sheet).classList.add('active');
-      status.textContent = tab.textContent + ' loaded';
+        tabs.forEach(t => t.classList.remove('active'));
+        sheets.forEach(s => s.classList.remove('active'));
+        tab.classList.add('active');
+        document.getElementById(tab.dataset.sheet).classList.add('active');
+        status.textContent = tab.textContent + ' loaded';
     });
-  });
+});
 
-  document.addEventListener('click', e => {
+document.addEventListener('click', e => {
     const td = e.target.closest('td[contenteditable="true"]');
     if (!td) return;
     selectedCell = td;
@@ -522,53 +581,53 @@
     cellName.textContent = String.fromCharCode(64 + col) + row;
     formula.value = td.textContent;
     status.textContent = 'Cell ' + cellName.textContent + ' selected';
-  });
+});
 
-  formula.addEventListener('input', () => {
+formula.addEventListener('input', () => {
     if (selectedCell) selectedCell.textContent = formula.value;
-  });
+});
 
-  function makeBold(){
-    if(selectedCell){
-      selectedCell.style.fontWeight =
-        selectedCell.style.fontWeight === '700' ? '400' : '700';
+function makeBold() {
+    if(selectedCell) {
+        selectedCell.style.fontWeight =
+            selectedCell.style.fontWeight === '700' ? '400' : '700';
     }
-  }
+}
 
-  function makeItalic(){
-    if(selectedCell){
-      selectedCell.style.fontStyle =
-        selectedCell.style.fontStyle === 'italic' ? 'normal' : 'italic';
+function makeItalic() {
+    if(selectedCell) {
+        selectedCell.style.fontStyle =
+            selectedCell.style.fontStyle === 'italic' ? 'normal' : 'italic';
     }
-  }
+}
 
-  function addCow(){
-    const table = document.querySelector('#herdTable tbody');
+function addInvoice() {
+    const table = document.querySelector('#accountsTable tbody');
     const next = table.rows.length + 1;
-    const id = 180 + Math.floor(Math.random() * 60);
-    const names = ['Poppy','Luna','Nell','Ruby','Ivy','Mabel'];
-    const name = names[Math.floor(Math.random() * names.length)];
     const row = table.insertRow();
     row.innerHTML = `
       <td class="rownum">${next}</td>
-      <td contenteditable="true">C-${id}</td>
-      <td contenteditable="true">${name}</td>
-      <td contenteditable="true">Holstein</td>
-      <td contenteditable="true">3</td>
-      <td contenteditable="true">22.5</td>
-      <td contenteditable="true">4 Jun 2011</td>
-      <td contenteditable="true">Premium Mix</td>
-      <td class="healthy" contenteditable="true">Healthy</td>
-      <td contenteditable="true">A3</td>`;
-    document.querySelector('[data-sheet="herd"]').click();
-    status.textContent = 'New herd record created';
-  }
+      <td contenteditable="true">INV-NEW</td>
+      <td contenteditable="true">New Supplier</td>
+      <td contenteditable="true">Office services</td>
+      <td contenteditable="true">04 Jun 2011</td>
+      <td contenteditable="true">€0.00</td>
+      <td contenteditable="true">Pending</td>`;
+    document.querySelector('[data-sheet="accounts"]').click();
+    status.textContent = 'New invoice row created';
+}
 
-  function showAlert(){
-    document.querySelector('[data-sheet="herd"]').click();
-    status.textContent = '2 veterinary alerts found';
-    alert('Veterinary Alert\n\nC-152 Molly — Checkup overdue\nC-178 Maisie — Vaccination due');
-  }
+function showAlert() {
+    document.querySelector('[data-sheet="accounts"]').click();
+    status.textContent = '3 account items require attention';
+    alert(
+        'Accounts Alert\n\n' +
+        'INV-1384 — approval pending\n' +
+        'INV-1496 — approval pending\n' +
+        'INV-1532 — payment due'
+    );
+}
 </script>
+
 </body>
 </html>
