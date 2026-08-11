@@ -1,190 +1,478 @@
 <!doctype html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>DocReader - FlyZip Boarding Passes</title>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>DocReader - FlyZip Boarding Passes</title>
 <link rel="stylesheet" href="stylesheets/styles_docreader.css">
-
-<style id="faux-print-style">
-.faux-print-overlay{
-    position:fixed; inset:0; display:none;
-    align-items:center; justify-content:center;
-    background:rgba(0,0,0,.42); z-index:9999;
-}
-.faux-print-overlay.show{display:flex}
-.faux-print-dialog{
-    width:560px; background:#f2f2f2;
-    border:1px solid #5d6a76;
-    box-shadow:0 12px 32px rgba(0,0,0,.5);
-    font-family:Tahoma,Arial,sans-serif; color:#1d1d1d;
-}
-.faux-print-title{
-    height:34px; display:flex; align-items:center;
-    padding:0 12px; color:#fff; font-weight:bold;
-    background:linear-gradient(#6ba3cd,#2f6795);
-    border-bottom:1px solid #224c70;
-}
-.faux-print-body{padding:18px}
-.print-row{
-    display:grid; grid-template-columns:130px 1fr;
-    align-items:center; gap:10px; margin-bottom:12px;
-}
-.print-row select,.print-row input{
-    height:30px; border:1px solid #8b959e;
-    background:#fff; padding:4px 7px;
-    font:13px Tahoma,Arial,sans-serif;
-}
-.print-options{
-    margin-top:14px; padding:12px;
-    border:1px solid #c0c7cd; background:#fff;
-}
-.print-progress{display:none;margin-top:14px}
-.print-progress.show{display:block}
-.print-progress-bar{
-    height:17px; border:1px solid #75818c;
-    background:#fff; overflow:hidden;
-}
-.print-progress-fill{
-    width:0; height:100%;
-    background:linear-gradient(#78b2d8,#3977a7);
-    transition:width .25s linear;
-}
-.print-status{margin-top:7px;color:#4e5d68;font-size:12px}
-.faux-print-buttons{
-    display:flex; justify-content:flex-end; gap:8px;
-    padding:12px 18px; border-top:1px solid #b5bcc2;
-    background:#e3e7ea;
-}
-.faux-print-buttons button{min-width:90px}
-</style>
-
 </head>
-<body><div class="toolbar"><button id="printBtn" type="button">Print</button><button>Fit Page</button><a href="flyzip_boarding_passes_2011.pdf" download="FlyZip_Boarding_Passes.pdf">Save a Copy</a><span class="status" id="status">FlyZip_Boarding_Passes.pdf</span></div><iframe id="pdf" src="flyzip_boarding_passes_2011.pdf"></iframe>
 
-<div class="faux-print-overlay" id="fauxPrintOverlay" aria-hidden="true">
-  <section class="faux-print-dialog" role="dialog" aria-modal="true">
-    <div class="faux-print-title">Print</div>
+<body>
 
-    <div class="faux-print-body">
-      <div class="print-row">
-        <label for="printerSelect">Printer:</label>
-        <select id="printerSelect">
-          <option>Office Laser Printer</option>
-          <option>Reception Printer</option>
-        </select>
-      </div>
+<div class="docreader">
 
-      <div class="print-row">
-        <label for="copiesInput">Number of copies:</label>
-        <input id="copiesInput" type="number" min="1" max="9" value="1">
-      </div>
+    <div class="dr-toolbar">
 
-      <div class="print-row">
-        <label for="pageSelect">Page range:</label>
-        <select id="pageSelect">
-          <option>All</option>
-          <option>Current page</option>
-        </select>
-      </div>
+        <button class="dr-menu" type="button" title="Menu">☰</button>
 
-      <div class="print-options">
-        <label><input type="checkbox" checked> Fit to printable area</label><br><br>
-        <label><input type="checkbox"> Print in grayscale</label>
-      </div>
-
-      <div class="print-progress" id="printProgress">
-        <div class="print-progress-bar">
-          <div class="print-progress-fill" id="printProgressFill"></div>
+        <div class="dr-title">
+            FlyZip_Boarding_Passes.pdf
         </div>
-        <div class="print-status" id="printStatus">Preparing document...</div>
-      </div>
+
+        <div class="dr-separator"></div>
+
+        <div class="dr-page-number">
+            <input value="1" readonly aria-label="Page">
+            <span>/ 1</span>
+        </div>
+
+        <div class="dr-separator"></div>
+
+        <button class="dr-tool" id="zoomOut" type="button" title="Zoom out">−</button>
+
+        <div class="dr-zoom" id="zoomDisplay">
+            100%
+        </div>
+
+        <button class="dr-tool" id="zoomIn" type="button" title="Zoom in">+</button>
+
+        <div class="dr-separator"></div>
+
+        <button class="dr-tool" id="rotateLeft" type="button" title="Rotate left">↶</button>
+        <button class="dr-tool" id="rotateRight" type="button" title="Rotate right">↷</button>
+
+        <div class="dr-spacer"></div>
+
+        <button class="dr-tool dr-print" id="printBtn" type="button">
+            Print
+        </button>
+
     </div>
 
-    <div class="faux-print-buttons">
-      <button type="button" id="cancelFauxPrint">Cancel</button>
-      <button type="button" id="confirmFauxPrint">Print</button>
+
+    <main class="dr-view" id="viewer">
+
+        <div class="dr-paper" id="paper">
+            <img
+                src="images/flyzip_boarding_passes_preview.png"
+                alt="FlyZip boarding passes preview"
+                draggable="false"
+            >
+        </div>
+
+    </main>
+
+
+    <div class="dr-status">
+
+        <span id="status">
+            Ready
+        </span>
+
+        <span class="right">
+            1 page
+        </span>
+
     </div>
-  </section>
+
 </div>
 
 
+<div
+    class="faux-print-overlay"
+    id="fauxPrintOverlay"
+    aria-hidden="true"
+>
+
+    <section
+        class="faux-print-dialog"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="fauxPrintTitle"
+    >
+
+        <div
+            class="faux-print-title"
+            id="fauxPrintTitle"
+        >
+            Print
+        </div>
 
 
+        <div class="faux-print-body">
 
-<script id="safe-faux-print">
+            <div class="print-row">
+
+                <label for="printerSelect">
+                    Printer:
+                </label>
+
+                <select id="printerSelect">
+                    <option>Office Laser Printer</option>
+                    <option>Reception Printer</option>
+                </select>
+
+            </div>
+
+
+            <div class="print-row">
+
+                <label for="copiesInput">
+                    Number of copies:
+                </label>
+
+                <input
+                    id="copiesInput"
+                    type="number"
+                    min="1"
+                    max="9"
+                    value="1"
+                >
+
+            </div>
+
+
+            <div class="print-row">
+
+                <label for="pageSelect">
+                    Page range:
+                </label>
+
+                <select id="pageSelect">
+                    <option>All</option>
+                    <option>Current page</option>
+                </select>
+
+            </div>
+
+
+            <div class="print-options">
+
+                <label>
+                    <input type="checkbox" checked>
+                    Fit to printable area
+                </label>
+
+                <br><br>
+
+                <label>
+                    <input type="checkbox">
+                    Print in grayscale
+                </label>
+
+            </div>
+
+
+            <div
+                class="print-progress"
+                id="printProgress"
+            >
+
+                <div class="print-progress-bar">
+
+                    <div
+                        class="print-progress-fill"
+                        id="printProgressFill"
+                    ></div>
+
+                </div>
+
+                <div
+                    class="print-status"
+                    id="printStatus"
+                >
+                    Preparing document...
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="faux-print-buttons">
+
+            <button
+                type="button"
+                id="cancelFauxPrint"
+            >
+                Cancel
+            </button>
+
+            <button
+                type="button"
+                id="confirmFauxPrint"
+            >
+                Print
+            </button>
+
+        </div>
+
+    </section>
+
+</div>
+
+
+<script>
 (function () {
-    const printButton = document.getElementById("printBtn");
-    const overlay = document.getElementById("fauxPrintOverlay");
-    const cancelButton = document.getElementById("cancelFauxPrint");
-    const confirmButton = document.getElementById("confirmFauxPrint");
-    const progress = document.getElementById("printProgress");
-    const fill = document.getElementById("printProgressFill");
-    const status = document.getElementById("printStatus");
-    const viewerStatus = document.getElementById("status");
 
-    if (!printButton || !overlay) return;
+    const paper =
+        document.getElementById("paper");
 
-    printButton.onclick = function (event) {
-        event.preventDefault();
-        event.stopPropagation();
-        overlay.classList.add("show");
-        overlay.setAttribute("aria-hidden", "false");
-        if (progress) progress.classList.remove("show");
-        if (fill) fill.style.width = "0%";
-        if (status) status.textContent = "Preparing document...";
-        return false;
-    };
+    const zoomDisplay =
+        document.getElementById("zoomDisplay");
 
-    if (cancelButton) {
-        cancelButton.onclick = function (event) {
-            event.preventDefault();
-            overlay.classList.remove("show");
-            overlay.setAttribute("aria-hidden", "true");
-            return false;
-        };
+    const viewerStatus =
+        document.getElementById("status");
+
+    let zoom = 1;
+    let rotation = 0;
+
+
+    function updatePreview() {
+
+        paper.style.transform =
+            "scale(" + zoom + ") rotate(" + rotation + "deg)";
+
+        paper.style.marginBottom =
+            ((zoom - 1) * paper.offsetHeight + 30) + "px";
+
+        zoomDisplay.textContent =
+            Math.round(zoom * 100) + "%";
+
     }
 
-    if (confirmButton) {
-        confirmButton.onclick = function (event) {
+
+    document
+        .getElementById("zoomIn")
+        .addEventListener(
+            "click",
+            function () {
+
+                zoom =
+                    Math.min(
+                        1.5,
+                        zoom + 0.1
+                    );
+
+                updatePreview();
+
+            }
+        );
+
+
+    document
+        .getElementById("zoomOut")
+        .addEventListener(
+            "click",
+            function () {
+
+                zoom =
+                    Math.max(
+                        0.6,
+                        zoom - 0.1
+                    );
+
+                updatePreview();
+
+            }
+        );
+
+
+    document
+        .getElementById("rotateLeft")
+        .addEventListener(
+            "click",
+            function () {
+
+                rotation -= 90;
+
+                updatePreview();
+
+            }
+        );
+
+
+    document
+        .getElementById("rotateRight")
+        .addEventListener(
+            "click",
+            function () {
+
+                rotation += 90;
+
+                updatePreview();
+
+            }
+        );
+
+
+    const printButton =
+        document.getElementById("printBtn");
+
+    const overlay =
+        document.getElementById("fauxPrintOverlay");
+
+    const cancelButton =
+        document.getElementById("cancelFauxPrint");
+
+    const confirmButton =
+        document.getElementById("confirmFauxPrint");
+
+    const progress =
+        document.getElementById("printProgress");
+
+    const fill =
+        document.getElementById("printProgressFill");
+
+    const printStatus =
+        document.getElementById("printStatus");
+
+
+    printButton.addEventListener(
+        "click",
+        function (event) {
+
+            event.preventDefault();
+            event.stopPropagation();
+
+            overlay.classList.add("show");
+            overlay.setAttribute(
+                "aria-hidden",
+                "false"
+            );
+
+            progress.classList.remove("show");
+            fill.style.width = "0%";
+
+            printStatus.textContent =
+                "Preparing document...";
+
+        }
+    );
+
+
+    cancelButton.addEventListener(
+        "click",
+        function () {
+
+            overlay.classList.remove("show");
+            overlay.setAttribute(
+                "aria-hidden",
+                "true"
+            );
+
+        }
+    );
+
+
+    confirmButton.addEventListener(
+        "click",
+        function (event) {
+
             event.preventDefault();
             event.stopPropagation();
 
             confirmButton.disabled = true;
-            if (cancelButton) cancelButton.disabled = true;
-            if (progress) progress.classList.add("show");
-            if (viewerStatus) viewerStatus.textContent = "Sending document to printer...";
+            cancelButton.disabled = true;
+
+            progress.classList.add("show");
+
+            viewerStatus.textContent =
+                "Sending document to printer...";
+
 
             const stages = [
-                [20, "Preparing document..."],
-                [45, "Spooling page 1 of 1..."],
-                [70, "Sending to Office Laser Printer..."],
-                [90, "Printing..."],
-                [100, "Print job complete."]
+
+                [
+                    20,
+                    "Preparing document..."
+                ],
+
+                [
+                    45,
+                    "Spooling page 1 of 1..."
+                ],
+
+                [
+                    70,
+                    "Sending to Office Laser Printer..."
+                ],
+
+                [
+                    90,
+                    "Printing..."
+                ],
+
+                [
+                    100,
+                    "Print job complete."
+                ]
+
             ];
 
-            let i = 0;
+
+            let index = 0;
+
 
             function advance() {
-                const stage = stages[i++];
-                if (fill) fill.style.width = stage[0] + "%";
-                if (status) status.textContent = stage[1];
 
-                if (i < stages.length) {
-                    setTimeout(advance, 450);
+                const stage =
+                    stages[index++];
+
+                fill.style.width =
+                    stage[0] + "%";
+
+                printStatus.textContent =
+                    stage[1];
+
+
+                if (index < stages.length) {
+
+                    setTimeout(
+                        advance,
+                        450
+                    );
+
                 } else {
-                    setTimeout(function () {
-                        overlay.classList.remove("show");
-                        overlay.setAttribute("aria-hidden", "true");
-                        if (viewerStatus) viewerStatus.textContent =
-                            "Printed 1 copy — 4 boarding passes.";
-                        confirmButton.disabled = false;
-                        if (cancelButton) cancelButton.disabled = false;
-                    }, 700);
+
+                    setTimeout(
+                        function () {
+
+                            overlay.classList.remove(
+                                "show"
+                            );
+
+                            overlay.setAttribute(
+                                "aria-hidden",
+                                "true"
+                            );
+
+                            viewerStatus.textContent =
+                                "Printed 1 copy - 4 boarding passes.";
+
+                            confirmButton.disabled = false;
+                            cancelButton.disabled = false;
+
+                        },
+                        700
+                    );
+
                 }
+
             }
 
+
             advance();
-            return false;
-        };
-    }
+
+        }
+    );
+
+
+    updatePreview();
+
 }());
 </script>
 
-</body></html>
+</body>
+</html>
