@@ -4,8 +4,8 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="robots" content="noindex,nofollow">
-<title>DocReader - FlyZip Boarding Passes</title>
-<link rel="stylesheet" href="stylesheets/styles_docreader.css">
+<title>DocReader - FlyZip_Boarding_Passes.pdf</title>
+<link rel="stylesheet" href="stylesheets/scene340_docreader.css">
 </head>
 
 <body>
@@ -13,7 +13,6 @@
 <div class="docreader">
 
     <div class="dr-toolbar">
-
         <button class="dr-menu" type="button" title="Menu">☰</button>
 
         <div class="dr-title">
@@ -22,10 +21,14 @@
 
         <div class="dr-separator"></div>
 
+        <button class="dr-tool" id="prevPage" type="button" title="Previous page">‹</button>
+
         <div class="dr-page-number">
-            <input value="1" readonly aria-label="Page">
-            <span>/ 1</span>
+            <input id="pageNumber" value="1" readonly aria-label="Page">
+            <span>/ 4</span>
         </div>
+
+        <button class="dr-tool" id="nextPage" type="button" title="Next page">›</button>
 
         <div class="dr-separator"></div>
 
@@ -47,108 +50,57 @@
         <button class="dr-tool dr-print" id="printBtn" type="button">
             Print
         </button>
-
     </div>
 
-
     <main class="dr-view" id="viewer">
-
         <div class="dr-paper" id="paper">
             <img
-                src="images/flyzip_boarding_passes_preview.png"
-                alt="FlyZip boarding passes preview"
+                id="pageImage"
+                src="images/flyzip_boarding_pass_1.png"
+                alt="FlyZip boarding pass page 1"
                 draggable="false"
             >
         </div>
-
     </main>
 
-
     <div class="dr-status">
-
-        <span id="status">
-            Ready
-        </span>
-
-        <span class="right">
-            1 page
-        </span>
-
+        <span id="status">Ready</span>
+        <span class="right">4 pages</span>
     </div>
-
 </div>
 
+<!-- FAUX PRINT WINDOW - never calls the real browser print system -->
+<div class="faux-print-overlay" id="fauxPrintOverlay" aria-hidden="true">
+    <section class="faux-print-dialog" role="dialog" aria-modal="true" aria-labelledby="fauxPrintTitle">
 
-<div
-    class="faux-print-overlay"
-    id="fauxPrintOverlay"
-    aria-hidden="true"
->
-
-    <section
-        class="faux-print-dialog"
-        role="dialog"
-        aria-modal="true"
-        aria-labelledby="fauxPrintTitle"
-    >
-
-        <div
-            class="faux-print-title"
-            id="fauxPrintTitle"
-        >
+        <div class="faux-print-title" id="fauxPrintTitle">
             Print
         </div>
-
 
         <div class="faux-print-body">
 
             <div class="print-row">
-
-                <label for="printerSelect">
-                    Printer:
-                </label>
-
+                <label for="printerSelect">Printer:</label>
                 <select id="printerSelect">
                     <option>Office Laser Printer</option>
-                    <option>Reception Printer</option>
+                    <option>Upstairs Printer</option>
                 </select>
-
             </div>
 
-
             <div class="print-row">
-
-                <label for="copiesInput">
-                    Number of copies:
-                </label>
-
-                <input
-                    id="copiesInput"
-                    type="number"
-                    min="1"
-                    max="9"
-                    value="1"
-                >
-
+                <label for="copiesInput">Number of copies:</label>
+                <input id="copiesInput" type="number" min="1" max="9" value="1">
             </div>
 
-
             <div class="print-row">
-
-                <label for="pageSelect">
-                    Page range:
-                </label>
-
+                <label for="pageSelect">Page range:</label>
                 <select id="pageSelect">
-                    <option>All</option>
+                    <option>All 4 pages</option>
                     <option>Current page</option>
                 </select>
-
             </div>
 
-
             <div class="print-options">
-
                 <label>
                     <input type="checkbox" checked>
                     Fit to printable area
@@ -160,77 +112,39 @@
                     <input type="checkbox">
                     Print in grayscale
                 </label>
-
             </div>
 
-
-            <div
-                class="print-progress"
-                id="printProgress"
-            >
-
+            <div class="print-progress" id="printProgress">
                 <div class="print-progress-bar">
-
-                    <div
-                        class="print-progress-fill"
-                        id="printProgressFill"
-                    ></div>
-
+                    <div class="print-progress-fill" id="printProgressFill"></div>
                 </div>
-
-                <div
-                    class="print-status"
-                    id="printStatus"
-                >
+                <div class="print-status" id="printStatus">
                     Preparing document...
                 </div>
-
             </div>
-
         </div>
-
 
         <div class="faux-print-buttons">
-
-            <button
-                type="button"
-                id="cancelFauxPrint"
-            >
-                Cancel
-            </button>
-
-            <button
-                type="button"
-                id="confirmFauxPrint"
-            >
-                Print
-            </button>
-
+            <button type="button" id="cancelFauxPrint">Cancel</button>
+            <button type="button" id="confirmFauxPrint">Print</button>
         </div>
-
     </section>
-
 </div>
-
 
 <script>
 (function () {
 
-    const paper =
-        document.getElementById("paper");
+    const paper = document.getElementById("paper");
+    const pageImage = document.getElementById("pageImage");
+    const pageNumber = document.getElementById("pageNumber");
+    const zoomDisplay = document.getElementById("zoomDisplay");
+    const viewerStatus = document.getElementById("status");
 
-    const zoomDisplay =
-        document.getElementById("zoomDisplay");
-
-    const viewerStatus =
-        document.getElementById("status");
-
+    let page = 1;
     let zoom = 1;
     let rotation = 0;
 
-
     function updatePreview() {
-
         paper.style.transform =
             "scale(" + zoom + ") rotate(" + rotation + "deg)";
 
@@ -239,239 +153,126 @@
 
         zoomDisplay.textContent =
             Math.round(zoom * 100) + "%";
-
     }
 
+    function showPage(number) {
+        page = Math.max(1, Math.min(4, number));
+        pageNumber.value = page;
+        pageImage.src =
+            "images/flyzip_boarding_pass_" + page + ".png";
+        pageImage.alt =
+            "FlyZip boarding pass page " + page;
+        viewerStatus.textContent =
+            "Viewing page " + page + " of 4";
+    }
 
-    document
-        .getElementById("zoomIn")
-        .addEventListener(
-            "click",
-            function () {
+    document.getElementById("prevPage").addEventListener("click", function () {
+        showPage(page - 1);
+    });
 
-                zoom =
-                    Math.min(
-                        1.5,
-                        zoom + 0.1
-                    );
+    document.getElementById("nextPage").addEventListener("click", function () {
+        showPage(page + 1);
+    });
 
-                updatePreview();
+    document.getElementById("zoomIn").addEventListener("click", function () {
+        zoom = Math.min(1.5, zoom + 0.1);
+        updatePreview();
+    });
 
+    document.getElementById("zoomOut").addEventListener("click", function () {
+        zoom = Math.max(0.6, zoom - 0.1);
+        updatePreview();
+    });
+
+    document.getElementById("rotateLeft").addEventListener("click", function () {
+        rotation -= 90;
+        updatePreview();
+    });
+
+    document.getElementById("rotateRight").addEventListener("click", function () {
+        rotation += 90;
+        updatePreview();
+    });
+
+    const printButton = document.getElementById("printBtn");
+    const overlay = document.getElementById("fauxPrintOverlay");
+    const cancelButton = document.getElementById("cancelFauxPrint");
+    const confirmButton = document.getElementById("confirmFauxPrint");
+    const progress = document.getElementById("printProgress");
+    const fill = document.getElementById("printProgressFill");
+    const printStatus = document.getElementById("printStatus");
+
+    printButton.addEventListener("click", function (event) {
+        event.preventDefault();
+        event.stopPropagation();
+
+        overlay.classList.add("show");
+        overlay.setAttribute("aria-hidden", "false");
+
+        progress.classList.remove("show");
+        fill.style.width = "0%";
+        printStatus.textContent = "Preparing document...";
+
+        confirmButton.disabled = false;
+        cancelButton.disabled = false;
+    });
+
+    cancelButton.addEventListener("click", function () {
+        overlay.classList.remove("show");
+        overlay.setAttribute("aria-hidden", "true");
+    });
+
+    confirmButton.addEventListener("click", function (event) {
+        event.preventDefault();
+        event.stopPropagation();
+
+        confirmButton.disabled = true;
+        cancelButton.disabled = true;
+        progress.classList.add("show");
+
+        viewerStatus.textContent =
+            "Sending document to printer...";
+
+        const stages = [
+            [18, "Preparing document..."],
+            [38, "Spooling page 1 of 4..."],
+            [58, "Spooling page 2 of 4..."],
+            [72, "Spooling page 3 of 4..."],
+            [84, "Spooling page 4 of 4..."],
+            [95, "Sending to Office Laser Printer..."],
+            [100, "Print job complete."]
+        ];
+
+        let index = 0;
+
+        function advance() {
+            const stage = stages[index++];
+            fill.style.width = stage[0] + "%";
+            printStatus.textContent = stage[1];
+
+            if (index < stages.length) {
+                setTimeout(advance, 430);
+            } else {
+                setTimeout(function () {
+                    viewerStatus.textContent =
+                        "Print job complete.";
+
+                    overlay.classList.remove("show");
+                    overlay.setAttribute("aria-hidden", "true");
+
+                    confirmButton.disabled = false;
+                    cancelButton.disabled = false;
+                }, 700);
             }
-        );
-
-
-    document
-        .getElementById("zoomOut")
-        .addEventListener(
-            "click",
-            function () {
-
-                zoom =
-                    Math.max(
-                        0.6,
-                        zoom - 0.1
-                    );
-
-                updatePreview();
-
-            }
-        );
-
-
-    document
-        .getElementById("rotateLeft")
-        .addEventListener(
-            "click",
-            function () {
-
-                rotation -= 90;
-
-                updatePreview();
-
-            }
-        );
-
-
-    document
-        .getElementById("rotateRight")
-        .addEventListener(
-            "click",
-            function () {
-
-                rotation += 90;
-
-                updatePreview();
-
-            }
-        );
-
-
-    const printButton =
-        document.getElementById("printBtn");
-
-    const overlay =
-        document.getElementById("fauxPrintOverlay");
-
-    const cancelButton =
-        document.getElementById("cancelFauxPrint");
-
-    const confirmButton =
-        document.getElementById("confirmFauxPrint");
-
-    const progress =
-        document.getElementById("printProgress");
-
-    const fill =
-        document.getElementById("printProgressFill");
-
-    const printStatus =
-        document.getElementById("printStatus");
-
-
-    printButton.addEventListener(
-        "click",
-        function (event) {
-
-            event.preventDefault();
-            event.stopPropagation();
-
-            overlay.classList.add("show");
-            overlay.setAttribute(
-                "aria-hidden",
-                "false"
-            );
-
-            progress.classList.remove("show");
-            fill.style.width = "0%";
-
-            printStatus.textContent =
-                "Preparing document...";
-
         }
-    );
 
+        advance();
+    });
 
-    cancelButton.addEventListener(
-        "click",
-        function () {
-
-            overlay.classList.remove("show");
-            overlay.setAttribute(
-                "aria-hidden",
-                "true"
-            );
-
-        }
-    );
-
-
-    confirmButton.addEventListener(
-        "click",
-        function (event) {
-
-            event.preventDefault();
-            event.stopPropagation();
-
-            confirmButton.disabled = true;
-            cancelButton.disabled = true;
-
-            progress.classList.add("show");
-
-            viewerStatus.textContent =
-                "Sending document to printer...";
-
-
-            const stages = [
-
-                [
-                    20,
-                    "Preparing document..."
-                ],
-
-                [
-                    45,
-                    "Spooling page 1 of 1..."
-                ],
-
-                [
-                    70,
-                    "Sending to Office Laser Printer..."
-                ],
-
-                [
-                    90,
-                    "Printing..."
-                ],
-
-                [
-                    100,
-                    "Print job complete."
-                ]
-
-            ];
-
-
-            let index = 0;
-
-
-            function advance() {
-
-                const stage =
-                    stages[index++];
-
-                fill.style.width =
-                    stage[0] + "%";
-
-                printStatus.textContent =
-                    stage[1];
-
-
-                if (index < stages.length) {
-
-                    setTimeout(
-                        advance,
-                        450
-                    );
-
-                } else {
-
-                    setTimeout(
-                        function () {
-
-                            overlay.classList.remove(
-                                "show"
-                            );
-
-                            overlay.setAttribute(
-                                "aria-hidden",
-                                "true"
-                            );
-
-                            viewerStatus.textContent =
-                                "Printed 1 copy - 4 boarding passes.";
-
-                            confirmButton.disabled = false;
-                            cancelButton.disabled = false;
-
-                        },
-                        700
-                    );
-
-                }
-
-            }
-
-
-            advance();
-
-        }
-    );
-
-
+    showPage(1);
     updatePreview();
 
-}());
+})();
 </script>
 
 </body>

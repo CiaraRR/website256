@@ -1,121 +1,179 @@
 <!doctype html>
 <html lang="en">
-
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="robots" content="noindex,nofollow">
-  <title>FlyZip Airways - Manage Booking</title>
-  <link rel="stylesheet" href="stylesheets/styles_openbrowse.css">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>FlyZip Airways - Manage Booking</title>
+<link rel="stylesheet" href="stylesheets/scene340_openbrowse.css">
+
+<style id="flyzip-faux-download-style">
+.fz-download-tray{
+    position:fixed;left:0;right:0;bottom:0;z-index:99999;
+    min-height:54px;display:flex;align-items:center;gap:8px;
+    padding:7px 10px;background:linear-gradient(#f8f8f8,#d9dde1);
+    border-top:1px solid #8e969d;box-shadow:0 -2px 5px rgba(0,0,0,.22);
+    font:11px Tahoma,Arial,sans-serif;color:#222
+}
+.fz-download-tray[hidden]{display:none!important}
+.fz-download-file{display:flex;align-items:center;gap:8px;min-width:310px;margin-right:auto}
+.fz-download-file small{display:block;color:#66717a;margin-top:2px}
+.fz-download-icon{display:inline-flex;width:34px;height:38px;align-items:center;justify-content:center;
+    border:1px solid #8e2f2f;background:#f5f5f5;color:#a22222;font:bold 9px Arial}
+.fz-download-tray button{height:28px;padding:0 11px;border:1px solid #8c9398;
+    background:linear-gradient(#fff,#d9dde0);font:11px Tahoma;cursor:pointer}
+#fauxCloseDownload{font:bold 15px Arial;padding:0 8px}
+</style>
+
 </head>
-
 <body class="flyzip-site">
-  <div class="browser">
-    <div class="titlebar"><span class="window-title">OpenBrowse 6</span><span class="winbuttons"><button
-          class="winbtn">−</button><button class="winbtn">▢</button><button class="winbtn close">×</button></span></div>
-    <div class="topbar">
-      <div class="menu-item"><button class="menu-button">File</button>
-        <div class="menu-dropdown"><a>New Tab</a><a>New Window</a><a>New Private Window</a>
-          <div class="menu-separator"></div><a>Save Page As…</a><a>Print…</a>
-        </div>
-      </div>
-      <button class="menu-button">Edit</button><button class="menu-button">View</button><button
-        class="menu-button">Bookmarks</button><button class="menu-button">Tools</button><button
-        class="menu-button">Help</button>
-    </div>
-    <div class="toolbar"><button class="toolbtn" onclick="history.back()">‹</button><button class="toolbtn"
-        onclick="history.forward()">›</button><button class="toolbtn" onclick="location.reload()">↻</button><button
-        class="toolbtn">✕</button>
-      <div class="addr">https://www.flyzip.ie/manage-booking<span class="icons"><span class="icon"
-            onclick="location.href='internet2.html'">⌂</span><span class="icon">★</span><span
-            class="icon">⚙</span></span></div>
-    </div>
+<div class="browser">
+  <div class="titlebar"><span class="window-title">OpenBrowse 6</span><span class="winbuttons"><button class="winbtn">−</button><button class="winbtn">▢</button><button class="winbtn close">×</button></span></div>
+  <div class="topbar">
+    <div class="menu-item"><button class="menu-button">File</button><div class="menu-dropdown"><a>New Tab</a><a>New Window</a><a>New Private Window</a><div class="menu-separator"></div><a>Save Page As…</a><a>Print…</a></div></div>
+    <button class="menu-button">Edit</button><button class="menu-button">View</button><button class="menu-button">Bookmarks</button><button class="menu-button">Tools</button><button class="menu-button">Help</button>
   </div>
-  <div class="fz-shell">
-    <header class="fz-head">
-      <div class="fz-logo">FlyZip<small>AIRWAYS</small></div>
-      <div style="float:right;margin-top:-34px">Ireland &nbsp; | &nbsp; Help &nbsp; | &nbsp; Contact</div>
-    </header>
-    <nav class="fz-nav"><a>Book Flights</a><a>Manage Booking</a><a>Online Check-in</a><a>Flight Status</a><a>Travel
-        Information</a></nav>
-    <main class="fz-content">
-      <h1 style="color:#214f7b;margin-top:0">Manage Booking</h1>
-      <div class="booking-box">
-        <div class="booking-ref"><b>Booking Reference:</b> LY8P7Q</div>
-        <p>Dublin (DUB) to London Heathrow (LHR) — Flight FZ 204 — 04 June 2011</p>
-        <table class="passengers">
-          <thead>
-            <tr>
-              <th>Passenger</th>
-              <th>Date of Birth</th>
-              <th>Status</th>
-              <th>Seat</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>Mary Lowry</td>
-              <td>19 May 1966</td>
-              <td class="checked">Checked In</td>
-              <td>23A</td>
-            </tr>
-            <tr>
-              <td>Tommy Lowry</td>
-              <td>09 November 1997</td>
-              <td class="checked">Checked In</td>
-              <td>23B</td>
-            </tr>
-            <tr>
-              <td>Jack Lowry</td>
-              <td>20 November 1999</td>
-              <td class="checked">Checked In</td>
-              <td>23C</td>
-            </tr>
-            <tr>
-              <td>Micheál Lowry</td>
-              <td>09 September 2003</td>
-              <td class="checked">Checked In</td>
-              <td>23D</td>
-            </tr>
-          </tbody>
-        </table>
-        <button class="print-pass" id="printPass">Print Boarding Passes</button><span id="generating"
-          style="display:none;margin-left:15px;color:#555">Generating boarding passes...</span>
-      </div>
-    </main>
+  <div class="toolbar">
+    <button class="toolbtn" onclick="history.back()">‹</button><button class="toolbtn" onclick="history.forward()">›</button><button class="toolbtn" onclick="location.reload()">↻</button><button class="toolbtn">✕</button>
+    <div class="addr">https://www.flyzip.ie/manage-booking<span class="icons"><span class="icon" onclick="location.href='internet2.html'">⌂</span><span class="icon">★</span><span class="icon">⚙</span></span></div>
   </div>
-  <div class="downloadbar" id="downloadBar">
-    <div class="download-icon"></div>
-    <div class="download-details"><strong>FlyZip_Boarding_Passes.pdf</strong><small
-        id="downloadState">Downloading...</small></div>
-    <div class="download-actions" id="downloadActions" style="display:none"><button id="openPdf">Open</button><button
-        id="showFolder">Show in Folder</button></div>
-  </div>
-  <script>
-    const printButton = document.getElementById("printPass");
-    const generating = document.getElementById("generating");
-    const bar = document.getElementById("downloadBar");
-    const state = document.getElementById("downloadState");
-    const actions = document.getElementById("downloadActions");
-    printButton.addEventListener("click", function () {
-      printButton.disabled = true; generating.style.display = "inline";
-      setTimeout(function () {
-        generating.style.display = "none"; bar.classList.add("show");
-        // Film prop only: simulate a download. Do NOT trigger a real browser download.
-        setTimeout(function () { state.textContent = "Download complete — 412 KB"; actions.style.display = "block"; window.parent.postMessage({ type: "flyzip-download-complete" }, "*"); }, 1100);
-      }, 900);
-    });
-    document.getElementById("openPdf").addEventListener("click", function () { window.parent.postMessage({ type: "flyzip-open-pdf" }, "*"); });
-    document.getElementById("showFolder").addEventListener("click", function () { window.parent.postMessage({ type: "flyzip-show-downloads" }, "*"); });
-  </script>
-  <script>
-    (function () {
-      const p = new URLSearchParams(location.search);
-      if (window.self !== window.top || p.get("embedded") === "1") {
-        document.body.classList.add("openbrowse-embedded");
-      }
-    }());
-  </script>
-</body>
+</div>
 
+<div class="fz-shell">
+  <header class="fz-head">
+    <div class="fz-logo">FlyZip<small>AIRWAYS</small></div>
+    <div class="fz-head-meta">Ireland &nbsp; | &nbsp; Help &nbsp; | &nbsp; Contact</div>
+  </header>
+  <nav class="fz-nav"><a>Book Flights</a><a>Manage Booking</a><a>Online Check-in</a><a>Flight Status</a><a>Travel Information</a></nav>
+  <main class="fz-content">
+    <h1 style="color:#214f7b;margin-top:0">Manage Booking</h1>
+    <div class="booking-box">
+      <div class="booking-ref"><b>Booking Reference:</b> LY8P7Q</div>
+      <p>Dublin (DUB) to London Heathrow (LHR) — Flight FZ 204 — 04 June 2011</p>
+      <table class="passengers">
+        <thead><tr><th>Passenger</th><th>Date of Birth</th><th>Status</th><th>Seat</th></tr></thead>
+        <tbody>
+          <tr><td>Mary Lowry</td><td>19 May 1966</td><td class="checked">Checked In</td><td>23A</td></tr>
+          <tr><td>Tommy Lowry</td><td>09 November 1997</td><td class="checked">Checked In</td><td>23B</td></tr>
+          <tr><td>Jack Lowry</td><td>20 November 1999</td><td class="checked">Checked In</td><td>23C</td></tr>
+          <tr><td>Micheál Lowry</td><td>09 September 2003</td><td class="checked">Checked In</td><td>23D</td></tr>
+        </tbody>
+      </table>
+      <button class="print-pass" id="printPass">Print Boarding Passes</button>
+      <span id="generating" style="display:none;margin-left:15px;color:#555">Generating boarding passes...</span>
+    </div>
+  <button type="button" id="downloadTicketsBtn" class="download-ticket-button">Download boarding passes</button>
+</main>
+</div>
+
+<div class="downloadbar" id="downloadBar">
+  <div class="download-icon"></div>
+  <div class="download-details"><strong>FlyZip_Boarding_Passes.pdf</strong><small id="downloadState">Downloading...</small></div>
+  <div class="download-actions" id="downloadActions" style="display:none"><button id="openPdf">Open</button><button id="showFolder">Show in Folder</button></div>
+</div>
+
+<script>
+(function(){
+  var params=new URLSearchParams(location.search);
+  if(window.self!==window.top || params.get("embedded")==="1"){
+    document.body.classList.add("openbrowse-embedded");
+  }
+}());
+
+var printButton=document.getElementById("printPass");
+var generating=document.getElementById("generating");
+var bar=document.getElementById("downloadBar");
+var state=document.getElementById("downloadState");
+var actions=document.getElementById("downloadActions");
+
+printButton.addEventListener("click",function(){
+  printButton.disabled=true;
+  generating.style.display="inline";
+  setTimeout(function(){
+    generating.style.display="none";
+    bar.classList.add("show");
+
+    setTimeout(function(){
+      state.textContent="Download complete — 412 KB";
+      actions.style.display="block";
+      window.parent.postMessage({type:"flyzip-download-complete"},"*");
+    },1000);
+  },800);
+});
+
+document.getElementById("openPdf").addEventListener("click",function(){window.parent.postMessage({type:"flyzip-open-pdf"},"*");});});
+document.getElementById("showFolder").addEventListener("click",function(){window.parent.postMessage({type:"flyzip-show-downloads"},"*");});});
+</script>
+
+<div id="fauxDownloadTray" class="fz-download-tray" hidden>
+    <div class="fz-download-file">
+        <span class="fz-download-icon">PDF</span>
+        <div>
+            <strong>FlyZip_Boarding_Passes.pdf</strong>
+            <small id="fauxDownloadStatus">Download complete</small>
+        </div>
+    </div>
+    <button type="button" id="fauxOpenTicket">Open</button>
+    <button type="button" id="fauxShowFolder">Show in folder</button>
+    <button type="button" id="fauxCloseDownload">×</button>
+</div>
+
+
+<script id="flyzip-faux-download-fix">
+(function () {
+    function send(type) {
+        try {
+            window.parent.postMessage({ type: type }, "*");
+        } catch (e) {}
+    }
+
+    function showTray() {
+        var tray = document.getElementById("fauxDownloadTray");
+        var status = document.getElementById("fauxDownloadStatus");
+        if (!tray) return;
+
+        tray.hidden = false;
+        tray.style.display = "flex";
+        if (status) status.textContent = "Downloading...";
+
+        setTimeout(function () {
+            if (status) status.textContent = "Download complete";
+            send("flyzip-download-complete");
+        }, 550);
+    }
+
+    document.addEventListener("click", function (event) {
+        var target = event.target.closest && event.target.closest("#downloadTicketsBtn, #fauxOpenTicket, #fauxShowFolder, #fauxCloseDownload");
+        if (!target) return;
+
+        event.preventDefault();
+        event.stopImmediatePropagation();
+
+        if (target.id === "downloadTicketsBtn") {
+            showTray();
+            return;
+        }
+
+        if (target.id === "fauxOpenTicket") {
+            send("flyzip-open-pdf");
+            return;
+        }
+
+        if (target.id === "fauxShowFolder") {
+            send("flyzip-show-downloads");
+            return;
+        }
+
+        if (target.id === "fauxCloseDownload") {
+            var tray = document.getElementById("fauxDownloadTray");
+            if (tray) {
+                tray.hidden = true;
+                tray.style.display = "none";
+            }
+        }
+    }, true);
+})();
+</script>
+
+</body>
 </html>

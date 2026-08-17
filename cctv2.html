@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>HomeWatch Camera Viewer</title>
+<link rel="stylesheet" href="stylesheets/cctv2.css">
+</head>
+<body>
+
+<main class="homewatch">
+
+    <header class="hw-header">
+        <div class="hw-brand">
+            <span class="hw-mark">H</span>
+            <div>
+                <strong>HomeWatch</strong>
+                <small>Residential Camera System</small>
+            </div>
+        </div>
+
+        <div class="hw-status">
+            <span class="status-light"></span>
+            SYSTEM ONLINE
+        </div>
+    </header>
+
+    <nav class="hw-toolbar">
+        <button id="playBtn" type="button">▶ Play</button>
+        <button id="pauseBtn" type="button">Ⅱ Pause</button>
+        <button id="rewindBtn" type="button">↶ Start</button>
+
+        <span class="tool-divider"></span>
+
+        <label>
+            Camera:
+            <select id="cameraSelect">
+                <option value="0">Front Door</option>
+                <option value="1">Driveway</option>
+                <option value="2">Side Gate</option>
+                <option value="3">Back Garden</option>
+            </select>
+        </label>
+
+        <span class="record-state">
+            ● Recording
+        </span>
+    </nav>
+
+    <section class="hw-main">
+
+        <aside class="camera-panel">
+            <div class="panel-heading">CAMERAS</div>
+            <div id="cameraList"></div>
+
+            <div class="system-box">
+                <strong>HOME SYSTEM</strong>
+                <span>4 cameras connected</span>
+                <span>Archive: 14 days</span>
+                <span>Motion detection: On</span>
+            </div>
+        </aside>
+
+        <section class="viewer-column">
+
+            <div class="viewer-frame">
+
+                <video
+                    id="video"
+                    playsinline
+                    preload="metadata"
+                ></video>
+
+                <div class="fake-house-view" id="fallback">
+                    <div class="sky"></div>
+                    <div class="house">
+                        <span class="roof"></span>
+                        <span class="door"></span>
+                        <span class="window left"></span>
+                        <span class="window right"></span>
+                    </div>
+                    <div class="drive"></div>
+                    <div class="hedge hedge-left"></div>
+                    <div class="hedge hedge-right"></div>
+                    <div class="car"></div>
+                </div>
+
+                <div class="video-overlay overlay-top">
+                    <span id="cameraLabel">FRONT DOOR</span>
+                    <span>HOMEWATCH CAM-01</span>
+                </div>
+
+                <div class="video-overlay overlay-bottom">
+                    <span>04 JUN 2011</span>
+                    <span id="fakeTime">09:42:18</span>
+                </div>
+
+                <div class="motion-label">
+                    MOTION
+                </div>
+
+                <div class="paused-label" id="paused">
+                    PAUSED
+                </div>
+
+            </div>
+
+            <div class="playback-strip">
+                <span id="currentTime">00:00:00</span>
+
+                <input
+                    id="scrubber"
+                    type="range"
+                    min="0"
+                    max="1000"
+                    value="0"
+                >
+
+                <span id="durationTime">00:00:00</span>
+            </div>
+
+            <div class="event-strip">
+                <strong>Recorded events:</strong>
+                <button type="button" data-jump="0">09:31 Front path</button>
+                <button type="button" data-jump="18">09:42 Front door</button>
+                <button type="button" data-jump="41">09:57 Driveway</button>
+            </div>
+
+        </section>
+
+    </section>
+
+    <footer class="hw-footer">
+        <span id="status">Front Door camera ready</span>
+        <span>HW-BASE-01</span>
+        <span>LOCAL HOME SECURITY</span>
+    </footer>
+
+</main>
+
+<script src="javascrips/cctv2.js"></script>
+</body>
+</html>
