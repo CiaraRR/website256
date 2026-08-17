@@ -1,16 +1,21 @@
 const apps = {
+  cctv:{
+    name:'HomeWatch',
+    iconClass:'fi-homewatch',
+    kind:'iframe',
+    src:'cctv2.html'
+  },
   ticketPdf:{
     name:'DocReader',
     iconClass:'fi-reader',
     kind:'iframe',
     src:'ticket_pdf_viewer.html',
-    hidden:true
-  },
+    hidden:false},
   browser:{
     name:'OpenBrowse',
     iconClass:'fi-browser',
     kind:'iframe',
-    src:'internet2.html'
+    src:'flyzip_website.html'
   },
   sheets:{
     name:'SheetWorks',
@@ -70,22 +75,24 @@ const clock = document.querySelector(".clock");
 
 const openWindows = new Map();
 let topZIndex = 50;
+let ticketDownloaded = false;
 
 function iconMarkup(iconClass) {
     return `<span class="fi ${iconClass || "fi-generic"}" aria-hidden="true"></span>`;
 }
 
 const launcherPositions = [
-    [22,22],[116,22],
-    [22,114],[116,114],
-    [22,206],[116,206],
-    [22,298],[116,298],
-    [22,390],[116,390]
-];
+    [20,20],[120,20],
+    [20,118],[120,118],
+    [20,216],[120,216],
+    [20,314],[120,314],
+    [20,412],[120,412],
+    [20,510],[120,510]
+]
 
 function buildLauncherItems() {
     Object.entries(apps).forEach(([id, app]) => {
-        if (app.hidden) return;
+        if (app.hidden === true) return;
         const desktopItem = document.createElement("div");
         desktopItem.className = "icon";
         const position = launcherPositions[desktopIcons.children.length % launcherPositions.length];
@@ -113,13 +120,17 @@ function buildLauncherItems() {
 
 function buildDesktopFiles() {
     const items = [
-        {name:"Downloads", iconClass:"fi-folder", app:"documents", x:210, y:22},
-        {name:"Current Work", iconClass:"fi-folder", app:"documents", x:304, y:22},
-        {name:"Monthly_Figures.xls", iconClass:"fi-sheet", ext:"XLS", app:"sheets", x:210, y:114},
-        {name:"Project_Brief.doc", iconClass:"fi-doc", ext:"DOC", app:"writer", x:304, y:114},
-        {name:"Meeting_Notes.doc", iconClass:"fi-doc", ext:"DOC", app:"writer", x:210, y:206},
-        {name:"Invoice_April.pdf", iconClass:"fi-pdf", ext:"PDF", app:"documents", x:304, y:206},
-        {name:"Accounts_Backup.zip", iconClass:"fi-archive", ext:"ZIP", app:"archive", x:210, y:298}
+        {name:"Downloads", iconClass:"fi-folder", app:"documents", x:238, y:20},
+        {name:"Boarding Passes", iconClass:"fi-reader", app:"ticketPdf", x:338, y:20},
+        {name:"Current Work", iconClass:"fi-folder", app:"documents", x:438, y:20},
+
+        {name:"Monthly_Figures.xls", iconClass:"fi-sheet", ext:"XLS", app:"sheets", x:238, y:118},
+        {name:"Project_Brief.doc", iconClass:"fi-doc", ext:"DOC", app:"writer", x:338, y:118},
+
+        {name:"Meeting_Notes.doc", iconClass:"fi-doc", ext:"DOC", app:"writer", x:238, y:216},
+        {name:"Invoice_April.pdf", iconClass:"fi-pdf", ext:"PDF", app:"documents", x:338, y:216},
+
+        {name:"Accounts_Backup.zip", iconClass:"fi-archive", ext:"ZIP", app:"archive", x:238, y:314}
     ];
 
     items.forEach(item => {
@@ -141,45 +152,74 @@ function buildDesktopFiles() {
 
         const label = document.createElement("span");
         label.textContent = item.name;
+
         shortcut.append(icon, label);
         shortcut.addEventListener("dblclick", () => openApp(item.app));
         desktopIcons.appendChild(shortcut);
     });
 }
 
-let ticketDownloaded = false;
 
 function downloadsHtml() {
-    return `<div class="files">
-      <div class="tree">
-        <div>Favorites</div>
-        <div>Desktop</div>
-        <div class="folder on">Downloads</div>
-        <div>Documents</div>
-        <div>Pictures</div>
-        <div>Computer</div>
-        <div>Local Disk (C:)</div>
-      </div>
-      <div>
-        <div class="toolbar">
-          <button class="btn">Organize</button>
-          <button class="btn">Open</button>
-          <button class="btn">New folder</button>
-          <span style="margin-left:15px;color:#4a5d70">Computer &gt; Downloads</span>
+    return `
+        <div class="files">
+            <div class="tree">
+                <div>Favorites</div>
+                <div>Desktop</div>
+                <div class="folder on">Downloads</div>
+                <div>Documents</div>
+                <div>Pictures</div>
+                <div>Computer</div>
+                <div>Local Disk (C:)</div>
+            </div>
+
+            <div class="downloads-pane">
+                <div class="toolbar">
+                    <button class="btn" type="button">Organize</button>
+                    <button class="btn" type="button" onclick="openApp('ticketPdf')">Open</button>
+                    <button class="btn" type="button">New folder</button>
+                    <span style="margin-left:15px;color:#4a5d70">Computer &gt; Downloads</span>
+                </div>
+
+                <div class="filegrid downloads-grid">
+                    <div
+                        class="file ${ticketDownloaded ? "download-selected" : ""}"
+                        ondblclick="openApp('ticketPdf')"
+                        onclick="this.classList.add('download-selected')"
+                        title="Double-click to open"
+                    >
+                        <b><span class="fi fi-reader"></span></b>
+                        FlyZip_Boarding_Passes.pdf
+                        <small>04/06/2011 09:42</small>
+                    </div>
+
+                    <div class="file">
+                        <b><span class="fi fi-doc"></span></b>
+                        Booking_Confirmation.html
+                        <small>04/06/2011 09:41</small>
+                    </div>
+
+                    <div class="file">
+                        <b><span class="fi fi-pdf"></span></b>
+                        Receipt.pdf
+                        <small>04/06/2011 09:41</small>
+                    </div>
+
+                    <div class="file">
+                        <b><span class="fi fi-sheet"></span></b>
+                        Monthly_Figures.xls
+                        <small>31/05/2011 16:18</small>
+                    </div>
+
+                    <div class="file">
+                        <b><span class="fi fi-archive"></span></b>
+                        Accounts_Backup.zip
+                        <small>30/05/2011 17:04</small>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="filegrid downloads-grid">
-          <div class="file ${ticketDownloaded ? "download-selected" : ""}" ondblclick="openApp('ticketPdf')">
-            <b><span class="fi fi-reader"></span></b>
-            FlyZip_Boarding_Passes.pdf
-            <small>04/06/2011 09:42</small>
-          </div>
-          <div class="file"><b><span class="fi fi-doc"></span></b>Booking_Confirmation.html<small>04/06/2011 09:41</small></div>
-          <div class="file"><b><span class="fi fi-pdf"></span></b>Receipt.pdf<small>04/06/2011 09:41</small></div>
-          <div class="file"><b><span class="fi fi-sheet"></span></b>Monthly_Figures.xls<small>31/05/2011 16:18</small></div>
-          <div class="file"><b><span class="fi fi-archive"></span></b>Accounts_Backup.zip<small>30/05/2011 17:04</small></div>
-        </div>
-      </div>
-    </div>`;
+    `;
 }
 
 function openApp(id) {
@@ -482,7 +522,28 @@ window.addEventListener("message", event => {
 });
 
 window.addEventListener("DOMContentLoaded", () => {
-    buildLauncherItems();
+    
+window.addEventListener("message", function (event) {
+    if (!event.data || typeof event.data.type !== "string") return;
+
+    switch (event.data.type) {
+        case "flyzip-download-complete":
+            ticketDownloaded = true;
+            break;
+
+        case "flyzip-open-pdf":
+            ticketDownloaded = true;
+            openApp("ticketPdf");
+            break;
+
+        case "flyzip-show-downloads":
+            ticketDownloaded = true;
+            openApp("documents");
+            break;
+    }
+});
+
+buildLauncherItems();
     buildDesktopFiles();
     updateClock();
 });
