@@ -1,0 +1,1162 @@
+/* Base */
+* {
+    box-sizing:border-box}
+html,body {
+    margin:0;
+    width:100%;
+    height:100%;
+    overflow:hidden;
+    font-family:"Segoe UI",Tahoma,Arial,sans-serif;
+    color:#111}
+body {
+    background:
+        radial-gradient(circle at 74% 18%, rgba(101,132,255,.38), transparent 24%),
+        radial-gradient(circle at 28% 78%, rgba(186,102,255,.28), transparent 32%),
+        linear-gradient(145deg,#182d72 0%,#304fa7 35%,#553f9e 66%,#241b5d 100%);
+}
+body:before {
+    content:"";
+    position:absolute;
+    inset:0;
+    background:
+        linear-gradient(25deg,transparent 0 44%,rgba(133,180,255,.11) 45% 47%,transparent 48%),
+        linear-gradient(155deg,transparent 0 56%,rgba(223,150,255,.10) 57% 59%,transparent 60%),
+        radial-gradient(ellipse at 65% 65%,rgba(255,255,255,.12),transparent 30%);
+    pointer-events:none;
+}
+#desktop {
+    height:calc(100% - 42px);
+    position:relative;
+    padding:22px 18px 14px;
+    width:100vw;
+    overflow:hidden;
+}
+.icons {
+    position:relative;
+    width:100%;
+    height:100%;
+}
+.icon {
+    width:76px;
+    height:84px;
+    color:white;
+    text-align:center;
+    padding:5px;
+    border-radius:3px;
+     text-shadow:0 1px 1px rgba(0,0,0,.35);
+    user-select:none}
+.icon:hover {
+    background:#ffffff20;
+    outline:1px solid #ffffff70}
+.ico {
+    height:50px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:31px;
+    filter:none;}
+.icon span {
+    font-size:12px;
+    line-height:14px;
+    display:block}
+
+/* Taskbar */
+.taskbar {
+    height:42px;
+    background:linear-gradient(#183b76,#102b5c 54%,#0a214a 55%,#133267);
+    border-top:1px solid rgba(185,220,255,.65);
+    display:flex;
+    align-items:center;
+    padding:0 6px;
+    color:white;
+    position:relative;
+    z-index:9999;
+    box-shadow:0 -1px 7px rgba(0,0,0,.28);
+}
+.orb {
+    width:48px;
+    height:48px;
+    margin-top:-6px;
+    border-radius:50%;
+    border:2px solid rgba(213,238,255,.9);
+    background:radial-gradient(circle at 35% 28%,#d9f3ff,#4d9ed6 34%,#1c5b9b 68%,#092f65);
+    color:white;
+    font-size:23px;
+    font-weight:bold;
+    text-shadow:0 1px 2px #000;
+    box-shadow:0 0 8px rgba(91,187,255,.75);
+    cursor:pointer;
+}
+.tasks {
+    display:flex;
+    height:100%;
+    gap:3px;
+    margin-left:8px}
+.task {
+    width:50px;
+    height:36px;
+    margin-top:3px;
+    border:1px solid #ffffff36;
+    border-radius:4px;
+    background:linear-gradient(#527893,#2a4b64);
+    color:white;
+    font-size:20px}
+.task:hover,.task.on {
+    background:linear-gradient(#7ba3bf,#477797)}
+.tray {
+    margin-left:auto;
+    height:100%;
+    display:flex;
+    align-items:center;
+    gap:10px;
+    padding:0 9px;
+    font-size:12px;
+    background:#ffffff08;
+    border-left:1px solid #ffffff25}
+
+/* Application windows */
+.window {
+    position:absolute;
+    left:170px;
+    top:30px;
+    width:840px;
+    height:570px;
+    background:#fff;
+    border:1px solid #324657;
+    border-radius:4px;
+    box-shadow:0 4px 12px rgba(0,0,0,.25);;
+    display:flex;
+    flex-direction:column;
+    overflow:hidden}
+.window.max {
+    left:0!important;
+    top:0!important;
+    width:100%!important;
+    height:100%!important;
+    border-radius:0}
+.titlebar {
+    height:34px;
+    background:linear-gradient(#a9d5f2 0%,#5b99c6 10%,#245b91 48%,#163f72 53%,#2d6698);
+    border-bottom:1px solid #0f315a;
+    color:white;
+    display:flex;
+    align-items:center;
+    padding-left:8px;
+    text-shadow:0 1px 2px #092541;
+    cursor:move;
+    user-select:none;
+}
+.titlebar b {
+    font-size:13px}
+.appico {
+    font-size:18px;
+    margin-right:7px}
+.controls {
+    margin-left:auto;
+    height:100%;
+    display:flex;
+    padding-right:4px}
+.controls button {
+    width:36px;
+    height:24px;
+    margin-top:3px;
+    border:1px solid rgba(7,31,56,.65);
+    background:linear-gradient(#78add0,#2e6d9e);
+    color:white;
+}
+.controls button:last-child {
+    width:46px;
+    background:linear-gradient(#ef9b83,#c6412f 55%,#a61d12)}
+.body {
+    flex:1;
+    overflow:hidden;
+    background:white}
+.body iframe {
+    width:100%;
+    height:100%;
+    border:0;
+    background:white}
+.resize-handle {
+    position:absolute;
+    right:0;
+    bottom:0;
+    width:18px;
+    height:18px;
+    cursor:nwse-resize;
+    z-index:20;
+    background:linear-gradient(135deg,transparent 0 45%,#8a8a8a 46% 52%,transparent 53% 62%,#8a8a8a 63% 69%,transparent 70%)}
+.window.max .resize-handle {
+    display:none}
+
+/* Start menu */
+.startmenu {
+    position:absolute;
+    left:4px;
+    bottom:42px;
+    width:410px;
+    height:475px;
+    background:linear-gradient(90deg,#fafafa 0 62%,#d9ebf7 62%);
+    border:1px solid #1b4f73;
+    border-radius:7px 7px 0 0;
+    box-shadow:0 12px 35px #000a;
+    display:none;
+    z-index:10000;
+    overflow:hidden}
+.startmenu.open {
+    display:block}
+.starttop {
+    height:65px;
+    background:linear-gradient(#6fa9d2,#235f93);
+    color:white;
+    display:flex;
+    align-items:center;
+    padding:8px 14px;
+    font-weight:600;
+    text-shadow:0 1px #173d5a;
+}
+.userpic {
+    width:48px;
+    height:48px;
+    border:2px solid white;
+    border-radius:4px;
+    background:#edf3f6;
+    color:#2c5c78;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:20px;
+    margin-right:10px}
+.startleft {
+    width:62%;
+    padding:10px;
+    float:left}
+.startright {
+    width:38%;
+    float:right;
+    padding:12px 10px;
+    color:#21445e}
+.startitem {
+    padding:7px;
+    border-radius:3px;
+    font-size:13px}
+.startitem:hover {
+    background:linear-gradient(#eaf5ff,#c9e4f7);
+    outline:1px solid #8fbad6}
+.startitem strong {
+    font-size:18px;
+    margin-right:8px}
+.searchbox {
+    position:absolute;
+    left:10px;
+    bottom:11px;
+    width:235px;
+    height:27px;
+    border:1px solid #8c9aa3;
+    padding:4px 7px}
+.shutdown {
+    position:absolute;
+    right:14px;
+    bottom:11px;
+    border:1px solid #7d4d24;
+    background:linear-gradient(#ffc786,#d5822d);
+    border-radius:3px;
+    padding:5px 12px}
+
+/* Built-in application content */
+.generic {
+    height:100%;
+    background:#f6f6f6}
+.toolbar {
+    height:42px;
+    background:linear-gradient(#fff,#e1e1e1);
+    border-bottom:1px solid #aaa;
+    padding:6px}
+.btn {
+    border:1px solid #999;
+    background:linear-gradient(#fff,#ddd);
+    padding:5px 9px;
+    margin-right:4px}
+.panel {
+    padding:22px}
+.mail {
+    display:grid;
+    grid-template-columns:180px 255px 1fr;
+    height:100%}
+.folders {
+    background:#e8f0f5;
+    border-right:1px solid #b7c6ce;
+    padding:10px}
+.folder {
+    padding:7px}
+.folder.on {
+    background:#b9d9ed;
+    border:1px solid #7eabc7}
+.msgs {
+    border-right:1px solid #bbb}
+.msg {
+    padding:10px;
+    border-bottom:1px solid #ccc}
+.msg.on {
+    background:#e7f2f8}
+.reader {
+    padding:18px}
+.files {
+    display:grid;
+    grid-template-columns:180px 1fr;
+    height:100%}
+.tree {
+    background:#edf3f6;
+    border-right:1px solid #bcc7ce;
+    padding:10px}
+.tree div {
+    padding:6px}
+.filegrid {
+    display:grid;
+    grid-template-columns:repeat(4,135px);
+    gap:18px;
+    padding:20px}
+.file {
+    text-align:center;
+    padding:9px}
+.file:hover {
+    background:#ddecf7;
+    outline:1px solid #8bb6d2}
+.file b {
+    display:block;
+    font-size:37px}
+.term {
+    height:100%;
+    background:#000;
+    color:#c0c0c0;
+    font:14px Consolas,monospace;
+    padding:15px;
+    line-height:1.55}
+
+/* Draggable prop recording */
+.prop-file {
+    cursor: grab;
+}
+.prop-file:active {
+    cursor: grabbing;
+}
+.prop-file .ico {
+    position: relative;
+}
+.prop-file .ico::after {
+    content: "WAV";
+    position: absolute;
+    right: 3px;
+    bottom: 2px;
+    padding: 1px 3px;
+    border: 1px solid #7d8f9c;
+    background: #eef5f8;
+    color: #27465b;
+    font-size: 8px;
+    line-height: 10px;
+    text-shadow: none;
+}
+
+
+/* Two-monitor / stretched-browser support */
+html, body {
+    min-width: 100%;
+    min-height: 100%;
+}
+
+#desktop {
+    width: 100vw;
+    max-width: none;
+    overflow: hidden;
+}
+
+/* This transparent layer prevents iframes from swallowing mouse events
+   while an application window is being dragged or resized. */
+.desktop-pointer-shield {
+    position: fixed;
+    inset: 0;
+    z-index: 2147483000;
+    background: transparent;
+    cursor: move;
+}
+
+.desktop-pointer-shield.resize-mode {
+    cursor: nwse-resize;
+}
+
+body.window-moving,
+body.window-resizing {
+    user-select: none;
+}
+
+
+/* Reliable desktop-file drop target above the AudioLab iframe */
+.window .body {
+    position: relative;
+}
+
+.audio-drop-overlay {
+    position: absolute;
+    inset: 0;
+    z-index: 5000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(211, 225, 236, 0.76);
+    border: 4px dashed rgba(38, 92, 132, 0.75);
+    color: #173d59;
+    text-align: center;
+    pointer-events: auto;
+}
+
+.audio-drop-overlay > div {
+    min-width: 310px;
+    padding: 24px 30px;
+    border: 1px solid #547d99;
+    border-radius: 5px;
+    background: linear-gradient(#ffffff, #dcecf6);
+    box-shadow: 0 5px 18px rgba(0,0,0,.28);
+}
+
+.audio-drop-overlay strong,
+.audio-drop-overlay span {
+    display: block;
+}
+
+.audio-drop-overlay strong {
+    margin-bottom: 8px;
+    font-size: 18px;
+}
+
+.audio-drop-overlay span {
+    font-size: 13px;
+}
+
+.audio-drop-overlay.ready {
+    background: rgba(193, 224, 246, 0.9);
+    border-color: #0b5fa1;
+}
+
+/* Airline desktop additions */
+.ticket-viewer-toolbar{
+    height:42px;
+    display:flex;
+    align-items:center;
+    gap:8px;
+    padding:6px;
+    background:linear-gradient(#fff,#ddd);
+    border-bottom:1px solid #999;
+}
+.ticket-viewer-toolbar button{
+    padding:5px 12px;
+    border:1px solid #888;
+    background:linear-gradient(#fff,#d7d7d7);
+    cursor:pointer;
+}
+.ticket-frame{width:100%;height:calc(100% - 42px);border:0;background:#777}
+
+
+
+/* =========================================================
+   FIXED FICTIONAL ICONS + MESSY DESKTOP POSITIONING
+   ========================================================= */
+
+.icons{
+    position:relative !important;
+    display:block !important;
+    width:100% !important;
+    height:100% !important;
+}
+
+.icon,
+.desktop-scatter{
+    position:absolute !important;
+    width:88px !important;
+    height:82px !important;
+    padding:4px !important;
+    text-align:center;
+    color:#fff;
+    border-radius:3px;
+    text-shadow:0 1px 2px #000;
+    user-select:none;
+}
+
+.icon:hover,
+.desktop-scatter:hover{
+    background:rgba(110,165,235,.23);
+    outline:1px solid rgba(210,235,255,.55);
+}
+
+.ico{
+    position:relative;
+    height:48px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+
+.icon span{
+    display:block;
+    font-size:12px;
+    line-height:14px;
+    overflow-wrap:anywhere;
+}
+
+.file-badge{
+    position:absolute;
+    right:4px;
+    bottom:1px;
+    min-width:23px;
+    padding:1px 3px;
+    border:1px solid #58749b;
+    border-radius:2px;
+    background:linear-gradient(#f7fbff,#d4e2f2);
+    color:#17365f;
+    font:700 8px/10px Tahoma,Arial,sans-serif;
+    text-shadow:none;
+}
+
+.fi{
+    position:relative;
+    display:inline-block !important;
+    width:38px;
+    height:38px;
+    vertical-align:middle;
+    filter:drop-shadow(0 1px 1px rgba(0,0,0,.45));
+}
+
+/* OpenBrowse */
+.fi-browser{
+    border:3px solid #d8f4ff;
+    border-radius:50%;
+    background:radial-gradient(circle at 35% 28%,#7fd4ff,#2275b8 65%,#174a83);
+}
+.fi-browser:before,
+.fi-browser:after{
+    content:"";
+    position:absolute;
+    border:1px solid rgba(255,255,255,.95);
+    border-radius:50%;
+}
+.fi-browser:before{inset:5px 10px}
+.fi-browser:after{inset:10px 3px}
+
+/* File Cabinet / folders */
+.fi-folder{
+    width:40px;
+    height:28px;
+    margin-top:7px;
+    border:1px solid #4d6888;
+    border-radius:3px;
+    background:linear-gradient(#91b8dd,#4d7ca8);
+}
+.fi-folder:before{
+    content:"";
+    position:absolute;
+    left:3px;
+    top:-7px;
+    width:17px;
+    height:8px;
+    border:1px solid #4d6888;
+    border-bottom:0;
+    border-radius:3px 3px 0 0;
+    background:#adc9e3;
+}
+
+/* Documents */
+.fi-doc,
+.fi-text,
+.fi-pdf,
+.fi-sheet,
+.fi-reader{
+    width:29px;
+    height:37px;
+    border:1px solid #5a6f89;
+    border-radius:2px;
+    background:linear-gradient(#fff,#dce7f3);
+}
+.fi-doc:before,
+.fi-text:before,
+.fi-pdf:before,
+.fi-sheet:before,
+.fi-reader:before{
+    content:"";
+    position:absolute;
+    right:-1px;
+    top:-1px;
+    border-left:9px solid transparent;
+    border-bottom:9px solid #afc7df;
+}
+.fi-doc:after,
+.fi-text:after{
+    content:"";
+    position:absolute;
+    left:6px;
+    right:5px;
+    top:14px;
+    height:2px;
+    background:#376aa1;
+    box-shadow:0 5px #6d8fb0,0 10px #6d8fb0;
+}
+.fi-pdf{background:linear-gradient(#fff,#efd7dc)}
+.fi-pdf:after{
+    content:"P";
+    position:absolute;
+    left:7px;
+    bottom:4px;
+    color:#9f2634;
+    font:bold 18px Georgia,serif;
+}
+.fi-sheet{background:linear-gradient(#fff,#d8eddf)}
+.fi-sheet:after{
+    content:"";
+    position:absolute;
+    left:5px;
+    right:5px;
+    top:13px;
+    bottom:5px;
+    background:
+        linear-gradient(#5c9b6b 1px,transparent 1px),
+        linear-gradient(90deg,#5c9b6b 1px,transparent 1px);
+    background-size:7px 6px;
+}
+.fi-reader{background:linear-gradient(#eef6ff,#c7d9ef)}
+.fi-reader:after{
+    content:"";
+    position:absolute;
+    left:5px;
+    right:5px;
+    bottom:5px;
+    height:15px;
+    border:2px solid #305f92;
+    background:#fff;
+}
+
+/* Mail */
+.fi-mail{
+    width:38px;
+    height:28px;
+    margin-top:6px;
+    border:1px solid #4f6885;
+    background:linear-gradient(#f9fcff,#c7d7e8);
+}
+.fi-mail:before,
+.fi-mail:after{
+    content:"";
+    position:absolute;
+    top:2px;
+    width:22px;
+    height:2px;
+    background:#6484a6;
+}
+.fi-mail:before{
+    left:1px;
+    transform:rotate(29deg);
+    transform-origin:left;
+}
+.fi-mail:after{
+    right:1px;
+    transform:rotate(-29deg);
+    transform-origin:right;
+}
+
+/* Calculator */
+.fi-calc{
+    width:31px;
+    height:38px;
+    border:1px solid #3f5675;
+    border-radius:3px;
+    background:linear-gradient(#91b2d4,#3e6692);
+}
+.fi-calc:before{
+    content:"";
+    position:absolute;
+    left:5px;
+    right:5px;
+    top:5px;
+    height:8px;
+    background:#dff2ff;
+    border:1px solid #32577c;
+}
+.fi-calc:after{
+    content:"";
+    position:absolute;
+    left:6px;
+    right:6px;
+    bottom:5px;
+    height:16px;
+    background:radial-gradient(circle,#eaf4ff 2px,transparent 3px);
+    background-size:7px 7px;
+}
+
+/* Archive */
+.fi-archive{
+    width:34px;
+    height:34px;
+    margin-top:2px;
+    border:1px solid #3f5270;
+    border-radius:3px;
+    background:linear-gradient(90deg,#567fb1 0 48%,#aac4df 49% 55%,#456c9c 56%);
+}
+.fi-archive:after{
+    content:"";
+    position:absolute;
+    left:14px;
+    top:4px;
+    width:6px;
+    height:25px;
+    background:repeating-linear-gradient(#263f62 0 2px,#dce8f4 2px 4px);
+}
+
+/* Image */
+.fi-image{
+    width:38px;
+    height:30px;
+    margin-top:4px;
+    border:2px solid #d9e9f8;
+    background:linear-gradient(#7cc2e9 0 55%,#4c8b5a 56%);
+}
+.fi-image:before{
+    content:"";
+    position:absolute;
+    right:5px;
+    top:4px;
+    width:7px;
+    height:7px;
+    border-radius:50%;
+    background:#fff2a5;
+}
+.fi-image:after{
+    content:"";
+    position:absolute;
+    left:3px;
+    bottom:2px;
+    border-left:12px solid transparent;
+    border-right:12px solid transparent;
+    border-bottom:15px solid #315f82;
+}
+
+/* System monitor */
+.fi-monitor{
+    width:39px;
+    height:27px;
+    border:2px solid #7c9bbb;
+    background:#102d52;
+    margin-top:2px;
+}
+.fi-monitor:before{
+    content:"";
+    position:absolute;
+    left:4px;
+    right:4px;
+    top:11px;
+    height:2px;
+    background:#6ae18b;
+    transform:skewY(-10deg);
+}
+.fi-monitor:after{
+    content:"";
+    position:absolute;
+    left:13px;
+    bottom:-8px;
+    width:12px;
+    height:7px;
+    border-top:4px solid #91aac2;
+}
+
+/* Calendar */
+.fi-calendar{
+    width:35px;
+    height:35px;
+    border:1px solid #4b6685;
+    border-radius:3px;
+    background:#eef5fb;
+}
+.fi-calendar:before{
+    content:"";
+    position:absolute;
+    left:-1px;
+    right:-1px;
+    top:-1px;
+    height:10px;
+    background:#356b9e;
+    border-radius:3px 3px 0 0;
+}
+.fi-calendar:after{
+    content:"11";
+    position:absolute;
+    left:0;
+    right:0;
+    top:12px;
+    text-align:center;
+    color:#244e78;
+    font:bold 15px Tahoma;
+}
+
+/* Ticket */
+.fi-ticket{
+    width:38px;
+    height:25px;
+    margin-top:7px;
+    border:1px solid #335c88;
+    background:linear-gradient(#f7fbff,#bcd3e9);
+    transform:rotate(-4deg);
+}
+.fi-ticket:before{
+    content:"";
+    position:absolute;
+    left:5px;
+    right:5px;
+    top:6px;
+    height:2px;
+    background:#386b9d;
+    box-shadow:0 5px #7292b3;
+}
+
+/* Printer */
+.fi-printer{
+    width:38px;
+    height:25px;
+    margin-top:9px;
+    border:1px solid #4a6078;
+    border-radius:3px;
+    background:#7796b5;
+}
+.fi-printer:before{
+    content:"";
+    position:absolute;
+    left:6px;
+    right:6px;
+    top:-9px;
+    height:14px;
+    border:1px solid #71849a;
+    background:#eef4fa;
+}
+.fi-printer:after{
+    content:"";
+    position:absolute;
+    left:8px;
+    right:8px;
+    bottom:-6px;
+    height:12px;
+    background:#d8e5f1;
+    border:1px solid #5e7691;
+}
+
+/* Network */
+.fi-network{
+    border-radius:50%;
+    background:#447cb1;
+}
+.fi-network:before{
+    content:"";
+    position:absolute;
+    left:15px;
+    top:4px;
+    width:7px;
+    height:7px;
+    border-radius:50%;
+    background:#e5f5ff;
+    box-shadow:-11px 17px #e5f5ff,11px 17px #e5f5ff;
+}
+.fi-network:after{
+    content:"";
+    position:absolute;
+    left:9px;
+    top:11px;
+    width:19px;
+    height:13px;
+    border-left:2px solid #d7efff;
+    border-right:2px solid #d7efff;
+    border-bottom:2px solid #d7efff;
+}
+
+.fi-generic{
+    border:1px solid #55708e;
+    border-radius:5px;
+    background:linear-gradient(#9bc0df,#47749e);
+}
+
+.appico .fi{
+    width:21px;
+    height:21px;
+    transform:scale(.72);
+    transform-origin:center;
+    margin-right:3px;
+}
+.startitem .fi{
+    width:25px;
+    height:25px;
+    transform:scale(.72);
+    transform-origin:left center;
+}
+.task .fi{
+    width:28px;
+    height:28px;
+    transform:scale(.72);
+}
+.file b .fi{
+    width:38px;
+    height:38px;
+}
+
+
+/* Final tidy desktop spacing */
+#desktop {
+    padding:18px 14px 14px !important;
+}
+
+.icon,
+.desktop-scatter {
+    width:84px !important;
+    height:80px !important;
+}
+
+.icon span {
+    font-size:11px !important;
+    line-height:13px !important;
+}
+
+.window[data-id="tickets"] .body {
+    background:#d7e6f3;
+}
+
+.downloads-grid .file small{display:block;margin-top:4px;color:#667;font-size:10px}
+.download-selected{background:#c8e1f5!important;outline:1px solid #4d85b2!important}
+
+
+/* ===== File Cabinet: prevent download filenames overlapping ===== */
+
+.files {
+    grid-template-columns: 210px minmax(0, 1fr) !important;
+}
+
+.filegrid,
+.downloads-grid {
+    display: grid !important;
+    grid-template-columns: repeat(auto-fill, minmax(175px, 1fr)) !important;
+    align-content: start !important;
+    align-items: start !important;
+    gap: 26px 20px !important;
+    padding: 24px !important;
+}
+
+.filegrid .file,
+.downloads-grid .file {
+    position: relative !important;
+    min-width: 0 !important;
+    min-height: 118px !important;
+    padding: 12px 8px !important;
+    text-align: center !important;
+    white-space: normal !important;
+    overflow-wrap: anywhere !important;
+    word-break: normal !important;
+    line-height: 1.25 !important;
+}
+
+.filegrid .file b,
+.downloads-grid .file b {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    height: 48px !important;
+    margin-bottom: 8px !important;
+}
+
+.filegrid .file small,
+.downloads-grid .file small {
+    display: block !important;
+    margin-top: 6px !important;
+    color: #687483 !important;
+    font-size: 10px !important;
+    line-height: 1.2 !important;
+}
+
+.download-selected {
+    background: #c8e1f5 !important;
+    outline: 1px solid #4d85b2 !important;
+}
+
+/* Give the File Cabinet toolbar room for its breadcrumb. */
+.files > div:nth-child(2) > .toolbar {
+    display: flex !important;
+    align-items: center !important;
+    min-height: 42px !important;
+    height: auto !important;
+    flex-wrap: wrap !important;
+    gap: 5px !important;
+}
+
+
+/* Scene 3.40 camera/readability overrides */
+.icon,
+.desktop-scatter {
+    letter-spacing: 0;
+}
+
+.icon span,
+.desktop-scatter span {
+    text-shadow: 0 1px 2px rgba(0,0,0,.85);
+}
+
+.window {
+    min-width: 420px;
+    min-height: 300px;
+}
+
+.titlebar {
+    background: linear-gradient(#91c4e5 0%, #568fba 10%, #245b91 48%, #163f72 53%, #2d6698);
+}
+
+.download-selected {
+    background: #c8e1f5 !important;
+    outline: 1px solid #4d85b2 !important;
+}
+
+
+/* Scene 3.40 desktop spacing correction */
+.icons {
+    position:relative !important;
+    width:100% !important;
+    height:100% !important;
+}
+
+.icon,
+.desktop-scatter {
+    position:absolute !important;
+    width:88px !important;
+    height:88px !important;
+    padding:4px !important;
+    overflow:visible !important;
+}
+
+.ico {
+    height:50px !important;
+}
+
+.icon > span,
+.desktop-scatter > span {
+    display:block !important;
+    width:88px !important;
+    margin-left:-4px !important;
+    padding:0 2px !important;
+    text-align:center !important;
+    font-size:11px !important;
+    line-height:13px !important;
+    overflow-wrap:anywhere !important;
+    word-break:normal !important;
+    white-space:normal !important;
+}
+
+.file-badge {
+    right:1px !important;
+    bottom:2px !important;
+}
+
+
+/* HomeWatch: unique fictional domestic CCTV icon */
+.fi-homewatch{
+    position:relative;
+    width:54px;
+    height:48px;
+}
+.fi-homewatch::before{
+    content:"";
+    position:absolute;
+    left:7px;
+    top:15px;
+    width:38px;
+    height:27px;
+    border:3px solid #d6e7ef;
+    border-radius:3px;
+    background:linear-gradient(#5d91aa,#35677e);
+    box-shadow:
+        inset 0 0 0 2px #244b60,
+        0 2px 2px rgba(0,0,0,.35);
+}
+.fi-homewatch::after{
+    content:"";
+    position:absolute;
+    left:13px;
+    top:2px;
+    width:28px;
+    height:25px;
+    background:#d7e6ed;
+    border:3px solid #456a7c;
+    transform:rotate(45deg);
+    border-radius:2px;
+    box-shadow:0 1px 2px rgba(0,0,0,.25);
+}
+.fi-homewatch .homewatch-lens{
+    position:absolute;
+    z-index:3;
+    left:19px;
+    top:20px;
+    width:16px;
+    height:16px;
+    border:3px solid #d9eef6;
+    border-radius:50%;
+    background:#18394b;
+    box-shadow:inset 0 0 0 3px #62a8c6;
+}
+
+
+/* V9: HomeWatch icon size correction */
+.ico .fi-homewatch,
+.fi-homewatch{
+    width:42px !important;
+    height:40px !important;
+    margin:4px auto 0 !important;
+    transform:none !important;
+}
+
+.fi-homewatch::before{
+    left:6px !important;
+    top:14px !important;
+    width:30px !important;
+    height:21px !important;
+    border-width:2px !important;
+}
+
+.fi-homewatch::after{
+    left:12px !important;
+    top:4px !important;
+    width:20px !important;
+    height:18px !important;
+    border-width:2px !important;
+}
+
+.fi-homewatch .homewatch-lens{
+    left:15px !important;
+    top:18px !important;
+    width:13px !important;
+    height:13px !important;
+    border-width:2px !important;
+}
+
+
+/* V10: DocReader / faux PDF shortcut polish */
+.icon .fi-reader{
+    transform:none !important;
+}
+
+
+/* V11 final faux Downloads / DocReader fixes */
+.downloads-grid .file small{
+    display:block;
+    margin-top:4px;
+    color:#66717a;
+    font-size:10px;
+}
+
+.downloads-grid .file{
+    cursor:default;
+}
+
+.download-selected{
+    background:#c5def3 !important;
+    outline:1px solid #4c82ae !important;
+}
+
+.downloads-grid .file:hover{
+    background:#e3eff8;
+}
