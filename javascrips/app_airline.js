@@ -15,7 +15,7 @@ const apps = {
     name:'OpenBrowse',
     iconClass:'fi-browser',
     kind:'iframe',
-    src:'flyzip_website.html'
+    src:'search_engine2.html'
   },
   sheets:{
     name:'SheetWorks',
